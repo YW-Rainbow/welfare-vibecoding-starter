@@ -27,15 +27,24 @@
 
 1. **근거**: 이 행정은 법령이나 보건복지부 지침, 지자체가 실제로 요구하는 일인가요?
    "어디에 그렇게 하라고 되어 있나요?"라고 물어 근거(조문·지침)를 확인합니다.
-   근거를 대지 못하면 기관 자체의 관행일 가능성이 큽니다. 없애거나 줄이는 것부터 검토하세요.
+   근거를 대지 못하면 기관 자체의 관행일 가능성이 큽니다. 먼저 없애거나 줄일 수 있는지 살피세요.
 2. **독자**: 이 서류나 기록을 실제로 누가 읽나요?
    아무도 읽지 않는 산출물이라면, 자동으로 만들 이유도 없습니다.
 3. **축소**: 꼭 해야 하는 일이라도 빈도나 항목, 형식을 줄일 수 있나요?
    분기에 한 번이면 되는 일을 매달 하고 있지는 않은가요?
 
+하나 더 있습니다. **법정서식**(외부가 정한 정규 서식, 예: 아동카드)은 형식을
+바꿀 수 없습니다. 자동화할 수 있는 것은 그 서식을 채우는 과정이지 서식 자체가
+아닙니다.
+
 순서는 언제나 같습니다. **없애고, 줄이고, 남는 것만 자동화합니다.** 이 점검을
 건너뛰고 플랫폼 추천으로 바로 가지 마세요. 다만 짚어 보니 꼭 해야 하는 일이
 맞다면, 오래 붙들지 말고 다음 단계로 넘어갑니다.
+
+이 관문은 앱 하나를 살피는 약식 점검입니다. 사용자가 여러 양식과 업무를 한꺼번에
+정리하고 싶어 하거나, 만들고 싶은 앱이 서너 개를 넘는다면 — 같은 저장소의
+**form-audit.md**를 먼저 안내하세요. 기관의 서식 전체를 놓고 무엇을 없애고
+무엇을 앱으로 만들지 구분하는 문서입니다.
 
 **문제를 말하는 방식.** 사용자가 "담당자가 자꾸 누락해서요"처럼 **사람의 문제**로
 이야기하면, **시스템의 문제**로 바꾸어 함께 다시 써 보세요. "업무가 담당자의 기억에
@@ -178,7 +187,7 @@ ELSE (N등급)
 ## 원칙 (플랫폼 무관 공통 규칙)
 
 ### 원칙 1. 수탁자 1곳
-개인정보가 담기는 저장소는 한 사업자로 모읍니다. 저장 비용을 아끼는 것보다,
+개인정보가 담기는 저장소는 한 사업자로 모읍니다. 저장 비용을 아끼기보다,
 문서(처리방침·동의서)와 파기, 인수인계가 단순한 쪽이 우선입니다.
 - 예외: 개인정보 없는 공개 파일(홍보 사진, 뉴스레터)은 CDN·R2 등 분리 가능.
 - 이용자 식별 가능한 사진은 본 저장소에 고정.
@@ -211,6 +220,14 @@ ELSE (N등급)
 - 동의서 문구와 시스템 동작이 일치해야 한다:
   "즉시 파기"라고 쓰려면 기관 보관본 파기와 AI 제공사 보관 기간(예: API 기본 30일)을
   구분해서 고지할 것.
+
+### 원칙 6. 앱의 말 — 화면의 문구도 기관의 말이다
+
+- 화면 문구·알림·안내는 쉬운 우리말로 씁니다. 번역투와 딱딱한 사업 문체를 피합니다.
+- 당사자를 대상화하거나 시혜적으로 표현하는 문구를 쓰지 않습니다.
+  이것은 문체 취향이 아니라 사회복지 실천의 요건입니다.
+- 앱이 만들어 내는 글(요약·안내문·보고서 초안)은 윤문 도구로 다듬을 수 있습니다 —
+  파일 지도의 urimal-for-socialworker 참고.
 
 ---
 
@@ -270,12 +287,18 @@ ELSE (N등급)
 판단(이 문서) 다음 단계에서 쓰는 파일과 내려받기 주소입니다. 대화에 없는 파일의
 내용을 추측하지 말고, 아래 주소를 안내하세요. 웹에 접근할 수 있다면 직접 읽어 와도 됩니다.
 
+**상류 — 기관 단위 양식 점검:**
+- 무엇을 앱으로 만들지 구분하기(기관 서식 점검): https://raw.githubusercontent.com/YW-Rainbow/welfare-vibecoding-starter/main/form-audit.md
+- 양식 점검 대장(워크숍 도구, Claude 아티팩트 전용): 저장소의 tools/form-audit-ledger.html
+
 **제작 단계 — 경로별 규칙 파일 (AI 규칙으로 사용):**
 - 경로 C (GAS): https://raw.githubusercontent.com/YW-Rainbow/welfare-vibecoding-starter/main/rules/gas.md
 - 경로 A (CF+Supabase): https://raw.githubusercontent.com/YW-Rainbow/welfare-vibecoding-starter/main/rules/cf-supabase.md
 - 경로 D (CF 올인원): https://raw.githubusercontent.com/YW-Rainbow/welfare-vibecoding-starter/main/rules/cf-only.md
 - 에이전트형 도구 공통 (Claude Code 등): https://raw.githubusercontent.com/YW-Rainbow/welfare-vibecoding-starter/main/rules/agentic.md
 - GAS 실행 발판 템플릿(별도 저장소): https://github.com/YW-Rainbow/apps-script-vibe-starter
+- 문서·문구 윤문(별도 저장소, Claude Code 스킬): https://github.com/dreamworker0/urimal-for-socialworker
+- 증거급 기록의 실제 사례(별도 저장소): https://github.com/SWJoong/SW_EDMS
 
 **참조 문서:**
 - 공통 요건 12의 정의·법적 근거: https://raw.githubusercontent.com/YW-Rainbow/welfare-vibecoding-starter/main/requirements.md

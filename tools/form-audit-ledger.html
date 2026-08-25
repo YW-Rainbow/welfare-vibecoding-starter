@@ -1,0 +1,596 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#EDF0F3; --card:#fff; --ink:#16233B; --ink2:#5A6675; --ink3:#8B95A1;
+    --rule:#D6DCE3; --rule2:#E7EBEF; --hl:#FBE96B;
+    --v-law:#B4741A; --v-del:#8B95A1; --v-doc:#2C4C86; --v-sheet:#16785A;
+    --v-app:#6A3D9E; --v-web:#B32B49; --v-todo:#C9A227;
+    --disp:'Nanum Myeongjo','Batang','AppleMyungjo',serif;
+    --body:'Pretendard',-apple-system,BlinkMacSystemFont,'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  #app{font-family:var(--body);color:var(--ink);background:var(--paper);
+    padding:22px 18px 60px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  #app h1,#app h2,#app h3{font-family:var(--disp);font-weight:800;letter-spacing:-.01em;margin:0}
+  .wrap{max-width:1080px;margin:0 auto}
+
+  /* ── 헤더 ── */
+  .masthead{border-bottom:2.5px solid var(--ink);padding-bottom:14px;margin-bottom:4px;
+    display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px;justify-content:space-between}
+  .mast-l h1{font-size:29px;line-height:1.15}
+  .mast-l h1 em{font-style:normal;background:linear-gradient(transparent 58%,var(--hl) 58%);padding:0 2px}
+  .mast-l p{margin:6px 0 0;font-size:12.5px;color:var(--ink2)}
+  .whobox{display:flex;align-items:center;gap:7px;font-size:12.5px}
+  .whobox input{width:104px}
+  .stats{display:flex;gap:0;border:1px solid var(--rule);background:var(--card);
+    margin:14px 0 18px;flex-wrap:wrap}
+  .stat{flex:1;min-width:96px;padding:11px 13px;border-right:1px solid var(--rule2)}
+  .stat:last-child{border-right:0}
+  .stat b{display:block;font-family:var(--mono);font-size:21px;font-weight:600;
+    font-variant-numeric:tabular-nums;line-height:1.2}
+  .stat span{font-size:10.5px;color:var(--ink3);letter-spacing:.04em}
+
+  /* ── 탭 ── */
+  .tabs{display:flex;gap:3px;margin-bottom:-1px;flex-wrap:wrap}
+  .tab{font-family:var(--disp);font-weight:700;font-size:14px;padding:9px 17px;cursor:pointer;
+    background:#DFE4EA;border:1px solid var(--rule);border-bottom:0;color:var(--ink2);
+    border-radius:5px 5px 0 0;transition:background .13s}
+  .tab:hover{background:#E8ECF0}
+  .tab[aria-selected=true]{background:var(--card);color:var(--ink);position:relative;z-index:2}
+  .panel{background:var(--card);border:1px solid var(--rule);padding:18px}
+
+  /* ── 입력 ── */
+  input[type=text],input[type=number],textarea,select{font-family:var(--body);font-size:13.5px;
+    color:var(--ink);background:#fff;border:1px solid var(--rule);padding:7px 9px;
+    border-radius:3px;width:100%;transition:border-color .13s}
+  textarea{resize:vertical;min-height:60px;line-height:1.55}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--ink);outline-offset:-1px;border-color:var(--ink)}
+  label.fl{display:block;font-size:11px;color:var(--ink3);letter-spacing:.05em;margin-bottom:4px;font-weight:600}
+  .btn{font-family:var(--body);font-size:13px;font-weight:600;padding:8px 15px;cursor:pointer;
+    background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:3px;transition:opacity .13s}
+  .btn:hover{opacity:.86}
+  .btn.ghost{background:transparent;color:var(--ink2);border-color:var(--rule)}
+  .btn.ghost:hover{border-color:var(--ink2);color:var(--ink);opacity:1}
+  .btn.sm{font-size:11.5px;padding:5px 10px}
+  .btn:focus-visible,.tab:focus-visible,.chip:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+  .addbox{border:1.5px dashed var(--rule);padding:15px;margin-bottom:20px;background:#FAFBFC}
+  .addgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:12px}
+  .addrow{margin-bottom:11px}
+
+  /* ── 카드 ── */
+  .card{background:var(--card);border:1px solid var(--rule);margin-bottom:13px;
+    display:flex;position:relative}
+  .idxtab{width:11px;flex:none;background:var(--v-todo)}
+  .cbody{flex:1;min-width:0;padding:14px 16px}
+  .chead{display:flex;align-items:flex-start;gap:11px;justify-content:space-between}
+  .cname{font-family:var(--disp);font-weight:700;font-size:17px;line-height:1.35;word-break:keep-all}
+  .verdict{font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:3px 8px;
+    border-radius:2px;color:#fff;white-space:nowrap;flex:none}
+  .csum{font-size:13.5px;color:#37445A;margin:7px 0 0;white-space:pre-wrap;word-break:break-word}
+  .meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px;align-items:center}
+  .chip{font-size:11px;font-weight:600;padding:3.5px 9px;border:1px solid var(--rule);
+    border-radius:11px;cursor:pointer;background:#fff;color:var(--ink3);
+    font-family:var(--body);transition:all .12s;user-select:none}
+  .chip:hover{border-color:var(--ink2)}
+  .chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .chip.pv[aria-pressed=true]{background:var(--v-web);border-color:var(--v-web)}
+  .tagline{font-size:11px;color:var(--ink3);margin-right:3px;letter-spacing:.05em;font-weight:600}
+  .msel{font-family:var(--body);font-size:11px;padding:3px 6px;border:1px solid var(--rule);
+    border-radius:3px;background:#fff;color:var(--ink2);width:auto}
+
+  .procline{margin-top:11px;padding:9px 11px;background:#F4F6F8;border-left:2.5px solid var(--ink3);
+    font-size:12px;color:var(--ink2);display:flex;flex-wrap:wrap;gap:4px 13px;align-items:center}
+  .procline b{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600}
+  .reentry{color:var(--v-web);font-weight:700}
+
+  .cfoot{margin-top:12px;padding-top:10px;border-top:1px solid var(--rule2);
+    display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+  .byline{font-size:11px;color:var(--ink3);margin-left:auto;font-family:var(--mono)}
+
+  /* ── 의견 ── */
+  .thread{margin-top:11px;padding-left:13px;border-left:2px solid var(--hl)}
+  .cmt{font-size:12.5px;margin-bottom:8px;color:#37445A}
+  .cmt b{color:var(--ink);font-weight:700;font-size:12px}
+  .cmt time{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-left:6px}
+  .cmt p{margin:2px 0 0;white-space:pre-wrap;word-break:break-word}
+  .cmtbox{display:flex;gap:7px;margin-top:9px}
+  .cmtbox textarea{min-height:38px;font-size:12.5px}
+
+  /* ── 프로세스 뷰 ── */
+  .pgroup{margin-bottom:26px}
+  .pgroup>h3{font-size:17px;padding-bottom:7px;border-bottom:1.5px solid var(--ink);margin-bottom:0}
+  .phint{font-size:11.5px;color:var(--ink3);margin:6px 0 12px;font-family:var(--mono)}
+  .spine{border-left:2px solid var(--rule);margin-left:9px;padding-left:20px}
+  .step{position:relative;padding:9px 0}
+  .step::before{content:'';position:absolute;left:-27px;top:15px;width:11px;height:11px;
+    border-radius:50%;background:var(--card);border:2.5px solid var(--ink3)}
+  .step.re::before{border-color:var(--v-web);background:var(--v-web)}
+  .stepno{font-family:var(--mono);font-size:10.5px;color:var(--ink3);font-weight:600}
+  .stepname{font-family:var(--disp);font-weight:700;font-size:15px}
+  .stepmeta{font-size:11.5px;color:var(--ink2);margin-top:2px}
+  .rebox{margin-top:5px;font-size:12px;background:#FDF0F2;border:1px solid #F0CDD4;
+    padding:6px 10px;border-radius:3px;color:#8A2138}
+  .rebox b{font-weight:700}
+
+  /* ── 요약 ── */
+  .sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px;margin-bottom:22px}
+  .sumcard{border:1px solid var(--rule);padding:13px}
+  .sumcard h4{margin:0 0 9px;font-size:11px;letter-spacing:.06em;color:var(--ink3);font-weight:700}
+  .bar{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px}
+  .bar i{display:block;height:9px;font-style:normal;min-width:3px}
+  .bar em{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--ink3);
+    margin-left:auto;font-variant-numeric:tabular-nums}
+  .rank{display:flex;gap:9px;font-size:12.5px;padding:5px 0;border-bottom:1px dotted var(--rule);align-items:baseline}
+  .rank:last-child{border-bottom:0}
+  .rank b{font-family:var(--mono);color:var(--ink3);font-size:11px;font-weight:600}
+  .rank em{font-style:normal;margin-left:auto;font-family:var(--mono);font-size:12px;font-weight:600;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  .warn{font-size:12.5px;padding:4px 0;border-bottom:1px dotted var(--rule)}
+  .warn:last-child{border-bottom:0}
+
+  .empty{text-align:center;padding:44px 20px;color:var(--ink3)}
+  .empty h3{font-size:19px;color:var(--ink2);margin-bottom:8px}
+  .empty p{font-size:13px;margin:0 0 16px}
+  .note{font-size:11.5px;color:var(--ink3);margin-top:16px;line-height:1.65}
+  .filters{display:flex;gap:7px;align-items:center;margin-bottom:15px;flex-wrap:wrap}
+  .filters input[type=text]{max-width:210px}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);
+    color:#fff;font-size:12.5px;padding:9px 17px;border-radius:3px;z-index:99;
+    opacity:0;transition:opacity .22s;pointer-events:none}
+  .toast.on{opacity:1}
+  .hide{display:none!important}
+  @media (max-width:660px){
+    .addgrid{grid-template-columns:1fr}
+    .mast-l h1{font-size:23px}
+    .stat{min-width:50%;border-bottom:1px solid var(--rule2)}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div id="app"><div class="wrap">
+  <div class="masthead">
+    <div class="mast-l">
+      <h1>양식 점검 <em>대장</em></h1>
+      <p>쓰고 있는 문서를 다 꺼내 놓고, 어디에 쓰이는지 적고, 같이 판정합니다.</p>
+    </div>
+    <div class="whobox">
+      <label class="fl" for="who" style="margin:0">작성자</label>
+      <input type="text" id="who" placeholder="이름" maxlength="12">
+      <button class="btn ghost sm" id="reload">새로고침</button>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-v="list" aria-selected="true">대장</button>
+    <button class="tab" role="tab" data-v="proc" aria-selected="false">업무 프로세스</button>
+    <button class="tab" role="tab" data-v="sum" aria-selected="false">판정 요약</button>
+  </div>
+
+  <div class="panel">
+    <!-- 대장 -->
+    <div id="v-list">
+      <div class="addbox">
+        <div class="addrow">
+          <label class="fl" for="f-name">양식·문서 이름</label>
+          <input type="text" id="f-name" placeholder="예) 시장가격(산출기초) 조사서" maxlength="70">
+        </div>
+        <div class="addrow">
+          <label class="fl" for="f-sum">주요 내용 — 언제, 누가, 무엇을 적는 문서인가</label>
+          <textarea id="f-sum" placeholder="예) 20만원 이상 물품 구입 전에 담당자가 3곳 시장가를 조사해 적는다. 회계 결재에 첨부."></textarea>
+        </div>
+        <div class="addgrid">
+          <div>
+            <label class="fl" for="f-proc">어떤 업무 흐름에 속하나 <span style="font-weight:400">(선택)</span></label>
+            <input type="text" id="f-proc" placeholder="예) 사업비 지출" maxlength="30" list="proclist">
+            <datalist id="proclist"></datalist>
+          </div>
+          <div>
+            <label class="fl" for="f-step">그 흐름의 몇 번째 <span style="font-weight:400">(선택)</span></label>
+            <input type="number" id="f-step" min="1" max="30" placeholder="3">
+          </div>
+        </div>
+        <div style="margin-top:13px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="btn" id="add">대장에 올리기</button>
+          <span style="font-size:11.5px;color:var(--ink3)">판정은 나중에 카드에서 함께 채웁니다.</span>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input type="text" id="q" placeholder="이름·내용 검색">
+        <select id="fv" class="msel" style="padding:7px 9px;font-size:12.5px"><option value="">판정 전체</option></select>
+        <select id="fp" class="msel" style="padding:7px 9px;font-size:12.5px"><option value="">업무 흐름 전체</option></select>
+        <button class="btn ghost sm" id="csv">CSV 내려받기</button>
+        <button class="btn ghost sm" id="seed">예시 3건 넣기</button>
+        <button class="btn ghost sm" id="wipe" style="margin-left:auto;color:var(--v-web)">전체 지우기</button>
+      </div>
+      <div id="cards"></div>
+    </div>
+
+    <!-- 프로세스 -->
+    <div id="v-proc" class="hide"></div>
+
+    <!-- 요약 -->
+    <div id="v-sum" class="hide"></div>
+  </div>
+
+  <p class="note">
+    이 대장은 이 링크를 여는 <b>모든 사람이 함께 보고 고칩니다.</b> 다른 직원이 올린 내용도 보이고, 내가 쓴 내용도 보입니다. 실제 이용자 이름·연락처는 적지 마세요.<br>
+    판정은 7개 기준으로 자동 계산됩니다 — 결정축 5개(근거·법정서식·결재·협업·데이터화)가 형태를 정하고, 제약축 2개(개인정보·보존기한)가 그 형태를 뒤집습니다.
+  </p>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  const KEY='form-audit-ledger-v1', ME='form-audit-me-v1';
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+  const VERD={
+    법정서식:{c:'var(--v-law)',d:'외부가 정한 서식. 손대지 말고 전자결재 첨부로만.'},
+    '삭제·통합':{c:'var(--v-del)',d:'어느 기준에도 걸리지 않음. 없애거나 다른 양식에 합친다.'},
+    문서형:{c:'var(--v-doc)',d:'근거와 결재가 있고 혼자 쓴다. 전자문서 양식으로.'},
+    시트형:{c:'var(--v-sheet)',d:'여럿이 이어서 쓴다. 공유 시트로.'},
+    '앱(노코드)':{c:'var(--v-app)',d:'반복 입력·집계용. 노코드 앱으로 충분.'},
+    웹앱:{c:'var(--v-web)',d:'민감정보나 수정 이력이 걸려 있다. DB 기반 웹앱으로.'},
+    논의필요:{c:'var(--v-todo)',d:'기준을 더 채워야 판정이 나옵니다.'}
+  };
+  const KEEPS=['미정','1년','3년','5년','10년','준영구','영구'];
+  const FREQ={'건/일':250,'건/주':52,'건/월':12,'건/분기':4,'건/년':1};
+  const CRIT=[['근거','법령·지침·내규에 작성 의무'],['법정서식','외부가 정한 서식'],
+              ['결재','결재 라인 필요'],['협업','2인 이상이 이어서 씀'],['데이터화','모아서 집계·분석']];
+
+  let S={docs:{}}, me='', view='list', busy=false;
+
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+  const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._x);t._x=setTimeout(()=>t.classList.remove('on'),2100)};
+
+  function blank(){return{c:{근거:false,법정서식:false,결재:false,협업:false,데이터화:false},
+    privacy:0,keep:'미정',proc:{name:'',step:null,n:0,unit:'건/월',min:0,re:false,reNote:''},comments:[]}}
+
+  function judge(d){
+    const c=d.c||{}, hasAny=CRIT.some(([k])=>c[k]);
+    if(c.법정서식) return '법정서식';
+    if(!hasAny) return d.privacy||d.keep!=='미정' ? '논의필요' : '삭제·통합';
+    if(c.데이터화){
+      if(d.privacy===3) return '웹앱';
+      if(!d.privacy) return '논의필요';
+      return '앱(노코드)';
+    }
+    if(c.협업) return '시트형';
+    if(c.결재||c.근거) return '문서형';
+    return '논의필요';
+  }
+  const hours=d=>{const p=d.proc||{};return (p.n||0)*(FREQ[p.unit]||0)*(p.min||0)/60};
+
+  /* ─── 저장소 ─── */
+  async function pull(){
+    try{const r=await window.storage.get(KEY,true);
+      const v=r&&r.value?JSON.parse(r.value):null;
+      S=(v&&v.docs)?v:{docs:{}};
+    }catch(e){S={docs:{}}}
+  }
+  function merge(a,b){ // a=서버, b=내것
+    if(!a) return b;
+    const ids=new Set((a.comments||[]).map(x=>x.id));
+    const cs=[...(a.comments||[])];
+    (b.comments||[]).forEach(x=>{if(!ids.has(x.id))cs.push(x)});
+    cs.sort((x,y)=>x.ts-y.ts);
+    return {...b,comments:cs};
+  }
+  async function push(doc,remove){
+    if(busy) return; busy=true;
+    try{
+      let server={docs:{}};
+      try{const r=await window.storage.get(KEY,true); if(r&&r.value) server=JSON.parse(r.value)}catch(e){}
+      if(!server.docs) server.docs={};
+      // 내 로컬 신규분 보존
+      Object.values(S.docs).forEach(d=>{if(!server.docs[d.id]) server.docs[d.id]=d});
+      if(remove) delete server.docs[doc];
+      else server.docs[doc.id]=merge(server.docs[doc.id],doc);
+      const ok=await window.storage.set(KEY,JSON.stringify(server),true);
+      if(!ok) throw new Error('no-ack');
+      S=server;
+    }catch(e){toast('저장하지 못했습니다. 새로고침 후 다시 시도하세요.')}
+    busy=false; render();
+  }
+  async function wipeAll(){
+    try{await window.storage.set(KEY,JSON.stringify({docs:{}}),true);S={docs:{}};toast('대장을 비웠습니다')}
+    catch(e){toast('지우지 못했습니다')}
+    render();
+  }
+
+  /* ─── 렌더 ─── */
+  function render(){ stats(); if(view==='list')list(); if(view==='proc')proc(); if(view==='sum')sum(); }
+
+  function stats(){
+    const ds=Object.values(S.docs), tot=ds.length;
+    const done=ds.filter(d=>judge(d)!=='논의필요').length;
+    const h=ds.reduce((a,d)=>a+hours(d),0);
+    const re=ds.filter(d=>d.proc&&d.proc.re).length;
+    const cm=ds.reduce((a,d)=>a+(d.comments||[]).length,0);
+    $('#stats').innerHTML=[
+      [tot,'올라온 양식'],[done+' / '+tot,'판정 완료'],
+      [h?h.toFixed(0)+'h':'—','연간 작성시간'],[re,'재입력 지점'],[cm,'남긴 의견']
+    ].map(([b,s])=>`<div class="stat"><b>${esc(b)}</b><span>${s}</span></div>`).join('');
+  }
+
+  function list(){
+    const q=$('#q').value.trim().toLowerCase(), fv=$('#fv').value, fp=$('#fp').value;
+    let ds=Object.values(S.docs).sort((a,b)=>b.ts-a.ts);
+    // 필터 옵션 채우기
+    const vs=[...new Set(ds.map(judge))], ps=[...new Set(ds.map(d=>d.proc&&d.proc.name).filter(Boolean))];
+    $('#fv').innerHTML='<option value="">판정 전체</option>'+vs.map(v=>`<option${v===fv?' selected':''}>${esc(v)}</option>`).join('');
+    $('#fp').innerHTML='<option value="">업무 흐름 전체</option>'+ps.map(p=>`<option${p===fp?' selected':''}>${esc(p)}</option>`).join('');
+    $('#proclist').innerHTML=ps.map(p=>`<option value="${esc(p)}">`).join('');
+
+    if(q) ds=ds.filter(d=>(d.name+' '+d.summary).toLowerCase().includes(q));
+    if(fv) ds=ds.filter(d=>judge(d)===fv);
+    if(fp) ds=ds.filter(d=>d.proc&&d.proc.name===fp);
+
+    if(!ds.length){
+      $('#cards').innerHTML=Object.keys(S.docs).length
+        ? `<div class="empty"><h3>조건에 맞는 양식이 없습니다</h3><p>검색어나 필터를 바꿔 보세요.</p></div>`
+        : `<div class="empty"><h3>아직 비어 있습니다</h3><p>쓰고 있는 문서 이름을 하나 올려 보세요.<br>한 사람이 다 채우지 않아도 됩니다 — 각자 담당 양식만 올리면 대장이 채워집니다.</p></div>`;
+      return;
+    }
+    $('#cards').innerHTML=ds.map(card).join('');
+  }
+
+  function card(d){
+    const v=judge(d), V=VERD[v], p=d.proc||{}, h=hours(d);
+    const crit=CRIT.map(([k,t])=>`<button class="chip" data-a="c" data-id="${d.id}" data-k="${k}"
+      aria-pressed="${!!d.c[k]}" title="${t}">${k}</button>`).join('');
+    const pv=[[1,'개인정보 없음'],[2,'일반 개인정보'],[3,'민감·고유식별']].map(([n,t])=>
+      `<button class="chip pv" data-a="p" data-id="${d.id}" data-p="${n}"
+        aria-pressed="${d.privacy===n}" title="${t}">${n===1?'정보없음':n===2?'일반':'민감'}</button>`).join('');
+    const cm=(d.comments||[]).map(c=>`<div class="cmt"><b>${esc(c.who)}</b>
+      <time>${new Date(c.ts).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'})}</time>
+      <p>${esc(c.text)}</p></div>`).join('');
+
+    return `<div class="card">
+      <div class="idxtab" style="background:${V.c}"></div>
+      <div class="cbody">
+        <div class="chead">
+          <div class="cname">${esc(d.name)}</div>
+          <span class="verdict" style="background:${V.c}" title="${V.d}">${v}</span>
+        </div>
+        ${d.summary?`<p class="csum">${esc(d.summary)}</p>`:''}
+        <div class="meta">
+          <span class="tagline">결정축</span>${crit}
+        </div>
+        <div class="meta">
+          <span class="tagline">개인정보</span>${pv}
+          <span class="tagline" style="margin-left:9px">보존</span>
+          <select class="msel" data-a="k" data-id="${d.id}">
+            ${KEEPS.map(k=>`<option${d.keep===k?' selected':''}>${k}</option>`).join('')}
+          </select>
+        </div>
+        <div class="procline">
+          <span>흐름 <b>${p.name?esc(p.name):'—'}</b></span>
+          <span>단계 <b>${p.step||'—'}</b></span>
+          <span>빈도 <b>${p.n||0}</b> ${esc(p.unit||'건/월')}</span>
+          <span>1건 <b>${p.min||0}</b>분</span>
+          <span>연 <b>${h?h.toFixed(1):'0'}</b>시간</span>
+          ${p.re?`<span class="reentry">앞 문서 재입력</span>`:''}
+          <button class="btn ghost sm" data-a="edit" data-id="${d.id}" style="margin-left:auto">흐름 고치기</button>
+        </div>
+        <div class="hide" data-ed="${d.id}" style="margin-top:9px;padding:11px;background:#F4F6F8;border:1px solid var(--rule)">
+          <div class="addgrid">
+            <div><label class="fl">업무 흐름 이름</label><input type="text" data-e="name" value="${esc(p.name||'')}" maxlength="30"></div>
+            <div><label class="fl">단계 번호</label><input type="number" data-e="step" min="1" max="30" value="${p.step||''}"></div>
+          </div>
+          <div class="addgrid" style="margin-top:9px">
+            <div><label class="fl">발생 빈도</label>
+              <div style="display:flex;gap:6px">
+                <input type="number" data-e="n" min="0" value="${p.n||0}" style="flex:1">
+                <select data-e="unit" style="width:auto">${Object.keys(FREQ).map(u=>`<option${p.unit===u?' selected':''}>${u}</option>`).join('')}</select>
+              </div></div>
+            <div><label class="fl">1건 작성 시간 (분)</label><input type="number" data-e="min" min="0" value="${p.min||0}"></div>
+          </div>
+          <div style="margin-top:10px">
+            <label class="fl">
+              <input type="checkbox" data-e="re" ${p.re?'checked':''} style="width:auto;margin-right:5px">
+              앞 단계 문서에 이미 있는 내용을 <b>다시 옮겨 적는다</b>
+            </label>
+            <input type="text" data-e="reNote" placeholder="무엇을 다시 적나요? 예) 이용자 이름·생년월일·사업명"
+              value="${esc(p.reNote||'')}" maxlength="60" style="margin-top:6px">
+          </div>
+          <div style="margin-top:11px;display:flex;gap:7px">
+            <button class="btn sm" data-a="savep" data-id="${d.id}">저장</button>
+            <button class="btn ghost sm" data-a="edit" data-id="${d.id}">닫기</button>
+          </div>
+        </div>
+        ${cm?`<div class="thread">${cm}</div>`:''}
+        <div class="cmtbox">
+          <textarea data-cm="${d.id}" placeholder="이 양식에 대한 의견 — 통합 대상 아닌가요? 이건 근거가 있습니다 …"></textarea>
+          <button class="btn sm" data-a="cmt" data-id="${d.id}" style="align-self:flex-end">남기기</button>
+        </div>
+        <div class="cfoot">
+          <button class="btn ghost sm" data-a="del" data-id="${d.id}" style="color:var(--v-web)">대장에서 빼기</button>
+          <span class="byline">${esc(d.who||'익명')} · ${new Date(d.ts).toLocaleDateString('ko-KR')}</span>
+        </div>
+      </div></div>`;
+  }
+
+  function proc(){
+    const ds=Object.values(S.docs).filter(d=>d.proc&&d.proc.name);
+    const loose=Object.values(S.docs).filter(d=>!d.proc||!d.proc.name);
+    if(!ds.length){
+      $('#v-proc').innerHTML=`<div class="empty"><h3>업무 흐름이 아직 없습니다</h3>
+        <p>대장에서 각 양식에 "어떤 업무 흐름에 속하나"를 채우면<br>여기에 순서대로 늘어서고, 같은 내용을 다시 적는 지점이 드러납니다.</p></div>`;
+      return;
+    }
+    const g={};
+    ds.forEach(d=>{(g[d.proc.name]=g[d.proc.name]||[]).push(d)});
+    let html=Object.entries(g).sort((a,b)=>b[1].length-a[1].length).map(([n,arr])=>{
+      arr.sort((a,b)=>(a.proc.step||99)-(b.proc.step||99));
+      const th=arr.reduce((a,d)=>a+hours(d),0), rc=arr.filter(d=>d.proc.re).length;
+      return `<div class="pgroup"><h3>${esc(n)}</h3>
+        <p class="phint">문서 ${arr.length}건 · 연 ${th.toFixed(1)}시간${rc?` · 재입력 ${rc}곳`:''}</p>
+        <div class="spine">${arr.map(d=>{
+          const V=VERD[judge(d)], p=d.proc, h=hours(d);
+          return `<div class="step${p.re?' re':''}">
+            <div class="stepno">${p.step?String(p.step).padStart(2,'0'):'—'}</div>
+            <div class="stepname">${esc(d.name)}
+              <span class="verdict" style="background:${V.c};font-size:9.5px;margin-left:6px">${judge(d)}</span></div>
+            <div class="stepmeta">${p.n||0}${esc(p.unit||'')} × ${p.min||0}분 = 연 ${h.toFixed(1)}시간${d.privacy===3?' · 민감정보':''}</div>
+            ${p.re?`<div class="rebox">앞 문서에 있는 내용을 다시 적습니다${p.reNote?` — <b>${esc(p.reNote)}</b>`:''}</div>`:''}
+          </div>`}).join('')}</div></div>`;
+    }).join('');
+
+    const tot=ds.filter(d=>d.proc.re).reduce((a,d)=>a+hours(d),0);
+    html=`<p style="font-size:13px;color:var(--ink2);margin:0 0 20px;padding:11px 13px;background:#F4F6F8;border-left:2.5px solid var(--ink)">
+      양식 하나씩 보면 다 필요해 보입니다. <b>흐름으로 세워 놓아야</b> 같은 내용을 두 번 세 번 적는 지점이 보입니다.
+      빨간 점이 그 지점이고, 통합 1순위입니다.${tot?` 지금 표시된 재입력에만 연 <b>${tot.toFixed(0)}시간</b>이 들어갑니다.`:''}</p>`+html;
+    if(loose.length) html+=`<div class="pgroup"><h3 style="color:var(--ink3)">흐름 미지정 ${loose.length}건</h3>
+      <p class="phint">${loose.slice(0,14).map(d=>esc(d.name)).join(' · ')}${loose.length>14?' …':''}</p></div>`;
+    $('#v-proc').innerHTML=html;
+  }
+
+  function sum(){
+    const ds=Object.values(S.docs);
+    if(!ds.length){$('#v-sum').innerHTML=`<div class="empty"><h3>판정할 양식이 없습니다</h3><p>대장에 문서를 올리면 여기에 집계됩니다.</p></div>`;return}
+    const cnt={}; ds.forEach(d=>{const v=judge(d);cnt[v]=(cnt[v]||0)+1});
+    const max=Math.max(...Object.values(cnt));
+    const bars=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).map(([v,n])=>
+      `<div class="bar"><i style="background:${VERD[v].c};width:${Math.max(3,n/max*118)}px"></i>
+        <span>${v}</span><em>${n}</em></div>`).join('');
+    const top=[...ds].filter(d=>hours(d)>0).sort((a,b)=>hours(b)-hours(a)).slice(0,6).map((d,i)=>
+      `<div class="rank"><b>${i+1}</b><span>${esc(d.name)}${d.proc&&d.proc.re?' <span class="reentry">재입력</span>':''}</span>
+        <em>${hours(d).toFixed(1)}h</em></div>`).join('')||'<p style="font-size:12.5px;color:var(--ink3);margin:0">빈도·시간을 채우면 우선순위가 나옵니다.</p>';
+    const risky=ds.filter(d=>d.privacy===3);
+    const nokeep=ds.filter(d=>d.keep==='미정');
+    const todo=ds.filter(d=>judge(d)==='논의필요');
+    const list=(a,e)=>a.length?a.slice(0,8).map(d=>`<div class="warn">${esc(d.name)}</div>`).join()+(a.length>8?`<div class="warn" style="color:var(--ink3)">외 ${a.length-8}건</div>`:''):`<p style="font-size:12.5px;color:var(--ink3);margin:0">${e}</p>`;
+    const th=ds.reduce((a,d)=>a+hours(d),0), rh=ds.filter(d=>d.proc&&d.proc.re).reduce((a,d)=>a+hours(d),0);
+
+    $('#v-sum').innerHTML=`
+      <div class="sumgrid">
+        <div class="sumcard"><h4>판정 분포</h4>${bars}</div>
+        <div class="sumcard"><h4>자동화 우선순위 — 연간 작성시간</h4>${top}</div>
+        <div class="sumcard"><h4>민감·고유식별 정보 (웹앱 검토)</h4>${list(risky,'아직 3등급으로 표시된 양식이 없습니다.')}</div>
+        <div class="sumcard"><h4>보존기한 미정</h4>${list(nokeep,'모든 양식에 보존기한이 있습니다.')}</div>
+        <div class="sumcard"><h4>판정 보류 — 기준 더 채우기</h4>${list(todo,'보류 중인 양식이 없습니다.')}</div>
+        <div class="sumcard"><h4>합계</h4>
+          <div class="rank"><span>양식 수</span><em>${ds.length}</em></div>
+          <div class="rank"><span>삭제·통합 판정</span><em>${cnt['삭제·통합']||0}</em></div>
+          <div class="rank"><span>연간 작성시간</span><em>${th.toFixed(0)}h</em></div>
+          <div class="rank"><span>재입력에 쓰는 시간</span><em>${rh.toFixed(0)}h</em></div>
+        </div>
+      </div>
+      <p style="font-size:12.5px;color:var(--ink2);padding:12px 14px;background:#F4F6F8;border-left:2.5px solid var(--ink);margin:0">
+        <b>읽는 순서</b> — ① 삭제·통합 건수부터 봅니다. 줄이는 것이 1차 성과입니다.
+        ② 그다음 연간 작성시간 상위 항목이 자동화 1순위입니다.
+        ③ 민감정보 목록은 성과가 아니라 사고 예방 항목이라, 관리자에게 따로 보고합니다.
+        ④ 보존기한 미정이 남아 있으면 파기 대장을 만들 수 없습니다.</p>`;
+  }
+
+  /* ─── 이벤트 ─── */
+  $$('.tab').forEach(t=>t.onclick=()=>{
+    view=t.dataset.v; $$('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));
+    ['list','proc','sum'].forEach(v=>$('#v-'+v).classList.toggle('hide',v!==view));
+    render();
+  });
+
+  $('#who').oninput=e=>{me=e.target.value.trim();
+    try{window.storage.set(ME,JSON.stringify({name:me}),false)}catch(x){}};
+
+  $('#reload').onclick=async()=>{await pull();render();toast('최신 내용을 가져왔습니다')};
+
+  $('#add').onclick=async()=>{
+    const name=$('#f-name').value.trim();
+    if(!name){$('#f-name').focus();toast('양식 이름을 적어 주세요');return}
+    const d={...blank(),id:uid(),name,summary:$('#f-sum').value.trim(),
+      who:me||'익명',ts:Date.now()};
+    d.proc.name=$('#f-proc').value.trim();
+    d.proc.step=parseInt($('#f-step').value)||null;
+    S.docs[d.id]=d;
+    $('#f-name').value='';$('#f-sum').value='';$('#f-step').value='';
+    await push(d); toast('대장에 올렸습니다'); $('#f-name').focus();
+  };
+
+  ['#q','#fv','#fp'].forEach(s=>$(s).oninput=list);
+
+  $('#cards').addEventListener('click',async e=>{
+    const b=e.target.closest('[data-a]'); if(!b) return;
+    const d=S.docs[b.dataset.id]; if(!d&&b.dataset.a!=='del') return;
+    const a=b.dataset.a;
+    if(a==='c'){ d.c[b.dataset.k]=!d.c[b.dataset.k]; await push(d); }
+    else if(a==='p'){ const n=+b.dataset.p; d.privacy=d.privacy===n?0:n; await push(d); }
+    else if(a==='edit'){ const box=$(`[data-ed="${b.dataset.id}"]`); box.classList.toggle('hide'); }
+    else if(a==='savep'){
+      const box=$(`[data-ed="${b.dataset.id}"]`), g=k=>box.querySelector(`[data-e="${k}"]`);
+      d.proc={name:g('name').value.trim(),step:parseInt(g('step').value)||null,
+        n:+g('n').value||0,unit:g('unit').value,min:+g('min').value||0,
+        re:g('re').checked,reNote:g('reNote').value.trim()};
+      await push(d); toast('흐름을 저장했습니다');
+    }
+    else if(a==='cmt'){
+      const ta=$(`[data-cm="${b.dataset.id}"]`), t=ta.value.trim();
+      if(!t){ta.focus();return}
+      d.comments=[...(d.comments||[]),{id:uid(),who:me||'익명',text:t,ts:Date.now()}];
+      ta.value=''; await push(d); toast('의견을 남겼습니다');
+    }
+    else if(a==='del'){
+      if(!confirm('이 양식을 대장에서 뺍니다. 남긴 의견도 함께 사라집니다.')) return;
+      delete S.docs[b.dataset.id]; await push(b.dataset.id,true); toast('대장에서 뺐습니다');
+    }
+  });
+  $('#cards').addEventListener('change',async e=>{
+    const s=e.target.closest('[data-a="k"]'); if(!s) return;
+    const d=S.docs[s.dataset.id]; if(!d) return; d.keep=s.value; await push(d);
+  });
+
+  $('#csv').onclick=()=>{
+    const ds=Object.values(S.docs);
+    if(!ds.length){toast('내려받을 내용이 없습니다');return}
+    const H=['양식명','주요내용','업무흐름','단계','빈도','단위','1건분','연간시간','근거','법정서식','결재','협업','데이터화','개인정보','보존기한','재입력','재입력항목','판정','의견수','올린이'];
+    const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+    const rows=ds.map(d=>{const p=d.proc||{};return[d.name,d.summary,p.name,p.step,p.n,p.unit,p.min,hours(d).toFixed(1),
+      ...CRIT.map(([k])=>d.c[k]?'O':''),['','정보없음','일반','민감'][d.privacy||0],d.keep,
+      p.re?'O':'',p.reNote,judge(d),(d.comments||[]).length,d.who].map(q).join(',')});
+    const blob=new Blob(['\uFEFF'+[H.map(q).join(',')].concat(rows).join('\r\n')],{type:'text/csv;charset=utf-8'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download='양식점검대장.csv'; a.click(); URL.revokeObjectURL(a.href);
+  };
+
+  $('#seed').onclick=async()=>{
+    const S3=[
+      {name:'시장가격(산출기초) 조사서',summary:'20만원 이상 물품 구입 전 담당자가 3곳 시장가를 조사해 적는다. 회계 결재에 첨부.',
+       c:{근거:1,법정서식:0,결재:1,협업:0,데이터화:0},privacy:1,keep:'5년',
+       proc:{name:'사업비 지출',step:2,n:12,unit:'건/월',min:15,re:false,reNote:''}},
+      {name:'물품 검수 조사서',summary:'물품이 들어오면 담당자와 검수자가 수량·상태를 확인해 서명한다.',
+       c:{근거:1,법정서식:0,결재:1,협업:1,데이터화:0},privacy:1,keep:'5년',
+       proc:{name:'사업비 지출',step:4,n:12,unit:'건/월',min:10,re:true,reNote:'품명·규격·수량·단가 — 앞의 조사서와 동일'}},
+      {name:'종합사정서',summary:'신규 이용자 초기 면담 후 담당자가 작성. 장애 유형, 건강 상태, 가족 상황을 기록.',
+       c:{근거:1,법정서식:0,결재:1,협업:1,데이터화:1},privacy:3,keep:'10년',
+       proc:{name:'이용자 등록',step:3,n:8,unit:'건/월',min:45,re:true,reNote:'이름·생년월일·연락처 — 초기상담지에 이미 있음'}}
+    ];
+    for(const s of S3){
+      const d={...blank(),id:uid(),name:s.name,summary:s.summary,who:me||'예시',ts:Date.now()};
+      CRIT.forEach(([k])=>d.c[k]=!!s.c[k]); d.privacy=s.privacy; d.keep=s.keep; d.proc={...d.proc,...s.proc};
+      S.docs[d.id]=d; await push(d);
+    }
+    toast('예시 3건을 넣었습니다 — 업무 프로세스 탭을 눌러 보세요');
+  };
+
+  $('#wipe').onclick=async()=>{
+    if(!confirm('대장의 모든 양식과 의견을 지웁니다. 되돌릴 수 없습니다.')) return;
+    if(!confirm('정말 지울까요?')) return;
+    await wipeAll();
+  };
+
+  (async function init(){
+    try{const r=await window.storage.get(ME,false); if(r&&r.value){me=JSON.parse(r.value).name||''; $('#who').value=me}}catch(e){}
+    await pull(); render();
+  })();
+})();
+</script>
