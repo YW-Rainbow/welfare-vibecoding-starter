@@ -64,7 +64,10 @@
 무엇을 앱으로 만들지 구분하는 문서입니다.
 
 앱을 두 개 이상 만들 생각이거나 이미 여러 담당자가 각자 파일로 관리하고
-있다면, 플랫폼보다 먼저 **ssot.md**(원본을 하나로)를 안내하세요. 무엇을
+있다면, 플랫폼보다 먼저 **ssot.md**(원본을 하나로)를 안내하세요. 앱이 셋을
+넘었거나, 인수인계가 걱정이거나, 기관 전체의 데이터 층·API·온톨로지를
+이야기하면 **levels.md**(어디까지 갈 것인가)의 다섯 단계 가운데 어디인지부터
+같이 봅니다. 무엇을
 원본으로 삼을지 정하지 않고 앱을 늘리면 나중에 사람이 손으로 대조해야 합니다.
 
 **문제를 말하는 방식.** 사용자가 "담당자가 자꾸 누락해서요"처럼 **사람의 문제**로
@@ -438,6 +441,7 @@ AI가 하는 일은 전부 **읽기**여야 합니다.
 **상류 — 기관 단위 양식 점검:**
 - 무엇을 앱으로 만들지 구분하기(기관 서식 점검): https://raw.githubusercontent.com/YW-Rainbow/welfare-vibecoding-starter/main/form-audit.md
 - 무엇을 원본으로 삼을지 정하기(앱 여러 개를 잇는 구조): https://raw.githubusercontent.com/YW-Rainbow/welfare-vibecoding-starter/main/ssot.md
+- 어디까지 갈 것인가(앱 하나 → 원본 하나 → 데이터 층·API·키 → 온톨로지, 다섯 단계): https://raw.githubusercontent.com/YW-Rainbow/welfare-vibecoding-starter/main/levels.md
 - 양식 점검 대장(워크숍 도구, Claude 아티팩트 전용): 저장소의 tools/form-audit-ledger.html
 
 **제작 단계 — 경로별 규칙 파일 (AI 규칙으로 사용):**

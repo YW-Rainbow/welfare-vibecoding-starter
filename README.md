@@ -135,6 +135,7 @@ ELSE (개인정보 없음: 안내·계산기·공개 대시보드)
 ├── guide.md            # AI에게 주는 본체: 판정 순서 + 원칙 + 요건 매트릭스
 ├── form-audit.md       # 무엇을 앱으로 만들지부터 정하기 (양식 점검)
 ├── ssot.md             # 무엇을 원본으로 삼을지 정하기 (여러 앱을 하나로 잇기)
+├── levels.md           # 어디까지 갈 것인가 — 앱 하나에서 데이터 층, 온톨로지까지 다섯 단계
 ├── ethics.md           # 만들어도 되는가 — 사람을 기록하는 앱을 만들기 전에 볼 것
 ├── design.md           # 화면 설계 — 누가 쓰는지부터. 웹 접근성 수치와 확인 목록
 ├── print.md            # 종이로 나와야 끝난다 — 인쇄, 결재란, 서식 칸 수, 엑셀 내보내기·들여오기
@@ -185,6 +186,7 @@ ELSE (개인정보 없음: 안내·계산기·공개 대시보드)
 | 곳 | 소개 |
 |---|---|
 | [사회복지사가 바이브 코딩까지 해요](https://socialwork-vibecoding.jijun74.workers.dev/) | 전재일 선생님이 쓴 온라인 책입니다(부제 "연결과 확장"). 글자 크기와 배경색을 고르고 책갈피와 이어 읽기로 돌아올 수 있게 만든 읽기 화면 자체가, ethics.md가 말하는 적정기술의 본보기이기도 합니다 |
+| [모두를 위한 스마트워크](https://wish.welfare.seoul.kr/swflmsfront/coworker/ksdetail.do?pno=10026&userno=58550) | 이 저장소를 만든 신용우가 서울시복지재단 지식공유 플랫폼에 연재하는 시리즈입니다. 구글 스마트워크, 생성형 AI, 디지털 전환을 현장 경험으로 다룹니다. 그 가운데 「AI 시대를 위한 데이터 설계 방법론」 1~6편([1편](https://wish.welfare.seoul.kr/swflmsfront/board/boardr.do?bmno=10001&bno=107717&pno=10019&opno=0&)·[2편](https://wish.welfare.seoul.kr/swflmsfront/board/boardr.do?bmno=10001&bno=107727&pno=10019&opno=0&)·[3편](https://wish.welfare.seoul.kr/swflmsfront/board/boardr.do?bmno=10001&bno=107789&pno=10019&opno=0&)·[4편](https://wish.welfare.seoul.kr/swflmsfront/board/boardr.do?bmno=10001&bno=108035&pno=10019&opno=0&)·[5편](https://wish.welfare.seoul.kr/swflmsfront/board/boardr.do?bmno=10001&bno=108362&pno=10019&opno=0&)·[6편](https://wish.welfare.seoul.kr/swflmsfront/board/boardr.do?bmno=10001&bno=108366&pno=10019&opno=0&))은 생태도를 데이터로, 기관의 판단 기준을 기계도 읽을 수 있는 구조로 옮기는 온톨로지 이야기입니다. levels.md 4단계가 이 여섯 편을 줄인 것입니다 |
 | [기록에서 데이터로, 데이터에서 삶으로](https://www.dtsw.org/journal/5668173483343872) | 김진래 선생님이 『디지털과 사회복지』 4권 3호에 쓴 실천 보고입니다. 긍정행동지원팀이 흩어진 기록을 하나의 원장으로 모으고, 그 위에 AI를 얹고, 당사자마다 다른 웹앱을 만들어 온 2년을 적었습니다. **"AI 이전에 데이터가, 데이터 이전에 실천 철학이 있어야 한다"**는 순서와, AI에게 무엇을 시키고 무엇을 시키지 않는지 그은 경계가 특히 볼 만합니다. 이 저장소의 ssot.md 이관 절차와 품질 등급, guide.md 원칙 5의 AI 경계를 이 글에서 가져왔습니다 |
 
 ## 기여
