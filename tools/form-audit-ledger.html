@@ -156,7 +156,7 @@
   <div class="masthead">
     <div class="mast-l">
       <h1>양식 점검 <em>대장</em></h1>
-      <p>쓰고 있는 문서를 다 꺼내 놓고, 어디에 쓰이는지 적고, 같이 판정합니다.</p>
+      <p>기관에서 사용하는 양식을 등록하고 용도와 업무 흐름을 확인한 뒤 전환 방식을 판정합니다.</p>
     </div>
     <div class="whobox">
       <label class="fl" for="who" style="margin:0">작성자</label>
@@ -187,18 +187,18 @@
         </div>
         <div class="addgrid">
           <div>
-            <label class="fl" for="f-proc">어떤 업무 흐름에 속하나 <span style="font-weight:400">(선택)</span></label>
+          <label class="fl" for="f-proc">업무 프로세스 <span style="font-weight:400">(선택)</span></label>
             <input type="text" id="f-proc" placeholder="예) 사업비 지출" maxlength="30" list="proclist">
             <datalist id="proclist"></datalist>
           </div>
           <div>
-            <label class="fl" for="f-step">그 흐름의 몇 번째 <span style="font-weight:400">(선택)</span></label>
+          <label class="fl" for="f-step">프로세스 단계 <span style="font-weight:400">(선택)</span></label>
             <input type="number" id="f-step" min="1" max="30" placeholder="3">
           </div>
         </div>
         <div style="margin-top:13px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <button class="btn" id="add">대장에 올리기</button>
-          <span style="font-size:11.5px;color:var(--ink3)">판정은 나중에 카드에서 함께 채웁니다.</span>
+          <button class="btn" id="add">양식 등록</button>
+          <span style="font-size:11.5px;color:var(--ink3)">등록 후 카드에서 판정 기준을 입력합니다.</span>
         </div>
       </div>
 
@@ -206,9 +206,9 @@
         <input type="text" id="q" placeholder="이름·내용 검색">
         <select id="fv" class="msel" style="padding:7px 9px;font-size:12.5px"><option value="">판정 전체</option></select>
         <select id="fp" class="msel" style="padding:7px 9px;font-size:12.5px"><option value="">업무 흐름 전체</option></select>
-        <button class="btn ghost sm" id="csv">CSV 내려받기</button>
-        <button class="btn ghost sm" id="seed">예시 3건 넣기</button>
-        <button class="btn ghost sm" id="wipe" style="margin-left:auto;color:var(--v-web)">전체 지우기</button>
+        <button class="btn ghost sm" id="csv">CSV 다운로드</button>
+        <button class="btn ghost sm" id="seed">예시 3건 추가</button>
+        <button class="btn ghost sm" id="wipe" style="margin-left:auto;color:var(--v-web)">전체 삭제</button>
       </div>
       <div id="cards"></div>
     </div>
@@ -221,8 +221,8 @@
   </div>
 
   <p class="note">
-    이 대장은 이 링크를 여는 <b>모든 사람이 함께 보고 고칩니다.</b> 다른 직원이 올린 내용도 보이고, 내가 쓴 내용도 보입니다. 실제 이용자 이름·연락처는 적지 마세요.<br>
-    판정은 7개 기준으로 자동 계산됩니다 — 결정축 5개(근거·법정서식·결재·협업·데이터화)가 형태를 정하고, 제약축 2개(개인정보·보존기한)가 그 형태를 뒤집습니다.
+    이 페이지의 내용은 링크에 접근한 <b>모든 사용자가 함께 조회하고 수정할 수 있습니다.</b> 실제 이용자의 이름이나 연락처 등 개인정보를 입력하지 마세요.<br>
+    작성 근거·법정서식·결재·협업·데이터화 여부와 개인정보·보존 기간을 기준으로 권장 형식을 자동 판정합니다.
   </p>
 </div></div>
 <div class="toast" id="toast"></div>
@@ -233,12 +233,12 @@
   const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 
   const VERD={
-    법정서식:{c:'var(--v-law)',d:'외부가 정한 서식. 손대지 말고 전자결재 첨부로만.'},
-    '삭제·통합':{c:'var(--v-del)',d:'어느 기준에도 걸리지 않음. 없애거나 다른 양식에 합친다.'},
-    문서형:{c:'var(--v-doc)',d:'근거와 결재가 있고 혼자 쓴다. 전자문서 양식으로.'},
-    시트형:{c:'var(--v-sheet)',d:'여럿이 이어서 쓴다. 공유 시트로.'},
-    '앱(노코드)':{c:'var(--v-app)',d:'반복 입력·집계용. 노코드 앱으로 충분.'},
-    웹앱:{c:'var(--v-web)',d:'민감정보나 수정 이력이 걸려 있다. DB 기반 웹앱으로.'},
+    법정서식:{c:'var(--v-law)',d:'외부 기관이 정한 서식이므로 원형을 유지하고 전자결재에 첨부합니다.'},
+    '삭제·통합':{c:'var(--v-del)',d:'유지 근거가 없으므로 폐지하거나 다른 양식과 통합합니다.'},
+    문서형:{c:'var(--v-doc)',d:'작성 근거와 결재가 필요하고 한 사람이 작성하므로 전자문서 양식을 사용합니다.'},
+    시트형:{c:'var(--v-sheet)',d:'여러 사람이 연속해서 입력하므로 공유 시트를 사용합니다.'},
+    '앱(노코드)':{c:'var(--v-app)',d:'반복 입력과 집계가 필요하며 노코드 앱으로 요구사항을 충족할 수 있습니다.'},
+    웹앱:{c:'var(--v-web)',d:'민감정보 보호나 변경 이력 관리가 필요하므로 DB 기반 웹앱을 검토합니다.'},
     논의필요:{c:'var(--v-todo)',d:'기준을 더 채워야 판정이 나옵니다.'}
   };
   const KEEPS=['미정','1년','3년','5년','10년','준영구','영구'];
@@ -277,7 +277,7 @@
       S=(v&&v.docs)?v:{docs:{}};
     }catch(e){S={docs:{}}}
   }
-  function merge(a,b){ // a=서버, b=내것
+  function merge(a,b){ // a=서버 데이터, b=로컬 데이터
     if(!a) return b;
     const ids=new Set((a.comments||[]).map(x=>x.id));
     const cs=[...(a.comments||[])];
@@ -291,7 +291,7 @@
       let server={docs:{}};
       try{const r=await window.storage.get(KEY,true); if(r&&r.value) server=JSON.parse(r.value)}catch(e){}
       if(!server.docs) server.docs={};
-      // 내 로컬 신규분 보존
+      // 아직 서버에 반영되지 않은 로컬 데이터를 유지
       Object.values(S.docs).forEach(d=>{if(!server.docs[d.id]) server.docs[d.id]=d});
       if(remove) delete server.docs[doc];
       else server.docs[doc.id]=merge(server.docs[doc.id],doc);
@@ -302,8 +302,8 @@
     busy=false; render();
   }
   async function wipeAll(){
-    try{await window.storage.set(KEY,JSON.stringify({docs:{}}),true);S={docs:{}};toast('대장을 비웠습니다')}
-    catch(e){toast('지우지 못했습니다')}
+    try{await window.storage.set(KEY,JSON.stringify({docs:{}}),true);S={docs:{}};toast('전체 데이터를 삭제했습니다')}
+    catch(e){toast('데이터를 삭제하지 못했습니다')}
     render();
   }
 
@@ -317,7 +317,7 @@
     const re=ds.filter(d=>d.proc&&d.proc.re).length;
     const cm=ds.reduce((a,d)=>a+(d.comments||[]).length,0);
     $('#stats').innerHTML=[
-      [tot,'올라온 양식'],[done+' / '+tot,'판정 완료'],
+      [tot,'등록된 양식'],[done+' / '+tot,'판정 완료'],
       [h?h.toFixed(0)+'h':'—','연간 작성시간'],[re,'재입력 지점'],[cm,'남긴 의견']
     ].map(([b,s])=>`<div class="stat"><b>${esc(b)}</b><span>${s}</span></div>`).join('');
   }
@@ -338,7 +338,7 @@
     if(!ds.length){
       $('#cards').innerHTML=Object.keys(S.docs).length
         ? `<div class="empty"><h3>조건에 맞는 양식이 없습니다</h3><p>검색어나 필터를 바꿔 보세요.</p></div>`
-        : `<div class="empty"><h3>아직 비어 있습니다</h3><p>쓰고 있는 문서 이름을 하나 올려 보세요.<br>한 사람이 다 채우지 않아도 됩니다 — 각자 담당 양식만 올리면 대장이 채워집니다.</p></div>`;
+        : `<div class="empty"><h3>등록된 양식이 없습니다</h3><p>현재 사용하는 양식을 하나씩 등록하세요. 여러 사람이 각자 담당하는 양식을 나누어 입력할 수 있습니다.</p></div>`;
       return;
     }
     $('#cards').innerHTML=ds.map(card).join('');
@@ -380,7 +380,7 @@
           <span>1건 <b>${p.min||0}</b>분</span>
           <span>연 <b>${h?h.toFixed(1):'0'}</b>시간</span>
           ${p.re?`<span class="reentry">앞 문서 재입력</span>`:''}
-          <button class="btn ghost sm" data-a="edit" data-id="${d.id}" style="margin-left:auto">흐름 고치기</button>
+          <button class="btn ghost sm" data-a="edit" data-id="${d.id}" style="margin-left:auto">프로세스 수정</button>
         </div>
         <div class="hide" data-ed="${d.id}" style="margin-top:9px;padding:11px;background:#F4F6F8;border:1px solid var(--rule)">
           <div class="addgrid">
@@ -398,9 +398,9 @@
           <div style="margin-top:10px">
             <label class="fl">
               <input type="checkbox" data-e="re" ${p.re?'checked':''} style="width:auto;margin-right:5px">
-              앞 단계 문서에 이미 있는 내용을 <b>다시 옮겨 적는다</b>
+              앞 단계 문서의 내용을 <b>다시 입력한다</b>
             </label>
-            <input type="text" data-e="reNote" placeholder="무엇을 다시 적나요? 예) 이용자 이름·생년월일·사업명"
+            <input type="text" data-e="reNote" placeholder="재입력 항목 예) 이용자 이름·생년월일·사업명"
               value="${esc(p.reNote||'')}" maxlength="60" style="margin-top:6px">
           </div>
           <div style="margin-top:11px;display:flex;gap:7px">
@@ -410,11 +410,11 @@
         </div>
         ${cm?`<div class="thread">${cm}</div>`:''}
         <div class="cmtbox">
-          <textarea data-cm="${d.id}" placeholder="이 양식에 대한 의견 — 통합 대상 아닌가요? 이건 근거가 있습니다 …"></textarea>
+          <textarea data-cm="${d.id}" placeholder="이 양식의 유지 근거, 통합 가능성, 업무상 제약 등을 입력하세요."></textarea>
           <button class="btn sm" data-a="cmt" data-id="${d.id}" style="align-self:flex-end">남기기</button>
         </div>
         <div class="cfoot">
-          <button class="btn ghost sm" data-a="del" data-id="${d.id}" style="color:var(--v-web)">대장에서 빼기</button>
+          <button class="btn ghost sm" data-a="del" data-id="${d.id}" style="color:var(--v-web)">양식 삭제</button>
           <span class="byline">${esc(d.who||'익명')} · ${new Date(d.ts).toLocaleDateString('ko-KR')}</span>
         </div>
       </div></div>`;
@@ -424,8 +424,7 @@
     const ds=Object.values(S.docs).filter(d=>d.proc&&d.proc.name);
     const loose=Object.values(S.docs).filter(d=>!d.proc||!d.proc.name);
     if(!ds.length){
-      $('#v-proc').innerHTML=`<div class="empty"><h3>업무 흐름이 아직 없습니다</h3>
-        <p>대장에서 각 양식에 "어떤 업무 흐름에 속하나"를 채우면<br>여기에 순서대로 늘어서고, 같은 내용을 다시 적는 지점이 드러납니다.</p></div>`;
+      $('#v-proc').innerHTML=`<div class="empty"><h3>등록된 업무 프로세스가 없습니다</h3><p>각 양식의 업무 프로세스와 단계 번호를 입력하면 실행 순서와 재입력 구간을 확인할 수 있습니다.</p></div>`;
       return;
     }
     const g={};
@@ -442,14 +441,13 @@
             <div class="stepname">${esc(d.name)}
               <span class="verdict" style="background:${V.c};font-size:9.5px;margin-left:6px">${judge(d)}</span></div>
             <div class="stepmeta">${p.n||0}${esc(p.unit||'')} × ${p.min||0}분 = 연 ${h.toFixed(1)}시간${d.privacy===3?' · 민감정보':''}</div>
-            ${p.re?`<div class="rebox">앞 문서에 있는 내용을 다시 적습니다${p.reNote?` — <b>${esc(p.reNote)}</b>`:''}</div>`:''}
+            ${p.re?`<div class="rebox">앞 단계 문서의 내용을 다시 입력합니다${p.reNote?` — <b>${esc(p.reNote)}</b>`:''}</div>`:''}
           </div>`}).join('')}</div></div>`;
     }).join('');
 
     const tot=ds.filter(d=>d.proc.re).reduce((a,d)=>a+hours(d),0);
     html=`<p style="font-size:13px;color:var(--ink2);margin:0 0 20px;padding:11px 13px;background:#F4F6F8;border-left:2.5px solid var(--ink)">
-      양식 하나씩 보면 다 필요해 보입니다. <b>흐름으로 세워 놓아야</b> 같은 내용을 두 번 세 번 적는 지점이 보입니다.
-      빨간 점이 그 지점이고, 통합 1순위입니다.${tot?` 지금 표시된 재입력에만 연 <b>${tot.toFixed(0)}시간</b>이 들어갑니다.`:''}</p>`+html;
+      개별 양식이 아니라 전체 업무 프로세스를 기준으로 보면 같은 내용을 반복해서 입력하는 구간을 확인할 수 있습니다. <b>빨간 점</b>은 재입력 구간이며 통합을 우선 검토할 대상입니다.${tot?` 현재 표시된 재입력 작업에는 연간 약 <b>${tot.toFixed(0)}시간</b>이 사용됩니다.`:''}</p>`+html;
     if(loose.length) html+=`<div class="pgroup"><h3 style="color:var(--ink3)">흐름 미지정 ${loose.length}건</h3>
       <p class="phint">${loose.slice(0,14).map(d=>esc(d.name)).join(' · ')}${loose.length>14?' …':''}</p></div>`;
     $('#v-proc').innerHTML=html;
@@ -476,7 +474,7 @@
       <div class="sumgrid">
         <div class="sumcard"><h4>판정 분포</h4>${bars}</div>
         <div class="sumcard"><h4>자동화 우선순위 — 연간 작성시간</h4>${top}</div>
-        <div class="sumcard"><h4>민감·고유식별 정보 (웹앱 검토)</h4>${list(risky,'아직 3등급으로 표시된 양식이 없습니다.')}</div>
+        <div class="sumcard"><h4>민감정보·고유식별정보(웹앱 검토)</h4>${list(risky,'3등급으로 표시된 양식이 없습니다.')}</div>
         <div class="sumcard"><h4>보존기한 미정</h4>${list(nokeep,'모든 양식에 보존기한이 있습니다.')}</div>
         <div class="sumcard"><h4>판정 보류 — 기준 더 채우기</h4>${list(todo,'보류 중인 양식이 없습니다.')}</div>
         <div class="sumcard"><h4>합계</h4>
@@ -487,10 +485,7 @@
         </div>
       </div>
       <p style="font-size:12.5px;color:var(--ink2);padding:12px 14px;background:#F4F6F8;border-left:2.5px solid var(--ink);margin:0">
-        <b>읽는 순서</b> — ① 삭제·통합 건수부터 봅니다. 줄이는 것이 1차 성과입니다.
-        ② 그다음 연간 작성시간 상위 항목이 자동화 1순위입니다.
-        ③ 민감정보 목록은 성과가 아니라 사고 예방 항목이라, 관리자에게 따로 보고합니다.
-        ④ 보존기한 미정이 남아 있으면 파기 대장을 만들 수 없습니다.</p>`;
+        <b>확인 순서</b> — ① 삭제·통합 판정을 먼저 검토합니다. 불필요한 업무를 줄이는 것이 우선입니다. ② 연간 작성시간이 긴 항목은 자동화 우선순위로 검토합니다. ③ 민감정보 목록은 개인정보 보호 조치가 필요한 항목으로 관리자에게 별도 보고합니다. ④ 보존 기간이 정해지지 않은 양식은 파기 기준을 먼저 결정합니다.</p>`;
   }
 
   /* ─── 이벤트 ─── */
@@ -514,7 +509,7 @@
     d.proc.step=parseInt($('#f-step').value)||null;
     S.docs[d.id]=d;
     $('#f-name').value='';$('#f-sum').value='';$('#f-step').value='';
-    await push(d); toast('대장에 올렸습니다'); $('#f-name').focus();
+    await push(d); toast('양식을 등록했습니다'); $('#f-name').focus();
   };
 
   ['#q','#fv','#fp'].forEach(s=>$(s).oninput=list);
@@ -540,8 +535,8 @@
       ta.value=''; await push(d); toast('의견을 남겼습니다');
     }
     else if(a==='del'){
-      if(!confirm('이 양식을 대장에서 뺍니다. 남긴 의견도 함께 사라집니다.')) return;
-      delete S.docs[b.dataset.id]; await push(b.dataset.id,true); toast('대장에서 뺐습니다');
+      if(!confirm('이 양식과 등록된 의견을 삭제합니다.')) return;
+      delete S.docs[b.dataset.id]; await push(b.dataset.id,true); toast('양식을 삭제했습니다');
     }
   });
   $('#cards').addEventListener('change',async e=>{
@@ -551,7 +546,7 @@
 
   $('#csv').onclick=()=>{
     const ds=Object.values(S.docs);
-    if(!ds.length){toast('내려받을 내용이 없습니다');return}
+    if(!ds.length){toast('다운로드할 내용이 없습니다');return}
     const H=['양식명','주요내용','업무흐름','단계','빈도','단위','1건분','연간시간','근거','법정서식','결재','협업','데이터화','개인정보','보존기한','재입력','재입력항목','판정','의견수','올린이'];
     const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
     const rows=ds.map(d=>{const p=d.proc||{};return[d.name,d.summary,p.name,p.step,p.n,p.unit,p.min,hours(d).toFixed(1),
@@ -579,7 +574,7 @@
       CRIT.forEach(([k])=>d.c[k]=!!s.c[k]); d.privacy=s.privacy; d.keep=s.keep; d.proc={...d.proc,...s.proc};
       S.docs[d.id]=d; await push(d);
     }
-    toast('예시 3건을 넣었습니다 — 업무 프로세스 탭을 눌러 보세요');
+    toast('예시 3건을 추가했습니다. 업무 프로세스 탭에서 결과를 확인하세요.');
   };
 
   $('#wipe').onclick=async()=>{
