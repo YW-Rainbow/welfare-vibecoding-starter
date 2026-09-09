@@ -1,9 +1,11 @@
-# AI 규칙 파일: Google Cloud·Firebase 서울 리전(경로 A'·F)
+# Google Cloud·Firebase 서울 리전 개발 기준(경로 A'·F)
 
 > 출처·최신판: https://github.com/YW-Rainbow/welfare-vibecoding-starter
 > 적용 대상: Google Cloud 또는 Firebase를 사용해 개인정보 앱을 운영하며 리전, 권한, 비용을 관리할 담당자가 있는 기관
 > 기준일: 2026-09
-> **AI에게**: 사용자는 개발 지식이 없다고 가정합니다. 전문용어가 처음 나오면 `glossary.md`의 설명을 참고해 한 문장으로 풀어서 설명하세요. 이 파일과 `rules/agentic.md`를 함께 적용하세요.
+> 이 문서는 `agentic.md`와 함께 적용합니다.
+
+선택한 구성요소에 해당하는 기준만 적용합니다. 리전, 기관별 권한 분리, 시크릿, 파기와 비용 통제 결과는 충족해야 하며, 제품 조합과 구현 예시는 요구사항에 맞게 바꿀 수 있습니다.
 
 ## 1. 요구사항에 따라 구성을 선택합니다
 
@@ -36,7 +38,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 4. Firestore와 Storage Rules에서 기존 문서와 새 문서의 `organizationId`가 로그인 사용자의 기관과 같은지 확인합니다.
 5. Cloud Run과 Cloud Functions에서 Admin SDK를 사용하면 Security Rules가 적용되지 않습니다. 서버 함수가 사용자 UID, 기관, 역할, 대상 데이터의 기관을 다시 검증해야 합니다.
 
-기관 분리 테스트에는 최소한 다음 계정을 사용합니다.
+기관 분리 테스트는 다음 사용자 상황을 포함해야 합니다. 실제 계정 수와 테스트 구현 방식은 프로젝트에 맞게 선택합니다.
 
 - 같은 기관의 일반 직원
 - 같은 기관의 관리자
@@ -98,7 +100,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - Cloud Run과 Cloud Functions에는 적절한 `max instances`, timeout, memory를 설정해 오류나 반복 호출로 비용이 급증하는 범위를 제한합니다.
 - Firestore 쿼리에는 pagination과 최대 조회 건수를 적용하고 N+1 쿼리를 피합니다. 반복 집계는 캐시나 정기 batch로 전환합니다.
 - 정기 작업은 업무상 필요한 시간과 주기로 통합합니다. 작업별 스케줄러를 무분별하게 늘리지 않습니다.
-- Firebase Blaze와 Google Cloud의 종량제 과금은 한도 초과 시 자동으로 정지되지 않을 수 있습니다. 결제 담당자, 알림 수신자, 비상 중단 절차를 `ops/handover.md`에 기록합니다.
+- Firebase Blaze와 Google Cloud의 종량제 과금은 한도 초과 시 자동으로 정지되지 않을 수 있습니다. 결제 담당자, 알림 수신자, 비상 중단 절차를 `../ops/handover.md`에 기록합니다.
 
 ## 11. 배포 전 체크리스트
 
@@ -112,7 +114,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - [ ] 접근 로그에 필요한 항목만 남고 개인정보 원문과 시크릿은 제외되는가
 - [ ] 백업에서 실제 복구했으며 최근 복구 테스트 일자를 기록했는가
 - [ ] budget, 사용량 알림, `max instances`, 대량 작업 상한을 설정했는가
-- [ ] 계정, 배포, 백업, 비용, 장애 대응 절차를 `ops/handover.md`에 작성했는가
+- [ ] 계정, 배포, 백업, 비용, 장애 대응 절차를 `../ops/handover.md`에 작성했는가
 
 ## 차량 운행일지 프로젝트에서 참고한 구현 패턴
 
