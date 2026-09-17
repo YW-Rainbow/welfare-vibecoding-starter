@@ -100,7 +100,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - Cloud Run과 Cloud Functions에는 적절한 `max instances`, timeout, memory를 설정해 오류나 반복 호출로 비용이 급증하는 범위를 제한합니다.
 - Firestore 쿼리에는 pagination과 최대 조회 건수를 적용하고 N+1 쿼리를 피합니다. 반복 집계는 캐시나 정기 batch로 전환합니다.
 - 정기 작업은 업무상 필요한 시간과 주기로 통합합니다. 작업별 스케줄러를 무분별하게 늘리지 않습니다.
-- Firebase Blaze와 Google Cloud의 종량제 과금은 한도 초과 시 자동으로 정지되지 않을 수 있습니다. 결제 담당자, 알림 수신자, 비상 중단 절차를 `../ops/handover.md`에 기록합니다.
+- Firebase Blaze와 Google Cloud의 종량제 과금은 한도 초과 시 자동으로 정지되지 않을 수 있습니다. 결제 담당자, 알림 수신자, 비상 중단 절차를 `../../ops/handover.md`에 기록합니다.
 
 ## 11. 배포 전 체크리스트
 
@@ -114,7 +114,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - [ ] 접근 로그에 필요한 항목만 남고 개인정보 원문과 시크릿은 제외되는가
 - [ ] 백업에서 실제 복구했으며 최근 복구 테스트 일자를 기록했는가
 - [ ] budget, 사용량 알림, `max instances`, 대량 작업 상한을 설정했는가
-- [ ] 계정, 배포, 백업, 비용, 장애 대응 절차를 `../ops/handover.md`에 작성했는가
+- [ ] 계정, 배포, 백업, 비용, 장애 대응 절차를 `../../ops/handover.md`에 작성했는가
 
 ## 차량 운행일지 프로젝트에서 참고한 구현 패턴
 

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "welfare-vibecoding-starter",
+  "description": "사회복지 바이브코딩 스타터팩. 앱을 만들기 전에 판단할 것을 정리한 문서와 스킬.",
+  "owner": {
+    "name": "신용우 (YW-Rainbow)",
+    "url": "https://github.com/YW-Rainbow"
+  },
+  "plugins": [
+    {
+      "name": "welfare-vibecoding-starter",
+      "description": "사회복지 기관에서 앱이나 자동화를 만들기 전에 업무·데이터·윤리·플랫폼·운영을 판단하는 절차",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

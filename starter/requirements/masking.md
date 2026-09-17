@@ -27,7 +27,7 @@
 |---|---|---|
 | Claude Haiku 4.5 ($1 / $5 per MTok) | 약 $2 | 약 $50 |
 | Claude Sonnet 5 ($2 / $10 per MTok) | 약 $3.5 | 약 $105 |
-| 같은 일을 Batch API로(50% 할인, 밤에 몰아서) | 절반 | 절반 |
+| 같은 일을 Batch API로(50% 할인, 야간 일괄 처리) | 절반 | 절반 |
 
 **2. 개인정보보호법 제23조에 따른 민감정보 별도 동의를 확인합니다.** 건강, 장애, 정신건강, 학대 이력은 민감정보에 해당하므로 별도 동의가 필요합니다.
 
@@ -44,7 +44,7 @@
 - 이용자 명부에 `동의_AI분석`, `동의_민감정보` 필드를 둡니다(`../data/ssot.md`). 두 값이 모두 참인 기록만 전송합니다. 클라이언트에서 버튼만 숨기지 말고 **서버에서 동의 상태를 검증**합니다.
 - 미동의 이용자의 화면에는 AI 분석 기능을 표시하지 않고 담당자가 직접 작성하는 기능만 제공합니다.
 - **AI 분석 결과만 저장하고 전송용 원문을 중복 저장하지 않습니다.** 원문은 기존 사례기록에 보관되어 있습니다.
-- API 키는 서버(GAS 스크립트 속성, Worker 비밀 변수)에만 둡니다. 화면 코드에 넣지 않습니다.
+- API 키는 서버(GAS 스크립트 속성, Workers secret)에만 둡니다. 화면 코드에 넣지 않습니다.
 - 누가 언제 어느 기록을 보냈는지 호출 기록을 남기고 2년 보관합니다(requirements.md 요건 8).
 - 동의서의 "학습에 사용하지 않음"과 "즉시 파기" 문구가 실제 API 정책과 일치해야 합니다. 기관이 만든 전송용 원문을 즉시 삭제하더라도 AI 제공 업체가 API 요청을 기본 30일 보관한다면 두 보존기간을 구분해 고지합니다(`../../ops/consent-notes.md` 3·4).
 - **마스킹하지 않는 앱에서는 동의서의 "직접 식별정보를 제거하고 전송합니다"라는 문구를 삭제합니다.** 실제 동작과 다른 설명을 동의서에 남기면 안 됩니다.
@@ -139,10 +139,10 @@ AI 분석에 필요하다면 **질병명, 심리 상태, 장애 유형은 유지
 
 | 서비스 | 한국 안에서만 추론되나 | 확인 결과 |
 |---|---|---|
-| 앤트로픽 API | ❌ | `inference_geo`는 `global`(기본)·`us` 둘뿐. 저장은 미국 |
+| Anthropic API | ❌ | `inference_geo`는 `global`(기본)·`us` 둘뿐. 저장은 미국 |
 | AWS Bedrock 서울(ap-northeast-2) | ❌ | Claude는 **Global 추론 프로필만** 제공. Global은 "전 세계 상용 리전 어디든" 처리하고, 입력·출력이 다른 리전에 저장될 수 있음 |
-| Azure Korea Central | ❌ | GPT 채팅 모델은 **지역 고정(Standard) 배포 없음.** APAC Data Zone만 |
-| Google Vertex AI 서울(asia-northeast3) | 미확인 | Claude 리전 표를 확인하지 못했다. 글로벌 엔드포인트는 "특정 위치 처리를 보장하지 않음"이라고 명시 |
+| Azure Korea Central | ❌ | GPT 채팅 모델은 **Standard(리전 고정) 배포 없음.** APAC Data Zone만 |
+| Google Vertex AI 서울(asia-northeast3) | 미확인 | Claude 리전 표를 확인하지 못함. 글로벌 엔드포인트는 "특정 위치 처리를 보장하지 않음"이라고 명시 |
 
 주요 세 업체의 모델 추론을 한국 리전으로만 고정하는 구성은 확인하지 못했습니다. 해외 AI API를 사용하는 앱은 국내 리전 이름만 근거로 국외 이전 검토를 생략하지 말고 **동의서 ③과 개인정보 처리방침에 국외 이전 내용을 반영**해야 합니다.
 
@@ -176,7 +176,7 @@ AI 분석에 필요하다면 **질병명, 심리 상태, 장애 유형은 유지
 - 마스킹하지 않는 앱의 동의서에 "직접 식별정보를 제거하고 전송합니다"라는 문구를 남기기
 - 분석 목적에 필요한 질병명과 심리 상태까지 일괄 삭제하기
 - 마스킹했다는 이유로 동의를 생략하기. 재식별할 수 있는 가명정보는 여전히 개인정보입니다
-- 통계·연구용 가명정보 특례(제28조의2)를 개별 이용자 서비스에 끌어오기
+- 통계·연구용 가명정보 특례(제28조의2)를 개별 이용자 서비스에 적용하기
 - 도구 하나의 결과를 믿고 표본 검수를 생략하기
 - 기록 서식은 그대로 두고 사후 탐지 도구에만 의존하기
 - AI 산출물을 확인 없이 법정 기록에 반영하기
@@ -200,13 +200,13 @@ AI API 호출 (사례기록 → API)
 - 질병명·심리상태·장애유형은 유지. 이름·주소·기관명·연락처·날짜·나이는 마스킹 또는 일반화
 - 이름은 의미 없는 임의 토큰보다 역할 태그로 치환: [대상자] [모] [부] [자녀1] [담당] [협력기관1]
 - 같은 사람은 매번 같은 태그로 (비밀키 기반 결정적 치환). 매핑표와 키는 국내, 따로 보관
-- 이름 뒤 조사(이/가/은/는/을/를/에게/씨/님)까지 함께 잡고, 바꾼 뒤 받침에 맞게 조사를 다시 붙인다
+- 이름 뒤 조사(이/가/은/는/을/를/에게/씨/님)까지 함께 탐지하고, 바꾼 뒤 받침에 맞게 조사를 다시 붙인다
 - 별칭·줄임말 사전(철수, 김씨, 큰애, 둘째, 할머니)을 대상자 명부에서 자동 생성
-- 주민번호·전화·계좌·차량번호는 형식으로 잡는다
+- 주민번호·전화·계좌·차량번호는 형식(패턴)으로 탐지한다
 - 학교·병원·기관은 공공데이터 목록(학교알리미·심평원·복지부·행정동코드)과 대조해 종별로 바꾼다
 - 나이는 5세 단위, 지역은 시군구 단위, 날짜는 월 단위로 일반화. 관할이 작으면 장애 등급과 질병명도 상위 범주로 일반화
 - 마스킹과 복원은 국내 환경에서만 수행. AI API에는 마스킹된 데이터만 전송
-- 어느 단계에서 무엇을 잡았는지 로그로 남긴다
+- 어느 단계에서 무엇을 탐지했는지 로그로 남긴다
 ```
 
 ## 개발자·에이전트용 부록
@@ -277,7 +277,7 @@ def token(name: str, case_id: str, role: str, secret: bytes) -> str:
 - [ ] 조사 처리와 받침 재조정을 넣었다
 - [ ] HMAC 키를 매핑표와 다른 곳에 두었다
 - [ ] 공공 사전 4종을 받고 갱신 주기를 정했다
-- [ ] NER 두 계열을 합집합으로 돌린다
+- [ ] NER 모델 두 개를 모두 실행해 결과를 합친다
 - [ ] 일반화 규칙을 적용했다
 - [ ] 매핑 테이블을 이용한 복원 처리가 국내 환경에서만 이루어진다
 - [ ] ARX로 k값을 계산하고 결과에 따라 일반화 수준을 조정했다
@@ -299,20 +299,20 @@ def token(name: str, case_id: str, role: str, secret: bytes) -> str:
 
 | 사실 | 출처 | 문서 날짜 |
 |---|---|---|
-| 앤트로픽 DPA에 민감정보 금지 조항 없음, Schedule 1 B.3 "None" | anthropic.com/legal/data-processing-addendum | 2025-02-24 효력 |
-| 앤트로픽 이용약관에 건강정보 제한 없음, 학습 미사용 | anthropic.com/legal/commercial-terms | 2025-06-17 효력 |
-| 앤트로픽 API 저장 위치 미국, `inference_geo`는 us·global | platform.claude.com/docs/en/manage-claude/data-residency | 현행 |
-| 앤트로픽 API 가격(Haiku 4.5 $1/$5, Sonnet 5 $2/$10, Batch 50%) | platform.claude.com/docs/en/about-claude/pricing | 현행 |
-| 앤트로픽 BAA 신청 경로, Team 불가 | support.claude.com 8114513, 13296973, 15455031 | 2026-07-01 ~ 07-23 |
-| 앤트로픽 ZDR은 API·Claude Code Enterprise만, 영업팀 경유 | privacy.claude.com 8956058 | 현행 |
-| 앤트로픽 API 보존 기본 30일 | privacy.claude.com 7996866 | 2026-07-01 |
-| 앤트로픽 비영리 할인은 Team $8·Enterprise만(API 없음) | claude.com/solutions/nonprofits | 현행 |
-| 구글 Cloud DPA "특별범주·민감정보를 포함하여" | cloud.google.com/terms/data-processing-addendum | 현행 |
+| Anthropic DPA에 민감정보 금지 조항 없음, Schedule 1 B.3 "None" | anthropic.com/legal/data-processing-addendum | 2025-02-24 효력 |
+| Anthropic 이용약관에 건강정보 제한 없음, 학습 미사용 | anthropic.com/legal/commercial-terms | 2025-06-17 효력 |
+| Anthropic API 저장 위치 미국, `inference_geo`는 us·global | platform.claude.com/docs/en/manage-claude/data-residency | 현행 |
+| Anthropic API 가격(Haiku 4.5 $1/$5, Sonnet 5 $2/$10, Batch 50%) | platform.claude.com/docs/en/about-claude/pricing | 현행 |
+| Anthropic BAA 신청 경로, Team 불가 | support.claude.com 8114513, 13296973, 15455031 | 2026-07-01 ~ 07-23 |
+| Anthropic ZDR은 API·Claude Code Enterprise만, 영업팀 경유 | privacy.claude.com 8956058 | 현행 |
+| Anthropic API 보존 기본 30일 | privacy.claude.com 7996866 | 2026-07-01 |
+| Anthropic 비영리 할인은 Team $8·Enterprise만(API 없음) | claude.com/solutions/nonprofits | 현행 |
+| Google Cloud DPA "특별범주·민감정보를 포함하여" | cloud.google.com/terms/data-processing-addendum | 현행 |
 | Gemini API 유료는 학습 미사용·DPA 적용, 무료는 학습·사람 검토 | ai.google.dev/gemini-api/terms | 2026-04-28 |
 | OpenAI DPA 민감정보 문구 | cdn.openai.com/pdf/openai-data-processing-addendum.pdf | v.010126 |
 | OpenAI 비영리 할인은 Business·Enterprise만(API 없음) | help.openai.com 9359041 | 현행 |
 | Bedrock 서울의 Claude는 Global 프로필만 | docs.aws.amazon.com/bedrock … models-region-compatibility, cross-region-inference | 현행 |
-| Azure Korea Central GPT는 지역 고정 배포 없음 | learn.microsoft.com … models-sold-directly-by-azure-region-availability | 2026-09-03 |
+| Azure Korea Central GPT는 Standard(리전 고정) 배포 없음 | learn.microsoft.com … models-sold-directly-by-azure-region-availability | 2026-09-03 |
 | Vertex 글로벌 엔드포인트는 위치 미보장 | cloud.google.com/blog … global-endpoint-for-claude-models | 2025-07-28 |
 | 개인정보보호법 제23조, 제28조의8 제1항 1호·3호, 제2항 | casenote.kr 조문 | 현행 |
 

@@ -6,11 +6,11 @@
 
 - [ ] 앱 이름, 용도, 사용 부서:
 - [ ] 접속 주소(URL):
-- [ ] 플랫폼 경로(`../docs/workflow.md` 기준 A/B/C/D):
+- [ ] 플랫폼 경로(`../starter/workflow.md` 기준 A/B/C/D):
 - [ ] 데이터 등급(S/P/N)과 판정 근거:
 - [ ] 최초 제작일, 제작에 사용한 AI 도구, 규칙 파일 버전:
-- [ ] 사람을 기록하는 앱이라면 수집 항목, 접근 권한, 보관 기간, `../docs/assess/ethics.md`의 다섯 질문에 대한 결정 내용과 결정일:
-- [ ] 기록별 보관 등급(`../docs/data/record-integrity.md` 기준 0~5)과 판정 근거:
+- [ ] 사람을 기록하는 앱이라면 수집 항목, 접근 권한, 보관 기간, `../starter/assess/ethics.md`의 다섯 질문에 대한 결정 내용과 결정일:
+- [ ] 기록별 보관 등급(`../starter/data/record-integrity.md` 기준 0~5)과 판정 근거:
 
 ## 기관 계정
 

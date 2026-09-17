@@ -14,11 +14,13 @@
 
 ## 코드
 
-`tools/`의 소스 코드와 문서 안의 코드 예시는 [MIT 라이선스](LICENSE-CODE)에 따라 이용할 수 있습니다. 복제물이나 중요한 부분에는 `LICENSE-CODE`의 저작권 고지와 허가 문구를 포함해야 합니다.
+문서 안의 코드 예시와 `plugin.json` 같은 설정 파일은 [MIT 라이선스](LICENSE-CODE)에 따라 이용할 수 있습니다. 복제물이나 중요한 부분에는 `LICENSE-CODE`의 저작권 고지와 허가 문구를 포함해야 합니다.
 
 ## 적용하지 않는 자료
 
 링크로 소개한 외부 자료와 별도의 저작자 또는 라이선스가 표시된 제3자 자료에는 해당 자료의 라이선스가 적용됩니다.
+
+`starter/rules/agentic.md`의 "가장 단순한 구현을 고릅니다" 절은 [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)(MIT License, Copyright (c) Dietrich Gebert)의 원칙을 사회복지 앱에 맞게 고쳐 쓴 것입니다.
 
 ## 책임 제한
 

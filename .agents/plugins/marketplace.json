@@ -1,0 +1,21 @@
+{
+  "name": "welfare-vibecoding-starter",
+  "interface": {
+    "displayName": "사회복지 바이브코딩 스타터팩"
+  },
+  "plugins": [
+    {
+      "name": "welfare-vibecoding-starter",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/YW-Rainbow/welfare-vibecoding-starter.git",
+        "ref": "main"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

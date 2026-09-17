@@ -21,6 +21,7 @@
 | 저장소 | 소개 |
 |---|---|
 | [vehicle-drive-log](https://github.com/dreamworker0/vehicle-drive-log) | 김종원 선생님이 사회복지기관과 비영리단체를 위해 만든 차량 운행일지 웹앱입니다. 실제 운영 중인 MIT 라이선스 오픈소스 프로젝트이며 하나의 인스턴스에서 여러 기관을 운영할 수 있습니다. README의 **"떼어 쓸 수 있는 것"** 표에는 기관별 데이터 격리, 접속 기록, 무료 한도에 맞춘 비용 설계와 fork할 때의 제약이 정리되어 있습니다. |
+| [Family-tree](https://github.com/dreamworker0/Family-tree) | 김종원 선생님이 만든 대화형 가계도(Genogram) 웹앱입니다. 인물을 추가하고 결혼·이혼·입양·임신·사망 등 가계도 기호로 관계를 그린 뒤 PNG로 내보내거나 JSON 파일로 저장해 다시 불러올 수 있습니다. 서버 없이 브라우저 안에서만 동작하므로 가족관계 같은 민감한 내용이 외부로 전송되지 않습니다. [`workflow.md`](workflow.md)의 경로 B(로컬 퍼스트)에 해당하는 사례입니다. |
 | [SW_EDMS](https://github.com/SWJoong/SW_EDMS) | 최중호 선생님이 바이브코딩으로 만든 전자결재 학습용 샘플입니다. 실제 근태·회계 업무에 바로 사용할 수 없다는 한계를 명시하고 기록 무결성을 보강한 스키마와 등급표를 공개했습니다. [`record-integrity.md`](data/record-integrity.md)의 원칙을 적용한 사례입니다. |
 
 ## 읽을거리

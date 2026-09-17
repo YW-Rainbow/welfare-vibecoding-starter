@@ -1,0 +1,27 @@
+{
+  "name": "welfare-vibecoding-starter",
+  "version": "1.0.0",
+  "description": "사회복지 현장 실무자가 앱을 만들기 전에 업무 필요성, 개인정보 등급, 윤리, 플랫폼, 운영 조건을 판단하는 절차. 코드를 짜기 전에 실행합니다.",
+  "author": {
+    "name": "신용우 (YW-Rainbow)",
+    "url": "https://github.com/YW-Rainbow"
+  },
+  "homepage": "https://github.com/YW-Rainbow/welfare-vibecoding-starter",
+  "repository": "https://github.com/YW-Rainbow/welfare-vibecoding-starter",
+  "license": "CC-BY-4.0",
+  "keywords": ["social-welfare", "korean", "privacy", "decision", "vibecoding"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "사회복지 바이브코딩 스타터팩",
+    "shortDescription": "앱을 만들기 전에 판단하는 절차",
+    "longDescription": "사회복지 기관에서 업무용 앱이나 자동화를 만들기 전에 업무의 필요성, 개인정보 등급, 사람에 관한 기록의 윤리, 플랫폼 경로, 운영 조건을 판단하고 DECISION.md로 정리합니다.",
+    "developerName": "신용우",
+    "category": "Productivity",
+    "capabilities": ["Instructions"],
+    "websiteURL": "https://github.com/YW-Rainbow/welfare-vibecoding-starter",
+    "defaultPrompt": [
+      "우리 기관 프로그램일지 앱을 만들려고 해. 사진도 회기당 2~3장 올라가.",
+      "담당자마다 엑셀로 관리하는 이용자 명부를 하나로 합치고 싶어."
+    ]
+  }
+}

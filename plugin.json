@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "welfare-vibecoding-starter",
+  "version": "1.0.0",
+  "description": "사회복지 현장 실무자가 앱을 만들기 전에 업무 필요성, 개인정보 등급, 윤리, 플랫폼, 운영 조건을 판단하는 절차. 코드를 짜기 전에 실행합니다.",
+  "author": {
+    "name": "신용우 (YW-Rainbow)",
+    "url": "https://github.com/YW-Rainbow"
+  },
+  "homepage": "https://github.com/YW-Rainbow/welfare-vibecoding-starter",
+  "repository": "https://github.com/YW-Rainbow/welfare-vibecoding-starter",
+  "license": "CC-BY-4.0",
+  "keywords": ["social-welfare", "korean", "privacy", "decision", "vibecoding"]
+}
