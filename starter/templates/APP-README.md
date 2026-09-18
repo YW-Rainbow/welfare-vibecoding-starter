@@ -1,6 +1,6 @@
 # (앱 이름)
 
-> 이 저장소는 [사회복지 바이브코딩 스타터팩](https://github.com/YW-Rainbow/welfare-vibecoding-starter)을 템플릿으로 만들었습니다. 앱을 만들기 전의 판단 근거는 `DECISION.md`에, 판단 절차와 개발 규칙은 `starter/`에 있습니다.
+> 이 저장소는 [사회복지 바이브코딩 스타터팩](https://github.com/YW-Rainbow/welfare-vibecoding-starter)의 절차로 판정한 뒤 만들었습니다. 앱을 만들기 전의 판단 근거는 `DECISION.md`에, 판단 절차와 개발 규칙은 `starter/`에 있습니다.
 
 ## 무엇을 하는 앱인가
 

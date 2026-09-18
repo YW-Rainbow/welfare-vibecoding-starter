@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "welfare-vibecoding-starter",
-      "description": "사회복지 기관에서 앱이나 자동화를 만들기 전에 업무·데이터·윤리·플랫폼·운영을 판단하는 절차",
+      "description": "사회복지 기관에서 앱이나 자동화를 만들기 전에 업무·데이터·윤리·플랫폼·운영을 판단하는 절차와 HWP 양식에서 앱까지 가는 절차",
       "source": "./",
       "category": "productivity"
     }

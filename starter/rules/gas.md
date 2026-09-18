@@ -110,7 +110,7 @@ clasp로 전환할 때는 다음 규칙을 적용합니다.
 3. 로컬 파일과 Git을 코드의 원본으로 정하고 브라우저 편집기에서 직접 수정하지 않습니다. 긴급 수정이 필요해 브라우저에서 변경했다면 즉시 `clasp pull`로 로컬에 반영합니다.
 4. `clasp push` 전에 Git 커밋을 만들어 배포 내용과 코드 이력을 맞춥니다.
 5. `../../ops/handover.md`의 소스 코드 위치에 저장소 주소와 `clasp clone <scriptId>` 절차를 기록합니다.
-6. 새 프로젝트는 clasp 설정, `AGENTS.md`, 요구사항 문서가 포함된 템플릿을 사용할 수 있습니다: https://github.com/YW-Rainbow/apps-script-vibe-starter
+6. clasp 설정과 에이전트 규칙이 갖춰진 템플릿(https://github.com/YW-Rainbow/apps-script-vibe-starter)의 내용을 앱 저장소의 `app/`에 복사해 시작할 수 있습니다. 별도 저장소로 클론해 두 저장소를 운영하지 않습니다.
 
 ## 운영상 제약
 

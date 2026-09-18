@@ -1,5 +1,6 @@
 # 동의서와 개인정보 처리방침 작성 시 주의사항
 
+> 출처·최신판: https://github.com/YW-Rainbow/welfare-vibecoding-starter
 > 전체 동의서 양식은 같은 폴더의 `consent-form-sample.md`를 사용합니다.
 > 법령 기준: 2026-08. 이 문서는 법률 자문이 아닌 실무 참고 자료이므로 실제 적용 전 전문가의 검토를 권장합니다.
 

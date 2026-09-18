@@ -2,7 +2,7 @@
 
 > 코드 템플릿이 아니라, 코드를 짜기 전에 필요한 정보와 판단 근거를 정리한 문서 모음입니다.
 > 템플릿으로 복사하거나 플러그인으로 설치해 AI와 대화하면, 무엇을 어디에 어떻게 만들지 함께 정리할 수 있습니다.
-> README.md 서문 외에는 저의 가이드에 따라 AI가 글을 쓰고 교정도 했습니다.
+> README.md 서문 외에는 AI가 글을 쓰고 교정도 했습니다.
 
 ## 어떻게 시작하나
 
@@ -29,6 +29,8 @@
 앱을 만드는 것 자체가 목적이 아닙니다. 반복 행정을 줄여 당사자를 만날 시간을 되찾는 것이 목적입니다. 그래서 앱을 만들거나 자동화에 앞서 스스로에게 질문해야 합니다. 이 절차는 법령이나 지침에서 요구하는 일인가, 아니면 우리 기관의 관행일 뿐이라 없애도 되는 일인가? 없애고, 줄이고, 남는 것만 앱으로 만들면 좋겠습니다.
 
 이를 위해 우리가 하는 일이 무엇인지 철저하게 규명하고 객관적으로 분석해야 합니다. 흔히 SOP를 작성한다고 하는데, 많은 기관은 이 과정 없이 앱을 만들기 시작합니다. 그래서 실제 SOP를 작성하고 그 과정에서 데이터베이스를 설계하는 절차를 넣었습니다.
+
+제가 요즘 가장 크게 느끼는 것은 우리 현장에 최초 기록을 참조하는 구조가 없다는 것입니다. 프로그램 접수는 전화와 종이로 받아 엑셀에 적고, 출석은 인쇄한 출석부에 강사가 표시하고, 담당자가 합계만 엑셀로 옮기고, 팀과 기관이 취합해 시군구에 내고, 그것이 다시 위로 올라갑니다. 단계마다 사람이 옮겨 적고, 중간에 한 번 틀리면 그 아래 작업을 전부 다시 합니다. 모든 결과물이 최초 기록을 바라보고 있는데, 정작 최초 기록을 참조하는 것이 아니라 사본을 다시 사본으로 만드는 구조입니다. 저는 디지털 전환이 종이를 화면으로 바꾸는 일이 아니라, 최초 기록이 생기는 순간 제대로 수집되고 그 뒤의 모든 작업이 그것을 참조하게 만드는 일이라고 생각합니다. 엑셀에 옮겨 적는 것은 디지털이 아니라 옮겨 적기입니다. 이것이 되어야 비로소 디지털 전환이 시작되고, AI 전환도 그 위에서만 가능합니다. 사람이 꼭 할 일을 먼저 정하고, 나머지 가운데 AI에 맡길 일을 고르고, AI가 한 일은 사람이 확인하고 되돌릴 수 있어야 합니다. [`ssot.md`](starter/data/ssot.md)와 [`ai.md`](starter/requirements/ai.md)는 그 출발점을 만드는 방법입니다.
 
 그런데 막상 기관에서 하려고 하면, 생각보다 저항이 심합니다. 당장 일이 많아지는 것 같기도 하고, 기존에 하던 방식이 마치 잘못된 것처럼 느껴지도록 메시지를 잘못 전하기도 하는 것 같습니다. 저는 그것이 사회복지 현장에서 ‘문제를 문제라고 정의하는 것’ 자체를 터부시하고, 익숙하지 않은 건 아닐까 생각합니다.
 
@@ -61,6 +63,8 @@
 
 > "우리 기관 프로그램일지 앱을 만들려고 해. 사진도 회기당 2~3장 올라가."
 
+처음 써 본다면 진짜 앱보다 먼저 개인정보가 없는 작은 앱을 하나 만들어 보세요. 안내 페이지, 계산기, 물품 재고, 익명 만족도 집계 같은 N등급 앱은 판정이 몇 분에 끝나고 서버도 필요 없습니다. 도구가 어떻게 움직이는지 익힌 뒤 진짜 앱의 판정으로 들어가면 질문이 길어도 흐름을 놓치지 않습니다.
+
 ### 첫 앱: 템플릿으로 내 저장소를 만든다
 
 1. 이 페이지 위쪽의 **Use this template** 버튼을 누르고 앱 이름으로 저장소를 만듭니다. 문서만 복사되고 이 저장소의 이력은 따라오지 않습니다.
@@ -70,7 +74,7 @@
 
 ### 두 번째 앱부터: 플러그인으로 설치한다
 
-이미 앱 폴더가 있거나 여러 앱을 만들 계획이라면 이 저장소를 플러그인으로 설치합니다. 한 번 설치하면 어느 폴더에서 시작해도 "복지관 앱을 만들고 싶어" 같은 말에 판단 절차가 자동으로 시작됩니다.
+이미 앱 폴더가 있거나 여러 앱을 만들 계획이라면 이 저장소를 플러그인으로 설치합니다. 한 번 설치하면 어느 폴더에서 시작해도 "복지관 앱을 만들고 싶어" 같은 말에 판단 절차가 자동으로 시작됩니다. 스킬은 두 개입니다. 앱 아이디어에서 시작하는 판정 절차와, HWP 양식 파일에서 시작하는 양식→앱 절차([`form-to-app.md`](starter/assess/form-to-app.md))입니다.
 
 Claude Code에서는 두 줄입니다.
 
@@ -121,10 +125,10 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 | 위치 | 내용 | 누가 쓰나 |
 |---|---|---|
 | `AGENTS.md`, `CLAUDE.md` | AI 도구가 폴더 안에서 자동으로 읽는 작업 규칙 | Codex, Claude Code |
-| `skills/` | 플러그인으로 설치할 때 사용하는 스킬. 규격상 위치가 고정되어 있습니다 | 도구 |
+| `skills/` | 플러그인으로 설치할 때 사용하는 스킬 두 개. 판정 절차와 HWP 양식→앱 절차. 규격상 위치가 고정되어 있습니다 | 도구 |
 | `starter/workflow.md` | 판단 절차 본문. 어떤 방법으로 시작해도 AI는 결국 이 문서를 읽습니다 | AI |
 | `starter/chat-prompt.md` | 채팅창에 붙이는 판단 안내 | 채팅 사용자 |
-| `starter/assess/`, `starter/data/`, `starter/requirements/` | 양식 점검과 윤리, 단일 원본과 기록 무결성, 보호·접근성·인쇄·마스킹 요건 | AI, 실무자 |
+| `starter/assess/`, `starter/data/`, `starter/requirements/` | 양식 점검, HWP 양식→앱 절차, 윤리 / 단일 원본, 기록 무결성, 데이터 관리 다섯 단계 / 보호·접근성·인쇄·마스킹·HWP·AI 요건 | AI, 실무자 |
 | `starter/glossary.md`, `starter/platform-facts.md`, `starter/resources.md` | 용어사전, 바뀌는 플랫폼 정보, 함께 볼 자료 | 실무자 |
 | `starter/rules/` | 플랫폼별 개발 규칙과 에이전트 안전 경계. 판정 뒤 `CLAUDE.md`와 `AGENTS.md`에 연결합니다 | AI |
 | `starter/templates/` | `DECISION.md`와 앱 README의 빈 양식 | AI가 복사 |
@@ -138,23 +142,28 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 현장에서 이미 만들어 쓰고 있는 도구와 앱, 그리고 이 저장소의 바탕이 된 글입니다. 각 자료의 자세한 소개와 이 저장소 문서와의 연결은 [`resources.md`](starter/resources.md)에 있습니다.
 
 **스타터 템플릿**
-- [apps-script-vibe-starter](https://github.com/YW-Rainbow/apps-script-vibe-starter) — 경로 C(GAS+시트)용. clasp 설정과 에이전트 규칙이 갖춰져 있어 클론한 뒤 바로 시작할 수 있습니다.
+- [apps-script-vibe-starter](https://github.com/YW-Rainbow/apps-script-vibe-starter) — 경로 C(GAS+시트)용. clasp 설정과 에이전트 규칙이 갖춰져 있습니다. 별도 저장소로 클론하지 않고 내용을 앱 저장소의 `app/`에 복사해 시작합니다.
 
 **만들 때 쓰는 도구**
 - [urimal-for-socialworker](https://github.com/dreamworker0/urimal-for-socialworker) — 계획서와 보고서를 자연스러운 우리말로 다듬는 Claude Code 스킬
 - [EASYREAD](https://github.com/SWJoong/EASYREAD) — 복잡한 한국어를 쉬운 정보(Easy-Read)로 바꾸는 MCP 서버
-- [vibecoding-pub](https://github.com/elbumlee/vibecoding-pub) — 비개발자의 요청을 기획·디자인·개발·배포 역할로 나누어 처리하는 Claude Code 스킬
+- [rhwp](https://github.com/edwardkim/rhwp) — 브라우저에서 HWP를 읽고 누름틀을 채워 저장하는 오픈소스 엔진. MCP로 AI가 HWP 양식을 직접 읽고, [크롬 확장](https://chromewebstore.google.com/detail/pgakpjflombjmehnebnbpnalhegaanag)으로 HWP를 브라우저에서 바로 엽니다
+- [rhwp-studio](https://github.com/dreamworker0/rhwp-studio) — Google Drive의 HWP를 열어 편집하고 저장하는 웹 편집기
 
-**실제로 만든 앱**
+**현장에서 만든 앱**
 - [vehicle-drive-log](https://github.com/dreamworker0/vehicle-drive-log) — 여러 기관이 함께 쓰는 차량 운행일지 웹앱, 실제 운영 중
 - [Family-tree](https://github.com/dreamworker0/Family-tree) — 서버 없이 브라우저에서만 동작하는 대화형 가계도(Genogram) 웹앱
 - [SW_EDMS](https://github.com/SWJoong/SW_EDMS) — 기록 무결성을 보강한 전자결재 학습용 샘플
 
+**이 저장소의 절차로 만든 앱**
+- 아직 없습니다. 이 절차로 앱을 만들었다면 [기여 안내](.github/CONTRIBUTING.md)를 보고 알려 주세요. 판정 기록(DECISION.md)과 함께 여기에 연결합니다.
+
 **읽을거리**
 - [사회복지사가 바이브 코딩까지 해요](https://socialwork-vibecoding.jijun74.workers.dev/) — 전재일 선생님의 온라인 책
 - [모두를 위한 스마트워크](https://wish.welfare.seoul.kr/swflmsfront/coworker/ksdetail.do?pno=10026&userno=58550) — 데이터 설계 방법론과 온톨로지 연재, `levels.md` 4단계의 바탕
-- [기록에서 데이터로, 데이터에서 삶으로](https://www.dtsw.org/journal/5668173483343872) — 흩어진 기록을 하나의 원장으로 모은 2년의 실천 보고
+- [기록에서 데이터로, 데이터에서 삶으로](https://www.dtsw.org/journal/5668173483343872) — 흩어진 기록을 하나의 원장으로 모은 뒤 AI를 연계한 2년의 실천 보고. `ai.md`의 바탕
+- [AI 시대, 사회복지 현장이 바꿀 것, 버릴 것, 지킬 것](https://www.welfare.net/communication/promotion/card-news-detail?searchType=all&searchValue=%EC%8B%A0%EC%9A%A9%EC%9A%B0&id=888716) — 신용우 칼럼(한국사회복지사협회 카드뉴스)과 실천지혜 연작. `ai.md`의 바탕
 
 ## 알아둘 것
 
-이 저장소의 문서는 법률 자문이 아닌 실무 참고 자료입니다. 민감정보를 다루는 시스템은 도입하기 전에 개인정보 전문가의 검토를 받으세요. 플랫폼의 가격, 한도, 리전 정보는 2026년 8월 기준이며 이후 달라질 수 있습니다. 문서는 CC BY 4.0, 코드와 코드 예시는 MIT 라이선스를 적용합니다. 자세한 범위는 [`LICENSE.md`](LICENSE.md)를 확인하세요.
+이 저장소의 문서는 법률 자문이 아닌 실무 참고 자료입니다. 판정 절차는 2026년 9월에 지금 구조로 정리되었고, 이 절차로 끝까지 만든 앱 사례는 아직 모으는 중입니다. 민감정보를 다루는 시스템은 도입하기 전에 개인정보 전문가의 검토를 받으세요. 플랫폼의 가격, 한도, 리전, AI 사업자 계약 정보는 각 문서 머리말의 기준일(2026년 8~9월)을 따르며 이후 달라질 수 있습니다. 문서는 CC BY 4.0, 코드와 코드 예시는 MIT 라이선스를 적용합니다. 자세한 범위는 [`LICENSE.md`](LICENSE.md)를 확인하세요.

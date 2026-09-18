@@ -20,7 +20,7 @@ license: CC-BY-4.0
 
 1. `../../AGENTS.md`를 읽고 그 규칙을 이 대화에 적용합니다.
 2. `../../starter/workflow.md`를 끝까지 읽습니다. 플랫폼보다 업무의 필요성과 사람에게 미치는 영향을 먼저 확인합니다.
-3. 사용자의 상황에 해당하는 문서만 추가로 읽습니다. 여러 양식은 `../../starter/assess/form-audit.md`, 여러 앱과 중복 데이터는 `../../starter/data/ssot.md`, 사람을 기록하는 앱은 `../../starter/assess/ethics.md`, 낯선 용어는 `../../starter/glossary.md`.
+3. 사용자의 상황에 해당하는 문서만 추가로 읽습니다. 목록은 `../../AGENTS.md` 4항에 있습니다. 낯선 용어는 `../../starter/glossary.md`를 참고합니다.
 4. 실제 이용자의 개인정보를 대화에 붙이도록 요구하지 않습니다.
 
 ## 판단을 마친 뒤
@@ -29,7 +29,7 @@ license: CC-BY-4.0
 
 1. 이 플러그인의 `../../starter/` 폴더 전체와 `../../ops/` 폴더를 앱 폴더로 복사합니다. 이미 같은 이름의 폴더가 있으면 덮어쓰지 않고 사용자에게 확인합니다.
 2. `../../AGENTS.md`와 `../../CLAUDE.md`를 앱 폴더로 복사합니다. 이미 있으면 덮어쓰지 않고, `AGENTS.md`에는 `starter/workflow.md`와 선택한 규칙을 읽으라는 문장을, `CLAUDE.md`에는 `@AGENTS.md` 한 줄을 덧붙입니다.
-3. `starter/templates/DECISION.md`를 앱 폴더 루트의 `DECISION.md`로 복사해 판단 결과를 채웁니다.
+3. (아래 경로는 복사한 앱 폴더 기준) `starter/templates/DECISION.md`를 앱 폴더 루트의 `DECISION.md`로 복사해 판단 결과를 채웁니다.
 4. 선택한 플랫폼의 규칙과 `starter/rules/agentic.md`를 `CLAUDE.md`에는 `@starter/rules/파일명.md`로, `AGENTS.md`에는 읽으라는 문장으로 연결합니다.
 5. 앱 폴더에 `README.md`가 없으면 `starter/templates/APP-README.md`를 바탕으로 만듭니다. 앱 코드는 `app/`처럼 별도 폴더에 둡니다.
 
