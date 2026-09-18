@@ -86,6 +86,7 @@ AI에 맡기기로 한 일에는 다음 규칙을 적용합니다. 이 방식을
 - `../data/record-integrity.md`: 변경 이력과 보관 등급
 - `../data/ssot.md`: AI를 올릴 최초 기록의 구조
 - `../data/levels.md`: 4단계, 관계와 판단 기준을 데이터로 관리하는 방법
+- `../assess/agent.md`: 슬랙 봇 같은 기관 공용 에이전트를 붙이기 전에 확인할 것
 - `../workflow.md`: 판정 절차. "AI 분석은 동의와 사람의 판단을 전제로 합니다"
 - `../../ops/consent-form-sample.md`: AI 활용 동의서의 네 항목
 

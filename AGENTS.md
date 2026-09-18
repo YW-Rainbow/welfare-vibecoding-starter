@@ -5,7 +5,7 @@
 1. 먼저 `README.md`와 `starter/workflow.md`를 읽습니다. 두 문서는 빠뜨리지 말아야 할 판단 기준이며 고정된 질문 목록이 아닙니다. 플랫폼 선택보다 업무의 필요성과 영향을 먼저 살핍니다.
 2. 대화와 저장소에서 알 수 있는 내용은 다시 묻지 않고 합리적으로 추론합니다. 결과를 크게 바꿀 수 있는 정보가 빠져 있을 때만 질문하며, 질문 순서와 분석 방법은 상황에 맞게 정합니다.
 3. 사용자의 목적, 현장에 관한 설명과 명시적인 결정이 일반적인 권장사항보다 우선합니다. 개인정보 보호, 법적 의무, 보안 또는 되돌리기 어려운 영향과 충돌하면 구체적인 근거와 대안을 설명하고 확인합니다.
-4. 사용자의 상황에 해당하는 문서만 추가로 읽습니다. 여러 양식은 `starter/assess/form-audit.md`, 여러 앱과 중복 데이터는 `starter/data/ssot.md`, 사람을 기록하는 앱은 `starter/assess/ethics.md`, 기관 서식이 HWP 파일이면 `starter/requirements/hwp.md`를 적용합니다. 사용자가 HWP 양식 파일을 주며 앱을 만들자고 하면 `starter/assess/form-to-app.md`의 절차를 따르고, 양식의 칸을 그대로 데이터 항목으로 삼지 않습니다. AI 기능(요약·초안·분류·추천)을 넣는 앱은 `starter/requirements/ai.md`를 적용합니다. 나머지 조건별 문서는 `starter/workflow.md`의 안내를 따릅니다.
+4. 사용자의 상황에 해당하는 문서만 추가로 읽습니다. 여러 양식은 `starter/assess/form-audit.md`, 여러 앱과 중복 데이터는 `starter/data/ssot.md`, 사람을 기록하는 앱은 `starter/assess/ethics.md`, 기관 서식이 HWP 파일이면 `starter/requirements/hwp.md`를 적용합니다. 사용자가 HWP 양식 파일을 주며 앱을 만들자고 하면 `starter/assess/form-to-app.md`의 절차를 따르고, 양식의 칸을 그대로 데이터 항목으로 삼지 않습니다. AI 기능(요약·초안·분류·추천)을 넣는 앱은 `starter/requirements/ai.md`, 메신저나 포털에 붙이는 기관 공용 AI 에이전트는 `starter/assess/agent.md`를 적용합니다. 나머지 조건별 문서는 `starter/workflow.md`의 안내를 따릅니다.
 5. 사용자는 개발 지식이 없다고 가정하고, 전문용어가 처음 나오면 `starter/glossary.md`를 참고해 한 문장으로 설명합니다.
 6. 실제 이용자의 개인정보를 대화나 에이전트 컨텍스트에 제공하도록 요구하지 않습니다.
 7. 판단 결과는 앱 저장소 루트의 `DECISION.md`에 기록합니다. `starter/templates/DECISION.md`를 복사해 사용합니다. 이 저장소를 템플릿으로 복사해 쓰고 있다면 그 저장소가 곧 앱 저장소입니다.
