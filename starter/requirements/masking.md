@@ -140,7 +140,7 @@ AI 분석에 필요하다면 **질병명, 심리 상태, 장애 유형은 유지
 | 서비스 | 한국 안에서만 추론되나 | 확인 결과 |
 |---|---|---|
 | Anthropic API | ❌ | `inference_geo`는 `global`(기본)·`us` 둘뿐. 저장은 미국 |
-| AWS Bedrock 서울(ap-northeast-2) | ❌ | Claude는 **Global 추론 프로필만** 제공. Global은 "전 세계 상용 리전 어디든" 처리하고, 입력·출력이 다른 리전에 저장될 수 있음 |
+| AWS Bedrock 서울(ap-northeast-2) | ❌ | Claude는 **교차 리전 추론 프로필만** 제공. Global은 "전 세계 상용 리전 어디든" 처리하고, 지역 프로필의 선택지는 미국·EU·일본·호주라 한국은 없음(2026-09 확인) |
 | Azure Korea Central | ❌ | GPT 채팅 모델은 **Standard(리전 고정) 배포 없음.** APAC Data Zone만 |
 | Google Vertex AI 서울(asia-northeast3) | 미확인 | Claude 리전 표를 확인하지 못함. 글로벌 엔드포인트는 "특정 위치 처리를 보장하지 않음"이라고 명시 |
 
