@@ -165,6 +165,7 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 - [모두를 위한 스마트워크](https://wish.welfare.seoul.kr/swflmsfront/coworker/ksdetail.do?pno=10026&userno=58550) — 데이터 설계 방법론과 온톨로지 연재, `levels.md` 4단계의 바탕
 - [기록에서 데이터로, 데이터에서 삶으로](https://www.dtsw.org/journal/5668173483343872) — 흩어진 기록을 하나의 원장으로 모은 뒤 AI를 연계한 2년의 실천 보고. `ai.md`의 바탕
 - [AI 시대, 사회복지 현장이 바꿀 것, 버릴 것, 지킬 것](https://www.welfare.net/communication/promotion/card-news-detail?searchType=all&searchValue=%EC%8B%A0%EC%9A%A9%EC%9A%B0&id=888716) — 신용우 칼럼(한국사회복지사협회 카드뉴스)과 실천지혜 연작. `ai.md`의 바탕
+- [사회복지 현장 AI·바이브코딩 안전사용 가이드](https://docs.google.com/document/d/1at2PqpW1kG3zEh5XIDaTLMC2ozN0Ar1Gf9YgvSjmnTc/edit?usp=sharing) — 신용우의 기관용 AI 사용 가이드라인·동의서·처리방침 제작 매뉴얼. `ops/`의 동의서 양식과 같은 기준
 
 ## 알아둘 것
 
