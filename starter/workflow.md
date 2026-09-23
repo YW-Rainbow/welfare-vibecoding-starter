@@ -264,4 +264,4 @@ S등급 기록을 AI API로 전송하려면 먼저 `requirements/masking.md`를 
 
 ## 판단을 마친 뒤
 
-판정 결과와 근거는 `templates/DECISION.md`를 복사해 앱 저장소 루트의 `DECISION.md`로 정리합니다. 앱은 같은 저장소의 `app/` 같은 별도 폴더에서 만들고, 선택한 `rules/` 파일과 `rules/agentic.md`를 `CLAUDE.md`와 `AGENTS.md`에 연결합니다. `starter/`와 `ops/`는 판단 근거와 운영 자료이므로 삭제하지 않습니다. 필요한 `../ops/` 문서는 기관의 절차에 맞게 채웁니다.
+판정 결과와 근거는 `templates/DECISION.md`를 복사해 앱 저장소 루트의 `DECISION.md`로 정리합니다. 앱은 같은 저장소의 `app/` 같은 별도 폴더에서 만들고, 선택한 `rules/` 파일과 `rules/agentic.md`를 `CLAUDE.md`와 `AGENTS.md`에 연결합니다. `starter/`와 `ops/`는 판단 근거와 운영 자료이므로 삭제하지 않습니다. `../ops/`의 인수인계와 파기 대장은 앱마다 채웁니다. 동의서와 처리방침 파일은 참고 양식이므로, 기관이 실제로 쓰는 원본 하나를 고치고 그 위치를 `DECISION.md`에 적습니다.
