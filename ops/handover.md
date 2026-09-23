@@ -56,7 +56,7 @@
 - [ ] 사용한 도구와 규칙 파일 위치(예: Claude Code와 저장소 루트의 `CLAUDE.md`):
 - [ ] 작업 재개 절차(저장소 clone, 규칙 확인, 개발용 인증 정보 연결, 테스트 실행):
 - [ ] 개발용과 운영용 인증 정보를 분리했는가:
-- [ ] 에이전트가 운영에 반영하거나 운영 DB를 바꾸는 명령과 커넥터 도구가 모두 확인 규칙(`.claude/settings.json`, Codex는 `.codex/rules/`)에 들어 있는가:
+- [ ] 에이전트가 운영에 반영하거나 운영 DB를 바꾸는 명령과 커넥터 도구가 모두 확인 규칙(`.claude/settings.json`, Codex는 명령은 `.codex/rules/`, 커넥터 도구는 `.codex/config.toml`의 `approval_mode = "prompt"`)에 들어 있는가:
 - [ ] 에이전트에게 보이는 인증 정보로는 개인정보에 바로 닿을 수 없는가:
 
 ## 장애 대응
