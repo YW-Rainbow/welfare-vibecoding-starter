@@ -16,7 +16,7 @@
 
 ## 2. 보안 기본 설정
 
-1. API 키와 토큰은 Cloudflare에 등록하고 코드나 저장소에 넣지 않습니다. Secrets Store(2026년 9월 공개 베타, 계정당 저장소 하나에 비밀값 100개)를 쓰면 계정의 비밀값을 한곳에서 관리하고, 등록한 값은 다시 볼 수 없습니다. 저장소가 하나뿐이므로 `AI_KEY_STAGING`, `AI_KEY_PROD`처럼 이름으로 스테이징과 운영을 나누고, 코드에서는 `await env.이름.get()`으로 읽습니다. 일반 Worker 비밀값(`wrangler secret put`)은 `env.이름`으로 바로 읽습니다. 로컬 개발용 `.dev.vars`는 `.gitignore`에 추가합니다.
+1. API 키와 토큰은 Cloudflare에 등록하고 코드나 저장소에 넣지 않습니다. Secrets Store(2026년 9월 현재 공개 베타, 계정당 비밀값 저장소 하나에 비밀값 100개)를 쓰면 계정의 비밀값을 한곳에서 관리하고, 등록한 값은 다시 볼 수 없습니다. 비밀값 저장소가 하나뿐이므로 비밀값 이름을 `AI_KEY_STAGING`, `AI_KEY_PROD`처럼 나누고, wrangler 설정의 스테이징과 운영 환경에는 같은 바인딩 이름(`AI_KEY`)에 `secret_name`만 다르게 연결합니다. 그러면 코드는 두 환경 모두 `await env.AI_KEY.get()`으로 읽습니다. 이름은 구분일 뿐 접근 제한이 아니므로, 운영 반영 전 보고에 스테이징 설정이 `_PROD` 비밀값을 쓰지 않는지 함께 적습니다. 일반 Worker 비밀값(`wrangler secret put`)은 `env.이름`으로 바로 읽습니다. 로컬 개발용 `.dev.vars`는 `.gitignore`에 추가합니다.
 2. CORS는 앱이 사용하는 도메인만 허용합니다. 쓰기 API에 `Access-Control-Allow-Origin: *`를 사용하지 않습니다.
 3. `POST`, `PUT`, `DELETE` 요청에는 토큰이나 Cloudflare Access를 사용해 권한을 확인합니다. 공개 데이터라도 쓰기 권한을 모두에게 허용하면 스팸과 데이터 변조가 발생할 수 있습니다.
 4. D1 쿼리는 바인딩 파라미터를 사용합니다. 사용자 입력을 문자열로 연결해 SQL을 만들지 않습니다.
@@ -25,20 +25,22 @@
 
 이 구성은 관리 화면과 운영 절차를 자동으로 제공하지 않습니다. 다음 항목을 앱과 운영 문서에 포함합니다.
 
-1. **백업**: D1은 시점 복구(Time Travel)가 항상 켜져 있어 유료 플랜은 30일, 무료 플랜은 7일 전까지 비용 없이 되돌릴 수 있습니다. 복구하면 데이터베이스 전체를 덮어쓰므로 그 뒤에 들어온 자료도 사라집니다. 이보다 오래 보관해야 하면 `wrangler d1 export`로 SQL 덤프를 받아 별도 위치에 둡니다. 백업 파일에서 실제로 복구할 수 있는지 테스트합니다.
+1. **백업**: D1은 시점 복구(Time Travel)가 항상 켜져 있어 유료 플랜은 30일, 무료 플랜은 7일 전까지 비용 없이 되돌릴 수 있습니다. 복구하면 데이터베이스 전체를 덮어쓰므로 그 뒤에 들어온 자료도 사라집니다. 이보다 오래 보관해야 하면 `npx wrangler d1 export <DB> --remote --output=./backup.sql`로 SQL 덤프를 받아 별도 위치에 둡니다. 내보내는 동안 다른 요청이 멈추므로 이용이 적은 시간에 합니다. 백업 파일에서 실제로 복구할 수 있는지 테스트합니다.
 2. **관리 화면**: 후임자가 데이터를 확인할 수 있도록 테이블 조회와 CSV 내보내기를 제공하는 최소한의 읽기 전용 관리 화면을 만듭니다.
 3. **인수인계**: Cloudflare와 GitHub 저장소의 연결 설정, 스테이징과 운영 주소, AI에게 준 권한과 그 주인, 도메인 설정을 `../../ops/handover.md`에 기록합니다. 비밀번호와 토큰 자체는 문서에 적지 않습니다.
 
 ## 4. 배포와 스테이징
 
-이 경로는 GitHub Actions 없이 배포할 수 있습니다. 운영 반영과 DB 변경의 원칙은 `agentic.md`의 "운영 반영과 DB 변경은 사람이 결정하고 AI가 실행합니다"를 따릅니다.
+이 경로는 GitHub Actions 없이 배포할 수 있습니다. 운영 반영과 DB 변경의 원칙은 `agentic.md`의 "운영 반영과 DB 변경은 사람이 결정하고 AI가 실행합니다"를 따릅니다. Worker와 D1 없이 화면만 있는 앱(안내 페이지, 계산기)은 1·2·4항만 적용하고, 작업 브랜치의 Pages 미리보기 주소에서 확인한 뒤 main에 합칩니다.
 
-1. **코드와 테스트**: AI가 Claude Code 클라우드 환경에서 저장소를 받아 코드를 고치고 테스트까지 돌린 뒤 GitHub에 올립니다. 내 컴퓨터에 개발 서버를 켜 둘 필요가 없습니다.
-2. **자동 배포**: Workers(API)와 Pages(화면)에 GitHub 저장소를 연결해 두면 main 브랜치에 합칠 때 Cloudflare가 직접 빌드하고 배포합니다. 빌드 명령에 테스트를 넣어 두고, 처음 한 번은 일부러 실패하는 테스트로 배포가 멈추는지 확인합니다. 빌드 단계에서는 실행용 비밀값을 읽을 수 없으므로 테스트는 비밀값 없이 돌게 만듭니다. Workers Builds는 무료 플랜에서 월 3,000분까지 빌드합니다.
-3. **스테이징**: 스테이징용 Worker와 D1을 운영과 따로 둡니다. wrangler 설정에 `staging` 환경을 만들어 스테이징 D1과 스테이징 비밀값을 연결하고, 스테이징 Worker는 staging 브랜치에 연결해 배포 명령을 `npx wrangler deploy --env staging`으로 둡니다. staging 브랜치에 올리면 테스트 사이트가 바뀝니다. 사람이 써 보고 문제가 없으면 main에 합치라고 AI에게 지시합니다.
-4. **미리보기**: Claude Code가 올리는 작업 브랜치(`claude/...`)에도 미리보기 빌드가 돕니다. 미리보기가 어느 DB에 연결되는지 확인하고, 필요 없으면 Worker의 Build 설정에 있는 Branch control에서 미리보기 빌드를 끕니다. 미리보기 명령을 `wrangler versions upload`로 바꾸면 운영 Worker의 자원을 그대로 쓰므로 바꾸지 않습니다. Pages와 Workers의 미리보기 주소는 기본으로 누구나 열 수 있으니 가상 데이터만 넣거나 Cloudflare Access로 막습니다.
+1. **코드와 테스트**: AI가 Claude Code(클라우드 환경이나 내 컴퓨터)에서 코드를 고치고 테스트까지 돌린 뒤 GitHub에 올립니다. 클라우드 환경을 쓰면 내 컴퓨터에 개발 서버를 켜 둘 필요가 없습니다.
+2. **자동 배포**: Workers(API)와 Pages(화면)에 GitHub 저장소를 연결해 두면 main 브랜치에 합칠 때 Cloudflare가 직접 빌드하고 배포합니다. main에 합치는 것이 곧 운영 반영이므로 AI는 main에서 직접 작업하지 않고, main으로 올리는 `git push`와 PR 병합은 확인 규칙에 넣습니다(`agentic.md`). 빌드 명령에 테스트를 넣어 두고, 처음 한 번은 일부러 실패하는 테스트로 배포가 멈추는지 확인합니다. 빌드 단계에서는 실행용 비밀값을 읽을 수 없으므로 테스트는 비밀값 없이 돌게 만듭니다. Workers Builds는 무료 플랜에서 월 3,000분까지 빌드합니다.
+3. **스테이징**: 스테이징용 Worker와 D1을 운영과 따로 둡니다. wrangler 설정에 `staging` 환경을 만들어 스테이징 D1과 스테이징 비밀값을 연결하고, 스테이징 Worker는 staging 브랜치에 연결해 배포 명령을 `npx wrangler deploy --env staging`으로 둡니다. 클라우드 환경의 AI는 자기 작업 브랜치에만 push할 수 있으므로 작업 브랜치에서 staging으로 PR을 만들어 합칩니다. 합치면 테스트 사이트가 바뀝니다. 사람이 써 보고 문제가 없으면 main에 합치라고 AI에게 지시합니다. Pages는 운영(Production)과 미리보기(Preview) 두 환경뿐이라 staging 브랜치와 작업 브랜치가 같은 미리보기 변수를 쓰므로, 미리보기 변수에는 스테이징 값만 넣습니다.
+4. **미리보기**: Claude Code가 올리는 작업 브랜치(`claude/...`)에도 미리보기 빌드가 실행됩니다. Pages와 Workers의 미리보기 주소는 기본으로 누구나 열 수 있으니 가상 데이터만 쓰게 하거나 Cloudflare Access로 막습니다. Worker Previews가 나오기 전에 Builds에 연결한 Worker는 미리보기가 운영 설정(운영 D1과 비밀값)을 그대로 씁니다. 이런 Worker는 Build 설정의 Branch control에서 미리보기 빌드를 끄거나, 미리보기 설정에 스테이징 D1을 연결한 뒤 안내에 따라 Worker Previews로 전환합니다. 전환은 되돌릴 수 없습니다. 미리보기 명령을 `wrangler versions upload`로 바꾸면 운영 Worker의 자원을 그대로 쓰므로 바꾸지 않습니다.
 5. **DB 변경**: 마이그레이션 파일을 저장소에 만들고, 사람이 승인하면 AI가 스테이징(`npx wrangler d1 migrations apply <DB> --remote --env staging`), 운영 순서로 적용합니다. 적용 전에 `npx wrangler d1 time-travel info <DB>`로 복구 지점을 받아 보고에 적습니다.
-6. **AI에게 주는 권한**: OAuth로 연결한 Cloudflare 공식 MCP 서버(Workers Bindings)처럼 AI에게 키가 보이지 않는 방식을 먼저 씁니다. 연결할 때 권한을 고르고, 쓰기 도구는 호출할 때마다 승인을 받게 합니다. 이때는 마이그레이션 파일과 같은 SQL을 커넥터로 실행합니다. 토큰을 쓴다면 D1 권한만 준 토큰을 발급합니다. D1 권한을 데이터베이스 하나로 좁히는 방법은 확인하지 못했으므로 스테이징과 운영에 모두 닿는다고 보고 확인 규칙을 둡니다. Claude Code 클라우드 환경의 기본 네트워크 설정은 `api.cloudflare.com`을 허용하지 않으므로, 토큰으로 wrangler를 쓰려면 네트워크를 Custom으로 바꾸고 이 주소를 추가합니다.
+6. **AI에게 주는 권한**: OAuth로 연결한 Cloudflare 공식 MCP 서버(Workers Bindings)처럼 AI에게 키가 보이지 않는 방식을 먼저 씁니다. 연결할 때 권한을 고르고, D1 쿼리 도구는 확인 규칙에 넣습니다. 커넥터로 SQL을 실행하면 wrangler의 적용 기록(`d1_migrations` 테이블)이 남지 않으므로 한 DB에는 커넥터와 wrangler 가운데 한 가지 방법만 씁니다. 커넥터로는 `time-travel info`를 쓸 수 없으니 적용 직전 시각(UTC)을 복구 지점으로 적습니다.
+
+   토큰을 쓴다면 D1 권한만 준 토큰을 발급합니다. D1 권한을 데이터베이스 하나로 좁히는 방법은 확인하지 못했으므로 스테이징과 운영에 모두 닿는다고 보고 확인 규칙을 둡니다. 이 경로에는 개인정보가 없으므로 `agentic.md`의 "운영 데이터베이스의 접속 정보는 에이전트에게 주지 않습니다"의 예외로 둡니다. 개인정보가 추가되면 1절에 따라 개발을 멈추고 이 토큰부터 폐기합니다. 클라우드 환경에서 토큰으로 wrangler를 쓰려면 claude.ai/code의 환경 설정에서 네트워크 접근을 Custom으로 바꾸고 `api.cloudflare.com`을 넣되, 기본 목록을 함께 허용하는 선택란(Also include default list of common package managers)도 켭니다. 끄면 npm 설치가 막혀 wrangler를 쓸 수 없습니다. Pro·Max 플랜은 환경의 API credentials에 등록하면 AI에게 토큰이 보이지 않지만, 이 방식에서 wrangler가 동작하는지는 스테이징에서 먼저 확인합니다.
 
 ## 5. 비용과 한도
 

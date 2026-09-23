@@ -68,7 +68,7 @@ PDF가 필요하면 브라우저 인쇄로 만들거나, 서버가 있는 경로
 
 ## 확인 필요
 
-이 문서를 쓰는 시점(2026년 9월)에 실제로 돌려 보지 않은 항목입니다. 첫 앱을 만들 때 확인하고, 결과는 원본 저장소에 이슈나 PR로 알려 주세요(`../../.github/CONTRIBUTING.md`). 앱 저장소 안의 `starter/`는 고치지 않습니다.
+이 문서를 쓰는 시점(2026년 9월)에 실제로 돌려 보지 않은 항목입니다. 첫 앱을 만들 때 확인하고, 결과는 원본 저장소에 이슈나 PR로 알려 주세요(https://github.com/YW-Rainbow/welfare-vibecoding-starter/blob/main/.github/CONTRIBUTING.md). 앱 저장소 안의 `starter/`는 고치지 않습니다.
 
 1. `@rhwp/core`만 사용할 때도 rhwp-studio처럼 `Cross-Origin-Opener-Policy`와 `Cross-Origin-Embedder-Policy` 헤더가 필요한지. 필요하다면 GAS 웹앱에서는 쓸 수 없고, Cloudflare Pages에서는 Google API 스크립트 로딩과 충돌할 수 있습니다.
 2. GAS 웹앱의 HTML에서 `@rhwp/core`를 CDN으로 로드해 실행할 수 있는지.
