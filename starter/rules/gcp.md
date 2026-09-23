@@ -102,7 +102,16 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - 정기 작업은 업무상 필요한 시간과 주기로 통합합니다. 작업별 스케줄러를 무분별하게 늘리지 않습니다.
 - Firebase Blaze와 Google Cloud의 종량제 과금은 한도 초과 시 자동으로 정지되지 않을 수 있습니다. 결제 담당자, 알림 수신자, 비상 중단 절차를 `../../ops/handover.md`에 기록합니다.
 
-## 11. 배포 전 체크리스트
+## 11. 배포와 스테이징
+
+운영 반영과 DB 변경의 원칙은 `agentic.md`의 "운영 반영과 DB 변경은 사람이 결정하고 AI가 실행합니다"를 따릅니다.
+
+- 스테이징은 Firebase·GCP 프로젝트를 하나 더 만들어 가상 데이터만 넣습니다.
+- Firebase Hosting의 GitHub 연동은 GitHub Actions로 배포하고, 배포용 서비스 계정 키를 GitHub 비밀값에 올립니다. 키를 한곳에만 두려면 이 연동을 쓰지 않고, 사람이 승인한 뒤 AI가 `firebase deploy`로 올립니다. 이때 AI가 쓰는 인증은 배포에 필요한 역할만 준 서비스 계정으로 하고 Firestore 데이터를 읽는 권한은 주지 않습니다.
+- Security Rules와 인덱스는 에뮬레이터 테스트를 통과한 뒤 스테이징, 운영 순서로 배포합니다.
+- Firestore의 시점 복구(PITR)는 기본으로 꺼져 있습니다. 켜면 7일 전까지 되돌릴 수 있고 결제가 필요합니다. 운영 DB를 바꾸기 전에 켜져 있는지 확인합니다.
+
+## 12. 배포 전 체크리스트
 
 - [ ] Firestore, Cloud Storage, Cloud Run, Cloud Functions가 의도한 서울 리전에 생성되었는가
 - [ ] 다른 기관 계정과 비로그인 계정의 Firestore·Storage 접근이 차단되는가
