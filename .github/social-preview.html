@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Social preview</title>
+<!--
+  GitHub 소셜 미리보기 원본(1280×640). 결과 이미지는 같은 폴더의 social-preview.png입니다.
+  고친 뒤 다시 만들려면 Chrome에서 창 크기를 1280×640으로 두고 캡처하거나 다음처럼 실행합니다.
+  chrome --headless=new --hide-scrollbars --window-size=1280,900 --screenshot=out.png social-preview.html
+  (창을 900px로 캡처한 뒤 위쪽 640px만 잘라 씁니다.)
+  글꼴: Pretendard(SIL Open Font License). jsDelivr에서 불러오므로 인터넷이 연결되어 있거나 Pretendard가 설치되어 있어야 같은 모양으로 나옵니다.
+-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+
+  :root {
+    --bg: #FBF7F0;
+    --ink: #13343B;
+    --teal: #1F7A6D;
+    --teal-soft: #DDEDE9;
+    --coral: #E4694A;
+    --coral-soft: #FBE3DB;
+    --sun: #F2B94B;
+    --sun-soft: #FCEFD3;
+    --muted: #5E6D70;
+    --line: #E6DED1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1280px; height: 640px; overflow: hidden; }
+  body {
+    font-family: "Pretendard", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+  }
+
+  /* rainbow thread along the top, a nod to the maker */
+  .thread { position: absolute; top: 0; left: 0; right: 0; height: 8px; display: flex; }
+  .thread i { flex: 1; }
+
+  .wrap { position: absolute; inset: 56px 64px 44px 72px; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 17px; font-weight: 600; color: var(--teal);
+    background: var(--teal-soft); border-radius: 999px; padding: 7px 16px 7px 12px;
+  }
+  .eyebrow .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--teal); }
+
+  h1 {
+    margin-top: 22px;
+    font-size: 66px; font-weight: 800; line-height: 1.08; letter-spacing: -0.035em;
+  }
+  .en-title {
+    margin-top: 10px;
+    font-size: 30px; font-weight: 600; color: var(--teal); letter-spacing: -0.015em;
+  }
+  .tag-ko {
+    margin-top: 26px;
+    font-size: 25px; font-weight: 600; line-height: 1.45; letter-spacing: -0.02em;
+  }
+  .tag-en {
+    margin-top: 6px;
+    font-size: 19px; font-weight: 400; color: var(--muted);
+  }
+
+  .flow { margin-top: 30px; display: flex; align-items: center; gap: 12px; }
+  .step {
+    display: flex; flex-direction: column; justify-content: center;
+    height: 66px; padding: 0 20px; border-radius: 16px;
+  }
+  .step b { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; }
+  .step span { font-size: 14px; font-weight: 500; opacity: 0.8; margin-top: 2px; }
+  .s1 { background: var(--coral-soft); color: #9A3A22; }
+  .s2 { background: var(--sun-soft); color: #7A5310; }
+  .s3 { background: var(--teal); color: #fff; }
+  .arrow { font-size: 22px; color: #B7AC9C; font-weight: 700; }
+
+  .foot {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1.5px solid var(--line); padding-top: 18px;
+  }
+  .chips { display: flex; gap: 10px; }
+  .chip {
+    white-space: nowrap; font-size: 15px; font-weight: 600; color: var(--ink);
+    border: 1.5px solid var(--line); background: #fff; border-radius: 999px; padding: 7px 14px;
+  }
+  .chip em { font-style: normal; font-weight: 500; color: var(--muted); margin-left: 6px; }
+  .repo { font-size: 16px; font-weight: 500; color: var(--muted); text-align: right; line-height: 1.35; }
+  .repo strong { display: block; font-weight: 700; color: var(--ink); font-size: 16px; }
+
+  /* right-side illustration: the decision record comes before the code */
+  .art { position: absolute; right: 64px; top: 106px; width: 360px; height: 356px; }
+  .card { position: absolute; border-radius: 22px; }
+  .back2 { inset: 30px -14px -2px 34px; background: var(--sun-soft); transform: rotate(5deg); }
+  .back1 { inset: 14px -2px 12px 18px; background: var(--coral-soft); transform: rotate(2.2deg); }
+  .front {
+    inset: 0 18px 26px 0; background: #fff;
+    box-shadow: 0 18px 40px rgba(19, 52, 59, 0.10), 0 2px 6px rgba(19, 52, 59, 0.06);
+    padding: 26px 26px 20px;
+  }
+  .front .file { display: flex; align-items: center; justify-content: space-between; }
+  .front .file b { font-size: 19px; font-weight: 800; letter-spacing: -0.01em; }
+  .front .file span { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .rows { margin-top: 20px; display: flex; flex-direction: column; gap: 13px; }
+  .row { display: flex; align-items: center; gap: 12px; }
+  .ck {
+    flex: none; width: 26px; height: 26px; border-radius: 8px; background: var(--teal);
+    display: grid; place-items: center;
+  }
+  .ck svg { width: 15px; height: 15px; }
+  .row .t { white-space: nowrap; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  .row .t em { font-style: normal; font-size: 13.5px; font-weight: 500; color: var(--muted); margin-left: 6px; letter-spacing: 0; }
+  .grades { margin-left: auto; display: flex; gap: 4px; }
+  .g { width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; font-size: 13px; font-weight: 800; }
+  .gS { background: var(--coral); color: #fff; }
+  .gP { background: var(--sun); color: #5B3C05; }
+  .gN { background: var(--teal-soft); color: var(--teal); }
+  .code {
+    margin-top: 20px; border-top: 1.5px dashed var(--line); padding-top: 14px;
+    display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--muted);
+  }
+  .code .bar { height: 8px; border-radius: 4px; background: #EFE9DF; }
+</style>
+</head>
+<body>
+  <div class="thread">
+    <i style="background:#E4694A"></i><i style="background:#F2B94B"></i><i style="background:#9BC26B"></i>
+    <i style="background:#1F7A6D"></i><i style="background:#3E7CB1"></i><i style="background:#7B6AA8"></i>
+  </div>
+
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>사회복지 현장을 위한 오픈소스 · Open source for social work</div>
+
+    <h1>사회복지<br>바이브코딩 스타터팩</h1>
+    <div class="en-title">Social Welfare Vibe-Coding Starter</div>
+
+    <div class="tag-ko">코드를 짜기 전에, 무엇을 없애고 무엇을 만들지 먼저 정합니다.</div>
+    <div class="tag-en">Decide what to remove, reduce, and build — before a single line of code.</div>
+
+    <div class="flow">
+      <div class="step s1"><b>없애기</b><span>Remove</span></div>
+      <div class="arrow">→</div>
+      <div class="step s2"><b>줄이기</b><span>Reduce</span></div>
+      <div class="arrow">→</div>
+      <div class="step s3"><b>남은 것만 앱으로</b><span>Build only what remains</span></div>
+    </div>
+
+    <div class="foot">
+      <div class="chips">
+        <div class="chip">개인정보 보호법 기준<em>Korean privacy law</em></div>
+        <div class="chip">사람이 결정, AI가 실행<em>Humans decide, AI acts</em></div>
+      </div>
+      <div class="repo"><strong>Claude Code · Codex · Chat</strong>github.com/YW-Rainbow/welfare-vibecoding-starter</div>
+    </div>
+  </div>
+
+  <div class="art">
+    <div class="card back2"></div>
+    <div class="card back1"></div>
+    <div class="card front">
+      <div class="file"><b>DECISION.md</b><span>판단 기록 · Decision record</span></div>
+      <div class="rows">
+        <div class="row"><div class="ck"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="t">업무 점검<em>Work check</em></div></div>
+        <div class="row"><div class="ck"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="t">데이터 등급<em>Data grade</em></div><div class="grades"><div class="g gS">S</div><div class="g gP">P</div><div class="g gN">N</div></div></div>
+        <div class="row"><div class="ck"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="t">동의와 처리방침<em>Consent</em></div></div>
+        <div class="row"><div class="ck"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="t">플랫폼 경로<em>Platform path</em></div></div>
+        <div class="row"><div class="ck"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="t">인수인계<em>Handover</em></div></div>
+      </div>
+      <div class="code">
+        <span>그다음에 코드 · then code</span>
+        <div class="bar" style="width:64px"></div><div class="bar" style="width:38px"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
