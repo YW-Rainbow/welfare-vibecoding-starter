@@ -141,31 +141,32 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 
 ## 함께 보면 좋은 자료
 
-현장에서 이미 만들어 쓰고 있는 도구와 앱, 그리고 이 저장소의 바탕이 된 글입니다. 각 자료의 자세한 소개와 이 저장소 문서와의 연결은 [`resources.md`](starter/resources.md)에 있습니다.
+현장에서 이미 만들어 쓰고 있는 도구와 앱, 그리고 이 저장소의 바탕이 된 글입니다. 이 저장소는 아래 분들의 작업에 기대어 만들어졌습니다. 감사드립니다. 각 자료의 자세한 소개와 이 저장소 문서와의 연결은 [`resources.md`](starter/resources.md)에 있습니다.
 
 **스타터 템플릿**
-- [apps-script-vibe-starter](https://github.com/YW-Rainbow/apps-script-vibe-starter) — 경로 C(GAS+시트)용. clasp 설정과 에이전트 규칙이 갖춰져 있습니다. 별도 저장소로 클론하지 않고 내용을 앱 저장소의 `app/`에 복사해 시작합니다.
+- [apps-script-vibe-starter](https://github.com/YW-Rainbow/apps-script-vibe-starter) — 신용우. 경로 C(GAS+시트)용. clasp 설정과 에이전트 규칙이 갖춰져 있습니다. 별도 저장소로 클론하지 않고 내용을 앱 저장소의 `app/`에 복사해 시작합니다.
 
 **만들 때 쓰는 도구**
-- [urimal-for-socialworker](https://github.com/dreamworker0/urimal-for-socialworker) — 계획서와 보고서를 자연스러운 우리말로 다듬는 Claude Code 스킬
-- [EASYREAD](https://github.com/SWJoong/EASYREAD) — 복잡한 한국어를 쉬운 정보(Easy-Read)로 바꾸는 MCP 서버
-- [rhwp](https://github.com/edwardkim/rhwp) — 브라우저에서 HWP를 읽고 누름틀을 채워 저장하는 오픈소스 엔진. MCP로 AI가 HWP 양식을 직접 읽고, [크롬 확장](https://chromewebstore.google.com/detail/pgakpjflombjmehnebnbpnalhegaanag)으로 HWP를 브라우저에서 바로 엽니다
-- [rhwp-studio](https://github.com/dreamworker0/rhwp-studio) — Google Drive의 HWP를 열어 편집하고 저장하는 웹 편집기
+- [urimal-for-socialworker](https://github.com/dreamworker0/urimal-for-socialworker) — 김종원. 계획서와 보고서를 자연스러운 우리말로 다듬는 Claude Code 스킬
+- [EASYREAD](https://github.com/SWJoong/EASYREAD) — 최중호. 복잡한 한국어를 쉬운 정보(Easy-Read)로 바꾸는 MCP 서버
+- [rhwp](https://github.com/edwardkim/rhwp) — Edward Kim(edwardkim). 브라우저에서 HWP를 읽고 누름틀을 채워 저장하는 오픈소스 엔진. MCP로 AI가 HWP 양식을 직접 읽고, [크롬 확장](https://chromewebstore.google.com/detail/pgakpjflombjmehnebnbpnalhegaanag)으로 HWP를 브라우저에서 바로 엽니다
+- [rhwp-studio](https://github.com/dreamworker0/rhwp-studio) — 김종원. Google Drive의 HWP를 열어 편집하고 저장하는 웹 편집기
 
 **현장에서 만든 앱**
-- [vehicle-drive-log](https://github.com/dreamworker0/vehicle-drive-log) — 여러 기관이 함께 쓰는 차량 운행일지 웹앱, 실제 운영 중
-- [Family-tree](https://github.com/dreamworker0/Family-tree) — 서버 없이 브라우저에서만 동작하는 대화형 가계도(Genogram) 웹앱
-- [SW_EDMS](https://github.com/SWJoong/SW_EDMS) — 기록 무결성을 보강한 전자결재 학습용 샘플
+- [vehicle-drive-log](https://github.com/dreamworker0/vehicle-drive-log) — 김종원. 여러 기관이 함께 쓰는 차량 운행일지 웹앱, 실제 운영 중
+- [Family-tree](https://github.com/dreamworker0/Family-tree) — 김종원. 서버 없이 브라우저에서만 동작하는 대화형 가계도(Genogram) 웹앱
+- [SW_EDMS](https://github.com/SWJoong/SW_EDMS) — 최중호. 기록 무결성을 보강한 전자결재 학습용 샘플
 
 **이 저장소의 절차로 만든 앱**
 - 아직 없습니다. 이 절차로 앱을 만들었다면 [기여 안내](.github/CONTRIBUTING.md)를 보고 알려 주세요. 판정 기록(DECISION.md)과 함께 여기에 연결합니다.
 
 **읽을거리**
-- [사회복지사가 바이브 코딩까지 해요](https://socialwork-vibecoding.jijun74.workers.dev/) — 전재일 선생님의 온라인 책
-- [모두를 위한 스마트워크](https://wish.welfare.seoul.kr/swflmsfront/coworker/ksdetail.do?pno=10026&userno=58550) — 데이터 설계 방법론과 온톨로지 연재, `levels.md` 4단계의 바탕
-- [기록에서 데이터로, 데이터에서 삶으로](https://www.dtsw.org/journal/5668173483343872) — 흩어진 기록을 하나의 원장으로 모은 뒤 AI를 연계한 2년의 실천 보고. `ai.md`의 바탕
-- [AI 시대, 사회복지 현장이 바꿀 것, 버릴 것, 지킬 것](https://www.welfare.net/communication/promotion/card-news-detail?searchType=all&searchValue=%EC%8B%A0%EC%9A%A9%EC%9A%B0&id=888716) — 신용우 칼럼(한국사회복지사협회 카드뉴스)과 실천지혜 연작. `ai.md`의 바탕
-- [사회복지 현장 AI·바이브코딩 안전사용 가이드](https://docs.google.com/document/d/1at2PqpW1kG3zEh5XIDaTLMC2ozN0Ar1Gf9YgvSjmnTc/edit?usp=sharing) — 신용우의 기관용 AI 사용 가이드라인·동의서·처리방침 제작 매뉴얼. `ops/`의 동의서 양식과 같은 기준
+- [사회복지사가 바이브 코딩까지 해요](https://socialwork-vibecoding.jijun74.workers.dev/) — 전재일. 온라인 책
+- [모두를 위한 스마트워크](https://wish.welfare.seoul.kr/swflmsfront/coworker/ksdetail.do?pno=10026&userno=58550) — 신용우. 데이터 설계 방법론과 온톨로지 연재, `levels.md` 4단계의 바탕
+- [기록에서 데이터로, 데이터에서 삶으로](https://www.dtsw.org/journal/5668173483343872) — 김진래. 흩어진 기록을 하나의 원장으로 모은 뒤 AI를 연계한 2년의 실천 보고. `ai.md`의 바탕
+- [AI 시대, 사회복지 현장이 바꿀 것, 버릴 것, 지킬 것](https://www.welfare.net/communication/promotion/card-news-detail?searchType=all&searchValue=%EC%8B%A0%EC%9A%A9%EC%9A%B0&id=888716) — 신용우. 칼럼(한국사회복지사협회 카드뉴스)과 실천지혜 연작. `ai.md`의 바탕
+- [사회복지 현장 AI·바이브코딩 안전사용 가이드](https://docs.google.com/document/d/1at2PqpW1kG3zEh5XIDaTLMC2ozN0Ar1Gf9YgvSjmnTc/edit?usp=sharing) — 신용우. 기관용 AI 사용 가이드라인·동의서·처리방침 제작 매뉴얼. `ops/`의 동의서 양식과 같은 기준
+- [vibecoding-pub의 사용자 권한 프로토콜](https://github.com/elbumlee/vibecoding-pub/blob/main/references/user-authority.md) — 이경태. 사용자를 목적과 범위를 정하는 결정권자로 보는 관점. `agentic.md`의 바탕
 
 ## 알아둘 것
 
