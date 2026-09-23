@@ -5,7 +5,7 @@
 > 기준일: 2026-09
 > 이 문서는 `agentic.md`와 함께 적용합니다.
 
-선택한 구성요소에 해당하는 기준만 적용합니다. 리전, 기관별 권한 분리, 시크릿, 파기와 비용 통제 결과는 충족해야 하며, 제품 조합과 구현 예시는 요구사항에 맞게 바꿀 수 있습니다.
+선택한 구성요소에 해당하는 기준만 적용합니다. 리전, 기관별 권한 분리, 시크릿, 파기와 비용 통제 요건은 반드시 지키고, 제품 조합과 구현 예시는 요구사항에 맞게 바꿀 수 있습니다.
 
 ## 1. 요구사항에 따라 구성을 선택합니다
 
@@ -26,15 +26,15 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - 함수의 리전을 기본값에 맡기지 않습니다. 코드의 `region` 옵션과 클라이언트의 함수 호출 위치를 모두 `asia-northeast3`로 지정합니다.
 - Firestore와 Cloud Storage의 위치는 운영 중 변경하기 어렵거나 새 리소스로 이관해야 하므로 프로젝트를 만들 때 먼저 결정합니다.
 - Cloud Run과 함수는 Firestore·Cloud Storage와 같은 리전을 사용해 데이터의 리전 간 이동, 지연 시간, 네트워크 비용을 줄입니다.
-- 서울 리전에 저장하더라도 해외 운영 인력의 접근과 지원 과정까지 자동으로 국내 처리만 보장되는 것은 아닙니다. 개인정보 처리방침과 국외이전 여부는 계약과 서비스별 데이터 처리 문서를 확인해 판단합니다.
+- 서울 리전에 저장해도 해외 운영·지원 인력이 데이터에 접근할 수 있습니다. 개인정보 처리방침과 국외이전 여부는 계약과 서비스별 데이터 처리 문서를 확인해 판단합니다.
 
 ## 3. 인증과 기관별 데이터 격리를 분리해서 구현합니다
 
-로그인 성공은 데이터 접근 권한을 의미하지 않습니다. 모든 기관 데이터에는 `organizationId`를 저장하고 클라이언트, Security Rules, 서버 함수에서 각각 권한을 확인합니다.
+로그인했다고 데이터에 접근할 권한이 있는 것은 아닙니다. 모든 기관 데이터에는 `organizationId`를 저장하고 클라이언트, Security Rules, 서버 함수에서 각각 권한을 확인합니다.
 
 1. Firebase Auth 또는 Identity Platform에서 사용자를 인증합니다.
 2. Custom Claims에는 `organizationId`와 최소한의 역할만 저장합니다. 역할을 변경하면 기존 토큰이 갱신되기 전까지 이전 값이 남을 수 있으므로 서버의 사용자 문서도 함께 확인할지 결정합니다.
-3. 클라이언트의 모든 Firestore 쿼리에 `where('organizationId', '==', currentOrganizationId)` 조건을 포함합니다. Firestore Security Rules는 조회 결과를 필터링하지 않으므로 조건이 없는 쿼리는 권한 오류가 발생하거나 잘못된 규칙에서 다른 기관 데이터가 노출될 수 있습니다.
+3. 클라이언트의 모든 Firestore 쿼리에 `where('organizationId', '==', currentOrganizationId)` 조건을 포함합니다. Firestore Security Rules는 조회 결과를 필터링하지 않으므로 조건이 없는 쿼리는 권한 오류가 나거나, 규칙이 잘못되어 있으면 다른 기관 데이터를 노출할 수 있습니다.
 4. Firestore와 Storage Rules에서 기존 문서와 새 문서의 `organizationId`가 로그인 사용자의 기관과 같은지 확인합니다.
 5. Cloud Run과 Cloud Functions에서 Admin SDK를 사용하면 Security Rules가 적용되지 않습니다. 서버 함수가 사용자 UID, 기관, 역할, 대상 데이터의 기관을 다시 검증해야 합니다.
 
@@ -45,15 +45,15 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - 다른 기관의 직원
 - 로그인하지 않은 사용자
 
-각 계정으로 조회·생성·수정·삭제를 테스트하고 다른 기관 데이터 접근이 거부되는지 확인합니다.
+각 계정으로 조회·생성·수정·삭제를 테스트하고 다른 기관 데이터에 접근하면 거부되는지 확인합니다.
 
 ## 4. Firestore와 Storage Rules는 기본 거부로 시작합니다
 
-- 넓은 wildcard 허용 규칙을 만들지 않고 컬렉션과 파일 경로별로 필요한 작업만 허용합니다. Firestore Rules는 여러 `allow` 조건 중 하나라도 참이면 요청을 허용하므로 뒤에 작성한 좁은 규칙이 앞의 넓은 허용을 취소하지 못합니다.
+- 넓은 wildcard 허용 규칙을 만들지 않고 컬렉션과 파일 경로별로 필요한 작업만 허용합니다. Firestore Rules는 여러 `allow` 조건 중 하나라도 참이면 요청을 허용하므로 뒤에 작성한 좁은 규칙이 앞의 넓은 허용 규칙을 취소하지 못합니다.
 - 생성 요청에는 `request.resource.data.organizationId`, 기존 문서의 조회·수정·삭제에는 `resource.data.organizationId`를 확인합니다.
 - 클라이언트가 수정할 수 있는 필드를 제한하고 역할, 기관 ID, 승인 상태 같은 권한 필드를 임의로 바꾸지 못하게 합니다.
 - Storage는 `organizations/{organizationId}/...`처럼 기관 ID가 포함된 경로를 사용합니다. 파일 크기와 `contentType`을 검사하고 개인정보 파일은 public으로 제공하지 않습니다.
-- Rules를 변경하면 Firebase Emulator Suite에서 같은 기관, 다른 기관, 비로그인 사용자의 허용·거부 테스트를 실행합니다. Rules 배포는 테스트 통과 뒤에만 진행합니다.
+- Rules를 변경하면 Firebase Emulator Suite에서 같은 기관, 다른 기관, 비로그인 사용자의 허용·거부 테스트를 실행합니다. Rules는 테스트를 통과한 뒤에만 배포합니다.
 - App Check는 자동 요청과 남용을 줄이는 보조 수단으로 사용할 수 있지만 사용자 인증과 기관별 권한 검사를 대신하지 않습니다.
 
 ## 5. Cloud Run과 Cloud Functions의 서버 권한을 제한합니다
@@ -62,7 +62,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - 서비스 계정에는 실행에 필요한 IAM 역할만 부여합니다. 프로젝트 Owner나 Editor 역할을 런타임 서비스 계정에 부여하지 않습니다.
 - API 키, 외부 서비스 토큰, 암호화 키는 Secret Manager에 저장합니다. `.env`는 로컬 개발용으로만 사용하고 저장소와 빌드 로그에 포함하지 않습니다.
 - callable function과 HTTP endpoint는 클라이언트가 전달한 `organizationId`를 신뢰하지 않고 인증 토큰과 서버의 사용자 정보를 기준으로 결정합니다.
-- Firestore·Pub/Sub·Storage 트리거는 같은 이벤트를 두 번 이상 전달할 수 있으므로 멱등성을 보장합니다. 이벤트 ID나 업무 ID를 저장해 중복 처리, 중복 알림, 중복 결제를 방지합니다.
+- Firestore·Pub/Sub·Storage 트리거 함수는 같은 이벤트를 두 번 이상 받을 수 있으므로 멱등성을 보장합니다. 이벤트 ID나 업무 ID를 저장해 중복 처리, 중복 알림, 중복 결제를 방지합니다.
 - 새 Cloud Function은 진입점에서 export되었는지 확인하고 배포 후 실제 리전을 조회합니다. 기본 리전으로 배포되었다고 가정하지 않습니다.
 
 ## 6. 입력값과 동시성을 서버에서 검증합니다
@@ -74,10 +74,10 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 
 ## 7. 접근 로그와 감사 로그를 서버에서 생성합니다
 
-- 개인정보 조회·수정·삭제·출력 기록은 클라이언트가 아니라 Cloud Run, Cloud Functions, Firestore trigger 같은 서버 영역에서 생성합니다.
+- 개인정보 조회·수정·삭제·출력 기록은 클라이언트가 아니라 Cloud Run, Cloud Functions, Firestore 트리거 같은 서버 영역에서 생성합니다.
 - 로그에는 사용자 UID, 기관 ID, 수행 업무, 대상 데이터 ID, 서버 시각, 결과를 기록합니다. 상담 내용과 전체 요청 본문은 로그에 저장하지 않습니다.
 - 기록할 필드를 allowlist로 정해 비밀번호, 토큰, 주민등록번호, 상담 원문이 일반 로그와 오류 추적 서비스로 전송되지 않게 합니다.
-- 감사 로그 컬렉션은 클라이언트의 수정과 삭제를 금지합니다. 법적 보관 기간이 지난 로그를 파기하는 별도 정책을 둡니다.
+- 감사 로그 컬렉션은 클라이언트가 수정하거나 삭제하지 못하게 합니다. 법적 보관 기간이 지난 로그를 파기하는 별도 정책을 둡니다.
 - Cloud Logging의 애플리케이션 로그와 개인정보 접근 로그는 목적과 보존 기간이 다르므로 분리합니다.
 
 ## 8. 파일과 데이터 삭제를 별도로 확인합니다
@@ -85,7 +85,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - Firestore 문서를 삭제해도 하위 subcollection은 자동으로 삭제되지 않습니다. 재귀 삭제 함수와 잔존 데이터 테스트를 구현합니다.
 - Firestore 문서와 Cloud Storage 파일은 자동으로 함께 삭제되지 않습니다. 파일 경로를 메타데이터에 저장하고 삭제 함수에서 두 저장소를 모두 처리합니다.
 - `retention_until` 또는 `expiresAt`을 저장하고 Firestore TTL이나 정기 함수로 보관 기간이 끝난 데이터를 삭제합니다. TTL은 즉시 실행되지 않을 수 있으므로 법적·업무상 정확한 파기 시점이 필요하면 별도 작업과 확인 절차를 사용합니다.
-- 기관 탈퇴와 이용자 동의 철회는 Auth 계정, Firestore 문서, subcollection, Storage 파일, 파생 데이터, 백업의 처리 범위를 하나의 파기 계획에 포함합니다.
+- 기관 탈퇴와 이용자 동의 철회에 대비해 Auth 계정, Firestore 문서, subcollection, Storage 파일, 파생 데이터, 백업의 처리 범위를 파기 계획 하나에 담습니다.
 
 ## 9. 백업과 복구를 별도 업무로 운영합니다
 
@@ -96,8 +96,8 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 
 ## 10. 비용과 운영 한도를 설정합니다
 
-- Cloud Billing budget과 알림을 설정하되 budget이 과금을 자동으로 중단시키지 않는다는 점을 운영 문서에 기록합니다.
-- Cloud Run과 Cloud Functions에는 적절한 `max instances`, timeout, memory를 설정해 오류나 반복 호출로 비용이 급증하는 범위를 제한합니다.
+- Cloud Billing budget과 알림을 설정하되 budget을 설정해도 과금이 자동으로 멈추지 않는다는 점을 운영 문서에 기록합니다.
+- Cloud Run과 Cloud Functions에는 적절한 `max instances`, timeout, memory를 설정해 오류나 반복 호출로 비용이 급증하지 않게 합니다.
 - Firestore 쿼리에는 pagination과 최대 조회 건수를 적용하고 N+1 쿼리를 피합니다. 반복 집계는 캐시나 정기 batch로 전환합니다.
 - 정기 작업은 업무상 필요한 시간과 주기로 통합합니다. 작업별 스케줄러를 무분별하게 늘리지 않습니다.
 - Firebase Blaze와 Google Cloud의 종량제 과금은 한도 초과 시 자동으로 정지되지 않을 수 있습니다. 결제 담당자, 알림 수신자, 비상 중단 절차를 `../../ops/handover.md`에 기록합니다.
@@ -123,7 +123,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - [기관별 쿼리 검사](https://github.com/dreamworker0/vehicle-drive-log/blob/master/eslint-rules/require-organization-filter.js): Firestore 쿼리에서 `organizationId` 조건이 빠지면 lint 단계에서 실패하도록 만든 정적 검사
 - [Firestore Rules](https://github.com/dreamworker0/vehicle-drive-log/blob/master/firestore.rules)와 [Rules 테스트](https://github.com/dreamworker0/vehicle-drive-log/blob/master/tests/firestore-rules.test.ts): 클라이언트 쿼리와 별도로 서버 측 기관 격리를 적용하고 Emulator에서 회귀 테스트
 - [Storage Rules](https://github.com/dreamworker0/vehicle-drive-log/blob/master/storage.rules)와 [Storage 테스트](https://github.com/dreamworker0/vehicle-drive-log/blob/master/tests/storage-rules.test.ts): 파일 경로, 소유자, 크기, MIME type을 함께 검사
-- [접근 로그 트리거](https://github.com/dreamworker0/vehicle-drive-log/blob/master/functions/src/handlers/triggers/auditLog.ts): 클라이언트가 아니라 서버 trigger에서 로그를 생성하고 기록할 필드를 제한
+- [접근 로그 트리거](https://github.com/dreamworker0/vehicle-drive-log/blob/master/functions/src/handlers/triggers/auditLog.ts): 클라이언트가 아니라 서버 트리거에서 로그를 생성하고 기록할 필드를 제한
 - [에이전트 작업 규칙](https://github.com/dreamworker0/vehicle-drive-log/blob/master/CLAUDE.md): 기관 ID 필터, 함수 export, 인덱스, 테스트, 배포 절차를 에이전트의 필수 규칙으로 관리
 
 GCP의 리전과 제품 정책은 바뀔 수 있습니다. 배포 전에는 [Cloud Run 리전](https://cloud.google.com/run/docs/locations), [Cloud Functions 리전](https://firebase.google.com/docs/functions/locations), [Firestore 리전](https://firebase.google.com/docs/firestore/locations) 공식 문서에서 `asia-northeast3` 지원 여부를 다시 확인합니다.

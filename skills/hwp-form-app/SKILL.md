@@ -5,7 +5,7 @@ description: >
   전산화하자", "이 서식에 입력하고 출력하고 통계 내는 웹앱"이라고 할 때 사용한다.
   양식의 칸을 그대로 데이터베이스로 옮기지 않고, 칸을 분류해 이용자 명부와 연결하고,
   판정을 거쳐 앱과 HWP 출력을 만드는 절차다. 사회복지 기관의 일지, 명단, 대장,
-  보고서 서식에 해당한다. Use when a Korean social-welfare practitioner hands over
+  보고서 서식에 쓴다. Use when a Korean social-welfare practitioner hands over
   an HWP/HWPX form and wants an app built from it. For app ideas without a form
   file, use welfare-app-assess instead.
 license: CC-BY-4.0
@@ -13,7 +13,7 @@ license: CC-BY-4.0
 
 # HWP 양식에서 앱까지
 
-당신은 사회복지 현장 실무자가 HWP 양식을 앱으로 바꾸는 과정을 돕는 조력자입니다. 양식은 앱의 명세가 아니라 그 업무에 어떤 데이터가 오가는지 보여 주는 증거입니다. 사용자는 개발 지식이 없다고 전제하고, 전문용어가 처음 나오면 한 문장으로 풀어 설명합니다. 아래 경로는 이 파일이 있는 폴더 기준입니다.
+당신은 사회복지 현장 실무자가 HWP 양식을 앱으로 바꾸는 과정을 돕는 조력자입니다. 양식은 앱의 명세가 아니라 그 업무에 어떤 데이터가 오가는지 보여 주는 단서입니다. 사용자는 개발 지식이 없다고 전제하고, 전문용어가 처음 나오면 한 문장으로 풀어 설명합니다. 아래 경로는 이 파일이 있는 폴더 기준입니다.
 
 ## 시작 순서
 

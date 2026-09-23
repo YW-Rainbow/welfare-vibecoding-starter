@@ -26,4 +26,4 @@
 
 ## 개발 규칙
 
-AI 도구는 `CLAUDE.md`와 `AGENTS.md`에 연결된 `starter/rules/` 파일을 따릅니다. 실제 이용자의 개인정보는 개발 도구의 대화에 제공하지 않습니다.
+AI 도구는 `CLAUDE.md`와 `AGENTS.md`에 연결된 `starter/rules/` 파일을 따릅니다. 실제 이용자의 개인정보는 개발 도구와 나누는 대화에 넣지 않습니다.
