@@ -58,12 +58,12 @@
 
 ## 배포와 스테이징
 
-화면(Pages)과 공개 API(Workers)는 `cf-only.md` 4절처럼 GitHub Actions 없이 자동 배포합니다. 운영 반영과 DB 변경의 원칙은 `agentic.md`의 "운영 반영과 DB 변경은 사람이 결정하고 AI가 실행합니다"를 따릅니다. 이 경로는 개인정보를 다루므로 다음을 더합니다.
+화면(Pages)과 공개 API(Workers)는 `cf-only.md` 4절처럼 GitHub Actions 없이 자동 배포합니다. 배포와 DB 변경의 원칙은 `agentic.md`의 "운영하고 있는 앱에 반영하는 일과 DB를 바꾸는 일은 사람이 결정하고 AI가 실행합니다"를 따릅니다. 이 경로는 개인정보를 다루므로 다음을 더합니다.
 
 - **스테이징 DB는 Supabase 프로젝트를 하나 더 만듭니다.** 가상 데이터만 넣고, 스테이징 화면은 스테이징 프로젝트의 주소와 publishable key를 씁니다. Pages의 미리보기(Preview) 변수에는 스테이징 값만 넣고 운영 값은 운영(Production) 변수에만 둡니다. 스테이징 프로젝트를 운영과 같은 Pro 조직에 두면 서버 사용료(컴퓨트)가 월 약 $10 늘어납니다. 비용을 늘리지 않으려면 별도의 Free 조직에 만듭니다. 무료 프로젝트는 두 개까지이고 7일 동안 요청이 없으면 일시 중지되므로, 확인하기 전에 대시보드에서 다시 켭니다.
 - **DB 변경은 `supabase/migrations`의 파일로 남깁니다.** 사람이 승인하면 AI가 스테이징, 운영 순서로 적용합니다.
 - **AI에게는 Supabase 공식 MCP 서버(`https://mcp.supabase.com/mcp`)를 OAuth로 연결해 권한을 줍니다.** 개인 액세스 토큰이 필요 없고, `?project_ref=<id>`로 프로젝트 하나에만 연결합니다. 평소에 연결해 두는 것은 스테이징 프로젝트뿐입니다. 읽기 전용(`read_only=true`)은 쓰기만 막고 행 내용은 그대로 읽히므로, 운영 프로젝트에는 읽기 전용으로도 늘 연결해 두지 않습니다. 운영 연결은 영향받는 행 수를 세거나 승인한 변경을 적용할 때만 켜고 끝나면 끕니다. `execute_sql`, `apply_migration`, `deploy_edge_function`은 확인 규칙에 넣습니다. 사람은 실행할 SQL이 `COUNT` 조회이거나 마이그레이션 파일과 같은지 보고 승인합니다.
-- **Edge Functions 배포도 운영 반영입니다.** 스테이징 프로젝트에 먼저 올리고, 운영에는 MCP의 `deploy_edge_function`을 승인해 올립니다. `supabase db push`, `supabase db dump`, `supabase functions deploy` 같은 CLI 명령은 운영 DB 비밀번호나 개인 액세스 토큰이 필요하므로 AI 작업 환경에서 쓰지 않습니다.
+- **Edge Functions 배포도 운영하고 있는 앱에 반영하는 일입니다.** 스테이징 프로젝트에 먼저 올리고, 운영에는 MCP의 `deploy_edge_function`을 승인해 올립니다. `supabase db push`, `supabase db dump`, `supabase functions deploy` 같은 CLI 명령은 운영 DB 비밀번호나 개인 액세스 토큰이 필요하므로 AI 작업 환경에서 쓰지 않습니다.
 - **`service_role` 키(새 방식에서는 secret key)는 AI에게 주지 않습니다**(`agentic.md`). Edge Functions에 필요하면 Supabase의 비밀값으로 등록합니다.
 - **되돌릴 지점을 확인합니다.** Pro는 최근 7일의 일일 백업이 있고, 시점 복구(PITR)는 유료 추가 기능입니다. Free는 자동 백업이 없고 기본 `supabase db dump`는 구조만 받습니다. 변경 전에 담당자가 `supabase db dump --data-only -f data.sql`로 데이터를 받아 기관이 정한 보관 위치에 둡니다. 이 명령을 쓰려면 담당자의 컴퓨터에 Supabase CLI와 Docker가 있어야 하고, 먼저 `supabase link`로 운영 프로젝트를 연결해야 합니다(DB 비밀번호 필요). 구조는 `supabase/migrations`의 파일로 남아 있습니다. `data.sql`은 개인정보가 든 파일이므로 앱 저장소 폴더나 클라우드 환경처럼 AI가 읽을 수 있는 곳에 두지 않고 저장소에 올리지 않습니다. 이 절차가 부담스러우면 Pro의 자동 백업을 씁니다.
 
