@@ -8,7 +8,7 @@
 
 | 경로 | 저장소 |
 |---|---|
-| 경로 C(GAS) | [apps-script-vibe-starter](https://github.com/YW-Rainbow/apps-script-vibe-starter) — clasp 설정과 에이전트 규칙이 갖춰져 있습니다. 별도 저장소로 클론하지 않고 내용을 앱 저장소의 `app/`에 복사해 시작합니다. |
+| 경로 C(GAS) | [apps-script-vibe-starter](https://github.com/YW-Rainbow/apps-script-vibe-starter): clasp 설정과 에이전트 규칙이 갖춰져 있습니다. 별도 저장소로 클론하지 않고 내용을 앱 저장소의 `app/`에 복사해 시작합니다. |
 
 ## 만들 때 쓰는 도구
 
