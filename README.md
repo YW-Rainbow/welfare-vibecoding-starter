@@ -176,6 +176,7 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 - [AI 시대, 사회복지 현장이 바꿀 것, 버릴 것, 지킬 것](https://www.welfare.net/communication/promotion/card-news-detail?searchType=all&searchValue=%EC%8B%A0%EC%9A%A9%EC%9A%B0&id=888716) — 신용우. 칼럼(한국사회복지사협회 카드뉴스)과 실천지혜 연작. `ai.md`의 바탕
 - [사회복지 현장 AI·바이브코딩 안전사용 가이드](https://docs.google.com/document/d/1at2PqpW1kG3zEh5XIDaTLMC2ozN0Ar1Gf9YgvSjmnTc/edit?usp=sharing) — 신용우. 기관용 AI 사용 가이드라인·동의서·처리방침 제작 매뉴얼. `ops/`의 동의서 양식과 같은 기준
 - [vibecoding-pub의 사용자 권한 프로토콜](https://github.com/elbumlee/vibecoding-pub/blob/main/references/user-authority.md) — 이경태. 사용자를 목적과 범위를 정하는 결정권자로 보는 관점. `agentic.md`의 바탕
+- [AI는 만들고, 리더는 판단한다](https://thornjsh.github.io/AI%20%EB%A6%AC%EB%8D%94%EC%8B%AD%202026-0819.pdf): 정수홍. 사회복지시설의 DX·AX를 이끄는 리더십. 없앨 업무를 결정하고 책임의 경계를 정하는 기관장의 몫
 
 ## 알아둘 것
 
