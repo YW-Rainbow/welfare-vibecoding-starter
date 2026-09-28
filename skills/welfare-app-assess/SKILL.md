@@ -5,8 +5,8 @@ description: >
   업무를 자동화하거나, 엑셀·양식을 전산화하고 싶다고 할 때 코드를 짜기 전에 업무의 필요성,
   개인정보 등급, 사람에 관한 기록의 윤리, 플랫폼 경로, 운영 조건을 판단하고
   DECISION.md로 정리하는 절차. "프로그램일지 앱", "이용자 명부", "출석 체크",
-  "사례관리 기록", "후원자 관리", "차량 운행일지", "복지 앱", "바이브코딩" 같은
-  말이 나오거나 사회복지 현장의 행정 업무를 자동화하려 할 때 사용한다.
+  "사례관리 기록", "후원자 관리", "차량 운행일지", "복지 앱", "바이브코딩",
+  "희망이음 자동 입력", "에이전트 브라우저로 동기화" 같은 말이 나오거나 사회복지 현장의 행정 업무를 자동화하려 할 때 사용한다.
   Use before writing any code when a Korean social-welfare practitioner wants
   to build an app or automate a workflow. Not for general coding tasks.
 license: CC-BY-4.0
