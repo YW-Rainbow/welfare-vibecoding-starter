@@ -9,7 +9,7 @@
 
 ## 1. 요구사항에 따라 구성을 선택합니다
 
-GCP를 선택했다고 모든 서비스를 사용할 필요는 없습니다. 오프라인 동기화와 실시간 화면이 중요한 앱은 Firebase 구성이 적합하고, SQL 집계나 서버 중심의 업무 규칙이 중요한 앱은 Cloud Run과 Cloud SQL 구성이 적합합니다.
+GCP를 선택했다고 모든 서비스를 사용할 필요는 없습니다. 오프라인 동기화와 실시간 화면이 중요한 앱에는 Firebase 구성이 적합하고, SQL 집계나 서버 중심의 업무 규칙이 중요한 앱에는 Cloud Run과 Cloud SQL 구성이 적합합니다.
 
 | 요구사항 | 권장 구성 |
 |---|---|
@@ -22,11 +22,11 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 
 ## 2. 개인정보를 처리하는 리전을 서울로 고정합니다
 
-- Cloud Run, Cloud Run functions 또는 Cloud Functions for Firebase, Firestore, Cloud Storage는 지원 여부를 확인한 뒤 `asia-northeast3`(서울)에 생성합니다.
+- Cloud Run, Cloud Run functions 또는 Cloud Functions for Firebase, Firestore, Cloud Storage는 지원 여부를 확인한 뒤 `asia-northeast3`(서울)에 만듭니다.
 - 함수의 리전을 기본값에 맡기지 않습니다. 코드의 `region` 옵션과 클라이언트의 함수 호출 위치를 모두 `asia-northeast3`로 지정합니다.
 - Firestore와 Cloud Storage의 위치는 운영 중 변경하기 어렵거나 새 리소스로 이관해야 하므로 프로젝트를 만들 때 먼저 결정합니다.
 - Cloud Run과 함수는 Firestore·Cloud Storage와 같은 리전을 사용해 데이터의 리전 간 이동, 지연 시간, 네트워크 비용을 줄입니다.
-- 서울 리전에 저장해도 해외 운영·지원 인력이 데이터에 접근할 수 있습니다. 개인정보 처리방침과 국외이전 여부는 계약과 서비스별 데이터 처리 문서를 확인해 판단합니다.
+- 서울 리전에 저장해도 해외 운영·지원 인력이 데이터에 접근할 수 있습니다. 국외이전 여부와 개인정보 처리방침에 적을 내용은 계약과 서비스별 데이터 처리 문서를 확인해 판단합니다.
 
 ## 3. 인증과 기관별 데이터 격리를 분리해서 구현합니다
 
@@ -61,20 +61,20 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - Cloud Run 서비스는 기본적으로 인증된 호출만 허용합니다. 공개 API가 필요한 경우 공개할 endpoint를 분리하고 입력값 검증, rate limit, CORS를 별도로 적용합니다.
 - 서비스 계정에는 실행에 필요한 IAM 역할만 부여합니다. 프로젝트 Owner나 Editor 역할을 런타임 서비스 계정에 부여하지 않습니다.
 - API 키, 외부 서비스 토큰, 암호화 키는 Secret Manager에 저장합니다. `.env`는 로컬 개발용으로만 사용하고 저장소와 빌드 로그에 포함하지 않습니다.
-- callable function과 HTTP endpoint는 클라이언트가 전달한 `organizationId`를 신뢰하지 않고 인증 토큰과 서버의 사용자 정보를 기준으로 결정합니다.
+- callable function과 HTTP endpoint는 클라이언트가 전달한 `organizationId`를 신뢰하지 않고 인증 토큰과 서버의 사용자 정보로 기관을 판단합니다.
 - Firestore·Pub/Sub·Storage 트리거 함수는 같은 이벤트를 두 번 이상 받을 수 있으므로 멱등성을 보장합니다. 이벤트 ID나 업무 ID를 저장해 중복 처리, 중복 알림, 중복 결제를 방지합니다.
-- 새 Cloud Function은 진입점에서 export되었는지 확인하고 배포 후 실제 리전을 조회합니다. 기본 리전으로 배포되었다고 가정하지 않습니다.
+- 새 Cloud Function은 진입점에서 export되었는지 확인하고 배포한 뒤 실제 리전을 조회해 의도한 리전(`asia-northeast3`)인지 확인합니다.
 
 ## 6. 입력값과 동시성을 서버에서 검증합니다
 
 - 클라이언트의 TypeScript 타입만 믿지 않고 Zod, JSON Schema 등 런타임 스키마로 서버 입력값을 검증합니다.
 - 중복 예약, 순번 발급, 잔여 수량, 누적값처럼 동시에 수정될 수 있는 데이터는 Firestore transaction 또는 Cloud SQL transaction으로 처리합니다.
 - 외부 API 호출이나 알림 발송 같은 되돌리기 어려운 작업은 먼저 dry-run으로 대상 수와 내용을 확인한 뒤 실행합니다.
-- 대량 작업에는 최대 처리 건수, pagination, 재시도 횟수, 중복 방지 ID를 둡니다. 일부 실패가 발생했을 때 성공·실패 건과 재처리 방법을 반환합니다.
+- 대량 작업에는 최대 처리 건수, pagination, 재시도 횟수, 중복 방지 ID를 둡니다. 일부가 실패하면 성공·실패 건과 재처리 방법을 반환합니다.
 
-## 7. 접근 로그와 감사 로그를 서버에서 생성합니다
+## 7. 접근 로그와 감사 로그를 서버에서 남깁니다
 
-- 개인정보 조회·수정·삭제·출력 기록은 클라이언트가 아니라 Cloud Run, Cloud Functions, Firestore 트리거 같은 서버 영역에서 생성합니다.
+- 개인정보 조회·수정·삭제·출력 기록은 클라이언트가 아니라 Cloud Run, Cloud Functions, Firestore 트리거 같은 서버 영역에서 남깁니다.
 - 로그에는 사용자 UID, 기관 ID, 수행 업무, 대상 데이터 ID, 서버 시각, 결과를 기록합니다. 상담 내용과 전체 요청 본문은 로그에 저장하지 않습니다.
 - 기록할 필드를 allowlist로 정해 비밀번호, 토큰, 주민등록번호, 상담 원문이 일반 로그와 오류 추적 서비스로 전송되지 않게 합니다.
 - 감사 로그 컬렉션은 클라이언트가 수정하거나 삭제하지 못하게 합니다. 법적 보관 기간이 지난 로그를 파기하는 별도 정책을 둡니다.
@@ -82,7 +82,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 
 ## 8. 파일과 데이터 삭제를 별도로 확인합니다
 
-- Firestore 문서를 삭제해도 하위 subcollection은 자동으로 삭제되지 않습니다. 재귀 삭제 함수와 잔존 데이터 테스트를 구현합니다.
+- Firestore 문서를 삭제해도 하위 subcollection은 자동으로 삭제되지 않습니다. 재귀 삭제 함수를 만들고, 삭제한 뒤 남은 데이터가 없는지 테스트합니다.
 - Firestore 문서와 Cloud Storage 파일은 자동으로 함께 삭제되지 않습니다. 파일 경로를 메타데이터에 저장하고 삭제 함수에서 두 저장소를 모두 처리합니다.
 - `retention_until` 또는 `expiresAt`을 저장하고 Firestore TTL이나 정기 함수로 보관 기간이 끝난 데이터를 삭제합니다. TTL은 즉시 실행되지 않을 수 있으므로 법적·업무상 정확한 파기 시점이 필요하면 별도 작업과 확인 절차를 사용합니다.
 - 기관 탈퇴와 이용자 동의 철회에 대비해 Auth 계정, Firestore 문서, subcollection, Storage 파일, 파생 데이터, 백업의 처리 범위를 파기 계획 하나에 담습니다.
@@ -92,7 +92,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - Firestore의 scheduled backup 또는 export, Cloud SQL의 자동 백업과 point-in-time recovery를 요구사항에 맞게 설정합니다.
 - Firestore 백업과 데이터베이스 export가 Cloud Storage의 첨부 파일을 포함한다고 가정하지 않습니다. 파일은 별도로 백업합니다.
 - 백업 버킷도 서울 리전을 사용하고 운영 데이터와 다른 프로젝트나 제한된 서비스 계정으로 접근 범위를 분리합니다.
-- 백업 성공 알림만 확인하지 말고 정기적으로 스테이징이 아닌 복원 시험 전용 프로젝트에 복구해 문서 수, 파일 수, 주요 관계를 검증합니다.
+- 백업 성공 알림만 보고 끝내지 않습니다. 정기적으로 스테이징이 아닌 복원 시험 전용 프로젝트에 복구해 문서 수, 파일 수, 주요 관계를 검증합니다.
 
 ## 10. 비용과 운영 한도를 설정합니다
 
@@ -109,14 +109,14 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - 스테이징은 Firebase·GCP 프로젝트를 하나 더 만들어 가상 데이터만 넣습니다. `.firebaserc`에 `staging`과 `prod` 별칭을 두고 기본은 `staging`으로 합니다. 스테이징용 서비스 계정에는 운영 프로젝트 권한을 주지 않습니다.
 - Firebase Hosting의 GitHub 연동은 GitHub Actions로 배포하고, 배포용 서비스 계정 키를 GitHub 비밀값에 올립니다. 이 연동은 PR마다 미리보기 채널에도 올리는데, 미리보기는 운영 프로젝트의 Firestore와 Auth를 그대로 쓰고 주소를 아는 누구나 열 수 있습니다. 연동을 쓴다면 PR 미리보기를 스테이징 프로젝트로 바꾸거나 지우고, main에 합치는 명령을 확인 규칙에 넣습니다.
 - 서비스 계정 키를 GitHub에 올리지 않으려면 이 연동을 쓰지 않고, 사람이 승인한 뒤 AI가 `firebase deploy`로 올립니다. AI가 쓰는 인증은 배포에 필요한 역할만 준 서비스 계정으로 하고 Firestore 데이터를 읽는 권한은 주지 않습니다. 2024년 5월 이후에 만든 Google Cloud 조직은 서비스 계정 키 발급이 기본으로 막혀 있으므로, 키가 필요하면 관리자가 그 프로젝트만 예외로 둡니다. `firebase deploy`, `gcloud run deploy`, `gcloud run jobs`(작업 배포와 실행), `gcloud functions deploy`는 확인 규칙에 넣습니다.
-- 데이터 읽기 권한이 없어도 Security Rules를 바꾸거나 런타임 서비스 계정으로 실행되는 함수를 배포하면 데이터에 닿을 수 있습니다. 운영 배포를 승인하기 전에 바뀐 함수와 Rules를 보고받습니다(`gas.md`의 "남는 위험"과 같습니다).
+- 데이터 읽기 권한이 없어도 Security Rules를 바꾸거나 런타임 서비스 계정으로 실행되는 함수를 배포하면 데이터에 접근할 수 있습니다. 운영 배포를 승인하기 전에 바뀐 함수와 Rules를 보고받습니다(`gas.md`의 "남는 위험"과 같습니다).
 - Security Rules와 인덱스는 에뮬레이터 테스트를 통과한 뒤 스테이징, 운영 순서로 배포합니다.
-- DB 변경: Cloud SQL은 마이그레이션 파일을 저장소에 두고 운영 DB 접속 정보를 AI에게 주지 않습니다. 사람이 승인하면 AI가 마이그레이션을 실행하는 Cloud Run 작업을 배포해 실행하고, DB 비밀번호는 그 작업만 Secret Manager에서 읽습니다. Firestore의 필드 추가와 이름 변경은 한 번만 실행하는 함수로 만들어 스테이징에서 확인합니다. 이 함수와 Cloud SQL 마이그레이션 작업에는 데이터를 바꾸지 않고 영향받는 문서·행 수만 세어 실행 로그에 남기는 세기 모드를 둡니다. 사람이 승인하면 AI가 먼저 세기 모드로 실행해 건수를 보고하고, 다시 승인받아 적용합니다. 함수를 운영에서 부르는 `gcloud functions call`도 확인 규칙에 넣습니다. 보관 등급 2 이상 컬렉션과 감사 로그는 필드 이름을 바꾸거나 지우지 않고 새 필드를 더합니다(`agentic.md`).
+- DB 변경: Cloud SQL은 마이그레이션 파일을 저장소에 두고 운영 DB 접속 정보를 AI에게 주지 않습니다. 사람이 승인하면 AI가 마이그레이션용 Cloud Run 작업을 배포해 실행하고, DB 비밀번호는 그 작업만 Secret Manager에서 읽습니다. Firestore의 필드 추가와 이름 변경은 한 번만 실행하는 함수로 만들어 스테이징에서 확인합니다. 이 함수와 Cloud SQL 마이그레이션 작업에는 데이터를 바꾸지 않고 영향받는 문서·행 수만 세어 실행 로그에 남기는 세기 모드를 둡니다. 사람이 승인하면 AI가 먼저 세기 모드로 실행해 건수를 보고하고, 다시 승인받아 적용합니다. 함수를 운영에서 부르는 `gcloud functions call`도 확인 규칙에 넣습니다. 보관 등급 2 이상 컬렉션과 감사 로그는 필드 이름을 바꾸거나 지우지 않고 새 필드를 더합니다(`agentic.md`).
 - Firestore의 시점 복구(PITR)는 기본으로 꺼져 있고 결제가 필요합니다. 켜면 7일 전까지의 데이터를 읽거나 새 데이터베이스로 복제할 수 있고, 운영 DB를 덮어쓰지는 않습니다. 운영 DB를 바꾸기 전에 켜져 있는지 확인합니다.
 
 ## 12. 배포 전 체크리스트
 
-- [ ] Firestore, Cloud Storage, Cloud Run, Cloud Functions가 의도한 서울 리전에 생성되었는가
+- [ ] Firestore, Cloud Storage, Cloud Run, Cloud Functions가 의도한 서울 리전에 만들어졌는가
 - [ ] 다른 기관 계정과 비로그인 계정의 Firestore·Storage 접근이 차단되는가
 - [ ] Cloud Run과 Cloud Functions가 사용자·기관·역할을 서버에서 다시 검증하는가
 - [ ] Admin SDK 코드에 전체 컬렉션 조회나 기관 조건이 없는 쓰기가 남아 있지 않은가
@@ -135,7 +135,7 @@ Firestore는 문서형 데이터베이스이므로 `COUNT(DISTINCT ...)` 같은 
 - [기관별 쿼리 검사](https://github.com/dreamworker0/vehicle-drive-log/blob/master/eslint-rules/require-organization-filter.js): Firestore 쿼리에서 `organizationId` 조건이 빠지면 lint 단계에서 실패하도록 만든 정적 검사
 - [Firestore Rules](https://github.com/dreamworker0/vehicle-drive-log/blob/master/firestore.rules)와 [Rules 테스트](https://github.com/dreamworker0/vehicle-drive-log/blob/master/tests/firestore-rules.test.ts): 클라이언트 쿼리와 별도로 서버 측 기관 격리를 적용하고 Emulator에서 회귀 테스트
 - [Storage Rules](https://github.com/dreamworker0/vehicle-drive-log/blob/master/storage.rules)와 [Storage 테스트](https://github.com/dreamworker0/vehicle-drive-log/blob/master/tests/storage-rules.test.ts): 파일 경로, 소유자, 크기, MIME type을 함께 검사
-- [접근 로그 트리거](https://github.com/dreamworker0/vehicle-drive-log/blob/master/functions/src/handlers/triggers/auditLog.ts): 클라이언트가 아니라 서버 트리거에서 로그를 생성하고 기록할 필드를 제한
+- [접근 로그 트리거](https://github.com/dreamworker0/vehicle-drive-log/blob/master/functions/src/handlers/triggers/auditLog.ts): 클라이언트가 아니라 서버 트리거에서 로그를 남기고 기록할 필드를 제한
 - [에이전트 작업 규칙](https://github.com/dreamworker0/vehicle-drive-log/blob/master/CLAUDE.md): 기관 ID 필터, 함수 export, 인덱스, 테스트, 배포 절차를 에이전트의 필수 규칙으로 관리
 
 GCP의 리전과 제품 정책은 바뀔 수 있습니다. 배포 전에는 [Cloud Run 리전](https://cloud.google.com/run/docs/locations), [Cloud Functions 리전](https://firebase.google.com/docs/functions/locations), [Firestore 리전](https://firebase.google.com/docs/firestore/locations) 공식 문서에서 `asia-northeast3` 지원 여부를 다시 확인합니다.
