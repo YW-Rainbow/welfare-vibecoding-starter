@@ -166,7 +166,7 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 | [`starter/workflow.md`](starter/workflow.md) | 판단 절차 본문. 어떤 방법으로 시작해도 AI는 결국 이 문서를 읽습니다 | AI |
 | [`starter/chat-prompt.md`](starter/chat-prompt.md) | 채팅창에 붙이는 판단 안내 | 채팅 사용자 |
 | [`starter/assess/`](starter/assess/) | 양식 점검, HWP 양식→앱 절차, 윤리 검토, 기관 공용 AI 에이전트(Slack 봇 등), 에이전트 브라우저로 정부 업무 시스템 동기화 | AI, 실무자 |
-| [`starter/data/`](starter/data/) | SSoT(단일 원본), 기록 무결성, 데이터 관리 다섯 단계 | AI, 실무자 |
+| [`starter/data/`](starter/data/) | SSoT(단일 원본), 자체 개발 전자결재·근태·회계 기록의 무결성([`record-integrity.md`](starter/data/record-integrity.md)), 데이터 관리 다섯 단계 | AI, 실무자 |
 | [`starter/requirements/`](starter/requirements/) | 공통 요구사항 12개(웹훅 포함), 당사자 화면 설계·접근성, 인쇄·엑셀, 마스킹, HWP, AI 기능 | AI, 실무자 |
 | [`starter/glossary.md`](starter/glossary.md), [`starter/platform-facts.md`](starter/platform-facts.md), [`starter/resources.md`](starter/resources.md) | 용어사전, 바뀌는 플랫폼 정보, 함께 볼 자료 | 실무자 |
 | [`starter/rules/`](starter/rules/) | 플랫폼별 개발 규칙과 에이전트 안전 경계. 판정 뒤 `CLAUDE.md`와 `AGENTS.md`에 연결합니다 | AI |
