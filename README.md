@@ -9,9 +9,9 @@
 
 | 버전 | 바뀐 것 | 이미 만든 앱에서 할 일 |
 | :--- | :--- | :--- |
+| **1.3**<br>2026.10 | 근태·급여와 전자결재를 직접 만들 때의 기준([`record-integrity.md`](starter/data/record-integrity.md)): 처음 설계할 때 8개 원칙을 넣고, 승인된 문서는 고치지 않고 취소와 새 기안으로 바꾸며, 외부 감사에게 설명할 수 있는 수준이 목표. 근태·급여는 확정 내역과 급여명세서를 직원 개인 메일로 보내 기관 밖 사본으로 삼음 | 승인된 문서를 고치거나 지우는 기능이 있으면 취소와 새 기안으로 바꾸고, 그 절차를 [`DECISION.md`](starter/templates/DECISION.md)에 적기 |
 | **1.2**<br>2026.09 | Aside 같은 에이전트 브라우저로 정부 업무 시스템(희망이음 등)과 기관 앱·시트를 동기화할 때의 주의점([`starter/assess/screen-agent.md`](starter/assess/screen-agent.md)). [`masking.md`](starter/requirements/masking.md)의 AI 전송 제외 대상을 정부 업무 시스템 자료로 정리하고, 한국 안에서만 추론하는 경로(Bedrock 서울 등) 갱신. 웹훅 요건과 접속기록 기준(2026.11.1 시행, [`requirements.md`](starter/requirements/requirements.md)) | 에이전트 브라우저를 쓰면 원본, 운영 기관 약관·위수탁 협약 확인, 사람이 누르는 버튼(저장, 제출, 결재 요청), 작업 로그 위치를 [`DECISION.md`](starter/templates/DECISION.md)에 적기. 웹훅 payload에 개인정보가 없는지 확인. 접속기록 대상과 점검 주기를 내부 관리계획과 맞추기 |
 | **1.1**<br>2026.09 | S등급에 생체정보·주민등록번호 추가, 만 14세 미만은 법정대리인 동의. 클라우드 보관(처리방침 공개)과 AI API 전송(국외이전 동의) 구분. 운영하고 있는 앱에 반영하는 일과 DB를 바꾸는 일은 사람이 승인. [`DECISION.md`](starter/templates/DECISION.md) 맨 앞에 기관의 실천 원칙 | 동의서를 [`ops/consent-form-intake.md`](ops/consent-form-intake.md)와 비교. [`agentic.md`](starter/rules/agentic.md)의 확인 규칙을 `.claude/settings.json`에 추가. [`DECISION.md`](starter/templates/DECISION.md) 맨 앞에 실천 원칙 적기 |
-| **1.0**<br>2026.09 | 템플릿·플러그인·채팅의 세 가지 사용법. [`form-to-app.md`](starter/assess/form-to-app.md)(HWP 양식에서 앱까지), [`ai.md`](starter/requirements/ai.md)(AI 기능 요건), [`agent.md`](starter/assess/agent.md)(Slack 봇 등 기관 공용 AI) 추가 | 없음 |
 
 이미 만든 앱은 [`DECISION.md`](starter/templates/DECISION.md)의 "참고한 저장소 주소와 버전"에 적은 번호의 앞 두 자리와 같은 버전부터 보면 됩니다(1.2.1이면 1.2부터). 전체 기록은 [`CHANGELOG.md`](CHANGELOG.md)에 있습니다.
 
