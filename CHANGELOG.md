@@ -10,9 +10,10 @@
 - **동의서 양식([`consent-form-intake.md`](ops/consent-form-intake.md), [`consent-form-sample.md`](ops/consent-form-sample.md))**: AI 국외이전 동의 항목을 뺐습니다. 국외 처리 사실과 거부 방법은 안내로 알립니다. 한 장 양식은 ⑥ 안내 사항이 ⑤가 되었고 그 안에 "AI 처리" 항목을 넣었습니다. 별도 양식은 ① AI 활용 안내에 넣었고, ④ 민감정보가 ③이 되었습니다. 처리방침 예시도 제3호 하나로 고쳤습니다.
 - **서버 확인([`masking.md`](starter/requirements/masking.md))**: 명부 필드 `동의_AI분석`을 `AI처리_가능`으로 바꿨습니다. 이용자가 AI 처리를 거부하지 않았으면 참입니다.
 - **민감정보 근거([`consent-notes.md`](ops/consent-notes.md) 1절)**: 민감정보는 동의가 아니어도 법령이 허용하면 처리할 수 있습니다(제23조 제1항 제2호). 사회보장급여법·노인복지법·장애인복지법 시행령에 국가·지자체와 그 업무를 위탁받은 기관의 정해진 사무에 건강정보 처리를 허용하는 조항이 있습니다. 기관이 스스로 하는 상담과 사례관리는 대개 해당하지 않으므로 민감정보 동의를 받습니다.
+- **AI에 보내지 않는 정보와 쓰는 순서([`masking.md`](starter/requirements/masking.md) 5번, [`ai.md`](starter/requirements/ai.md))**: 학대를 신고한 사람의 정보와 피해자가 머무는 곳·연락처는 조건을 모두 갖춰도 AI에 보내지 않습니다(아동학대처벌법 제10조 제3항, 노인복지법 제39조의6 제3항). 상담 기록과 사례 기록은 담당자가 먼저 쓰고, AI는 요약하고 다듬는 일을 돕습니다.
 - **함께 고친 곳**: [`workflow.md`](starter/workflow.md)의 "꼭 지킬 것" 5·7번, S등급 판정, 5절 제목("AI 분석은 전송 조건과 사람의 판단을 전제로 합니다"), [`requirements.md`](starter/requirements/requirements.md), [`ai.md`](starter/requirements/ai.md), [`screen-agent.md`](starter/assess/screen-agent.md), [`agent.md`](starter/assess/agent.md), [`glossary.md`](starter/glossary.md), [`DECISION.md`](starter/templates/DECISION.md).
 - **업체 계약 비교 정정([`masking.md`](starter/requirements/masking.md), [`requirements.md`](starter/requirements/requirements.md))**: Anthropic 표준 DPA도 OpenAI처럼 민감정보를 받는 것을 전제로 하지 않습니다(처리 설명 B.3 "None"). 이전에는 고객이 작성하는 항목이라고 잘못 적었습니다. AWS Bedrock(민감정보 제외 조항 없음, 학습 미사용, 기본 무보관)을 비교표에 더했습니다.
-- **이미 만든 앱**: AI 전송에 국외이전 동의를 받고 있어도 위법은 아닙니다. 동의서에서 빼려면 처리방침의 국외이전 조항에 AI 회사와 거부 방법을 적고, 안내 사항에 AI 처리 항목을 넣고, 명부 필드를 `AI처리_가능`(거부하지 않았으면 참)으로 바꿉니다. 전에 동의하지 않은 이용자는 거부한 것으로 둡니다. 지자체에서 위탁받은 사무라면 민감정보의 법령 근거를 확인합니다. Anthropic API로 S등급 기록을 보내고 있다면 별도 계약 조건을 확인합니다.
+- **이미 만든 앱**: AI 전송에 국외이전 동의를 받고 있어도 위법은 아닙니다. 동의서에서 빼려면 처리방침의 국외이전 조항에 AI 회사와 거부 방법을 적고, 안내 사항에 AI 처리 항목을 넣고, 명부 필드를 `AI처리_가능`(거부하지 않았으면 참)으로 바꿉니다. 전에 동의하지 않은 이용자는 거부한 것으로 둡니다. 지자체에서 위탁받은 사무라면 민감정보의 법령 근거를 확인합니다. AI에 보내는 칸에 신고자 정보나 피해자의 거처·연락처가 섞여 있지 않은지 확인합니다. Anthropic API로 S등급 기록을 보내고 있다면 별도 계약 조건을 확인합니다.
 
 ## 1.3 근태·급여와 전자결재를 직접 만들 때의 기준 (2026.10)
 
