@@ -9,7 +9,7 @@
 
 | 버전 | 바뀐 것 | 이미 만든 앱에서 할 일 |
 | :--- | :--- | :--- |
-| **1.4**<br>2026.10 | AI로 보내는 기록의 국외이전 근거 정정([`consent-notes.md`](ops/consent-notes.md) 1절): 보관과 AI 처리는 근거가 같아서, 학습에 쓰지 않는 업체에 계약이 있는 사람의 정보를 맡기면 처리방침 공개로 됨. 국외이전 동의는 계약이 없는 사람의 정보에만 받고, 동의서에서 AI 국외이전 동의 항목을 뺌. 명부 필드는 `AI처리_가능`으로. 민감정보는 법령이 허용하는 위탁 사무면 동의 없이 처리 가능. 학대 신고자 정보와 피해자의 거처·연락처는 AI에 보내지 않고, 상담 기록은 담당자가 먼저 씀. 업체 계약 비교 정정(Anthropic, AWS Bedrock) | AI 전송에 동의를 받고 있어도 위법은 아님. 빼려면 처리방침에 AI 회사와 거부 방법을 적고, 안내 사항에 AI 처리 항목을 넣고, 명부 필드를 바꾸기. 신고자 정보와 피해자의 거처·연락처가 AI로 가지 않는지 확인. Anthropic API로 S등급 기록을 보내고 있다면 계약 다시 확인 |
+| **1.4**<br>2026.10 | AI로 보내는 기록의 국외이전 근거 정정([`consent-notes.md`](ops/consent-notes.md) 1절): 보관과 AI 처리는 근거가 같아서, 학습에 쓰지 않는 업체에 계약이 있는 사람의 정보를 맡기면 처리방침 공개로 됨. 국외이전 동의는 계약이 없는 사람의 정보에만 받고, 동의서에서 AI 국외이전 동의 항목을 뺌. 명부 필드는 `AI처리_가능`으로. 민감정보는 법령이 허용하는 위탁 사무면 동의 없이 처리 가능. 학대 신고자 정보와 피해자의 거처·연락처는 AI에 보내지 않고, 상담 기록은 담당자가 먼저 씀. 업체 계약 비교 정정(Anthropic, AWS Bedrock). 공공 AI·클라우드 기준과의 관계([`public-ai-standards.md`](starter/public-ai-standards.md)) | AI 전송에 동의를 받고 있어도 위법은 아님. 빼려면 처리방침에 AI 회사와 거부 방법을 적고, 안내 사항에 AI 처리 항목을 넣고, 명부 필드를 바꾸기. 신고자 정보와 피해자의 거처·연락처가 AI로 가지 않는지 확인. Anthropic API로 S등급 기록을 보내고 있다면 계약 다시 확인 |
 | **1.3**<br>2026.10 | 근태·급여와 전자결재를 직접 만들 때의 기준([`record-integrity.md`](starter/data/record-integrity.md)): 처음 설계할 때 8개 원칙을 넣고, 승인된 문서는 고치지 않고 취소와 새 기안으로 바꾸며, 외부 감사에게 설명할 수 있는 수준이 목표. 근태·급여는 확정 내역과 급여명세서를 직원 개인 메일로 보내 기관 밖 사본으로 삼음 | 승인된 문서를 고치거나 지우는 기능이 있으면 취소와 새 기안으로 바꾸고, 그 절차를 [`DECISION.md`](starter/templates/DECISION.md)에 적기 |
 | **1.2**<br>2026.09 | Aside 같은 에이전트 브라우저로 정부 업무 시스템(희망이음 등)과 기관 앱·시트를 동기화할 때의 주의점([`starter/assess/screen-agent.md`](starter/assess/screen-agent.md)). [`masking.md`](starter/requirements/masking.md)의 AI 전송 제외 대상을 정부 업무 시스템 자료로 정리하고, 한국 안에서만 추론하는 경로(Bedrock 서울 등) 갱신. 웹훅 요건과 접속기록 기준(2026.11.1 시행, [`requirements.md`](starter/requirements/requirements.md)) | 에이전트 브라우저를 쓰면 원본, 운영 기관 약관·위수탁 협약 확인, 사람이 누르는 버튼(저장, 제출, 결재 요청), 작업 로그 위치를 [`DECISION.md`](starter/templates/DECISION.md)에 적기. 웹훅 payload에 개인정보가 없는지 확인. 접속기록 대상과 점검 주기를 내부 관리계획과 맞추기 |
 
@@ -168,7 +168,7 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 | [`starter/assess/`](starter/assess/) | 양식 점검, HWP 양식→앱 절차, 윤리 검토, 기관 공용 AI 에이전트(Slack 봇 등), 에이전트 브라우저로 정부 업무 시스템 동기화 | AI, 실무자 |
 | [`starter/data/`](starter/data/) | SSoT(단일 원본), 자체 개발 전자결재·근태·회계 기록의 무결성([`record-integrity.md`](starter/data/record-integrity.md)), 데이터 관리 다섯 단계 | AI, 실무자 |
 | [`starter/requirements/`](starter/requirements/) | 공통 요구사항 12개(웹훅 포함), 당사자 화면 설계·접근성, 인쇄·엑셀, 마스킹, HWP, AI 기능 | AI, 실무자 |
-| [`starter/glossary.md`](starter/glossary.md), [`starter/platform-facts.md`](starter/platform-facts.md), [`starter/resources.md`](starter/resources.md) | 용어사전, 바뀌는 플랫폼 정보, 함께 볼 자료 | 실무자 |
+| [`starter/glossary.md`](starter/glossary.md), [`starter/platform-facts.md`](starter/platform-facts.md), [`starter/public-ai-standards.md`](starter/public-ai-standards.md), [`starter/resources.md`](starter/resources.md) | 용어사전, 바뀌는 플랫폼 정보, 공공 AI·클라우드 기준과의 관계, 함께 볼 자료 | 실무자 |
 | [`starter/rules/`](starter/rules/) | 플랫폼별 개발 규칙과 에이전트 안전 경계. 판정 뒤 `CLAUDE.md`와 `AGENTS.md`에 연결합니다 | AI |
 | [`starter/templates/`](starter/templates/) | `DECISION.md`와 앱 README의 빈 양식 | AI가 복사 |
 | [`ops/`](ops/) | 앱마다 채우는 인수인계·파기 대장과, 동의서·처리방침 참고 양식. 실제 동의서와 처리방침은 기관에 하나만 두고 위치를 `DECISION.md`에 적습니다 | 기관 담당자 |

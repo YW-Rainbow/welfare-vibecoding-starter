@@ -2,7 +2,7 @@
 
 > 출처·최신판: https://github.com/YW-Rainbow/welfare-vibecoding-starter
 
-이 저장소의 판단 절차를 거친 뒤 개발과 운영에서 참고할 수 있는 자료입니다.
+이 저장소의 판단 절차를 거친 뒤 개발과 운영에서 참고할 수 있는 자료입니다. 정부와 공공기관의 AI·클라우드 기준은 [`public-ai-standards.md`](public-ai-standards.md)에 따로 모았습니다.
 
 ## 스타터 템플릿
 

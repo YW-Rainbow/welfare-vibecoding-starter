@@ -1,6 +1,6 @@
 # 버전 기록
 
-판단 기준이 바뀐 것을 버전으로 묶어 적습니다. 새 문서가 생기거나 판정이 달라질 만큼 바뀌면 버전을 올리고, 그 사이의 보완은 지금 버전에 더합니다. 문장 손질과 오타 수정은 적지 않습니다. 최근 3개 버전은 README의 "최근 바뀐 것"에 표로 요약합니다.
+판단 기준이 바뀐 것을 버전으로 묶어 적습니다. 새 판단 문서가 생기거나 판정이 달라질 만큼 바뀌면 버전을 올리고, 그 사이의 보완은 지금 버전에 더합니다. 문장 손질과 오타 수정은 적지 않습니다. 최근 3개 버전은 README의 "최근 바뀐 것"에 표로 요약합니다.
 
 템플릿으로 복사한 저장소는 원본을 따라 바뀌지 않습니다. 플러그인도 판정을 마친 뒤 `starter/`를 앱 폴더에 복사하므로 그때의 기준으로 고정됩니다. 이미 만든 앱은 [`DECISION.md`](starter/templates/DECISION.md)의 "참고한 저장소 주소와 버전"에 적은 번호의 앞 두 자리와 같은 절부터 봅니다(1.2.1이면 1.2 절부터). 보완할 때는 `plugin.json`의 끝자리만 올리고 CHANGELOG에는 따로 절을 두지 않기 때문입니다. 반영할 곳을 찾을 때는 AI에게 "원본 저장소의 CHANGELOG를 보고 내 [`DECISION.md`](starter/templates/DECISION.md)에 반영할 곳을 찾아 줘"라고 부탁합니다.
 
@@ -13,6 +13,8 @@
 - **AI에 보내지 않는 정보와 쓰는 순서([`masking.md`](starter/requirements/masking.md) 5번, [`ai.md`](starter/requirements/ai.md))**: 학대를 신고한 사람의 정보와 피해자가 머무는 곳·연락처는 조건을 모두 갖춰도 AI에 보내지 않습니다(아동학대처벌법 제10조 제3항, 노인복지법 제39조의6 제3항). 상담 기록과 사례 기록은 담당자가 먼저 쓰고, AI는 요약하고 다듬는 일을 돕습니다.
 - **함께 고친 곳**: [`workflow.md`](starter/workflow.md)의 "꼭 지킬 것" 5·7번, S등급 판정, 5절 제목("AI 분석은 전송 조건과 사람의 판단을 전제로 합니다"), [`requirements.md`](starter/requirements/requirements.md), [`ai.md`](starter/requirements/ai.md), [`screen-agent.md`](starter/assess/screen-agent.md), [`agent.md`](starter/assess/agent.md), [`glossary.md`](starter/glossary.md), [`DECISION.md`](starter/templates/DECISION.md).
 - **업체 계약 비교 정정([`masking.md`](starter/requirements/masking.md), [`requirements.md`](starter/requirements/requirements.md))**: Anthropic 표준 DPA도 OpenAI처럼 민감정보를 받는 것을 전제로 하지 않습니다(처리 설명 B.3 "None"). 이전에는 고객이 작성하는 항목이라고 잘못 적었습니다. AWS Bedrock(민감정보 제외 조항 없음, 학습 미사용, 기본 무보관)을 비교표에 더했습니다.
+- **개인정보보호위원회 안내서(1.4.1, [`consent-notes.md`](ops/consent-notes.md) 1절·6절)**: "AI만 따로 다룬 개인정보보호위원회 해석은 아직 없다"는 틀렸습니다. 「생성형 AI 개발·활용을 위한 개인정보 처리 안내서」(2025.8)가 상용 AI API를 기업용 계약으로 쓰는 것을 처리위탁으로 보고, 국외이전 근거로 처리방침 공개(제1항 제3호)를 듭니다. 1.4의 판단과 같습니다. 2026년 4월 개정된 「개인정보 처리방침 작성지침」에 맞춰 6절 점검 항목에 AI 처리 내용(보관 기간, 학습 미사용, 거부 절차, 챗봇 답변 이의 제기)을 더했습니다.
+- **참고 문서 [`starter/public-ai-standards.md`](starter/public-ai-standards.md)(1.4.1)**: 공공 AI와 클라우드 기준(개인정보보호위원회 안내서와 지침, 행정안전부 공공부문 인공지능 윤리기준, 대한민국 인공지능 윤리원칙, 인공지능기본법, CSAP와 그 개편)이 무엇이고 사회복지 기관과 어떤 관계인지 적었습니다. 공공은 보안 체계 안에서 AI를 쓰고 민간 기관은 그 밖에서 쓰므로 공공 기준을 그대로 옮기지 않았습니다. 판정 절차에서는 쓰지 않는 참고 문서라서 보완(1.4.1)으로 넣었습니다. CSAP가 국가정보원 보안검증으로 합쳐지는 개편에 맞춰 [`glossary.md`](starter/glossary.md), [`platform-facts.md`](starter/platform-facts.md), [`consent-form-sample.md`](ops/consent-form-sample.md) 참고 5의 설명도 고쳤습니다.
 - **이미 만든 앱**: AI 전송에 국외이전 동의를 받고 있어도 위법은 아닙니다. 동의서에서 빼려면 처리방침의 국외이전 조항에 AI 회사와 거부 방법을 적고, 안내 사항에 AI 처리 항목을 넣고, 명부 필드를 `AI처리_가능`(거부하지 않았으면 참)으로 바꿉니다. 전에 동의하지 않은 이용자는 거부한 것으로 둡니다. 지자체에서 위탁받은 사무라면 민감정보의 법령 근거를 확인합니다. AI에 보내는 칸에 신고자 정보나 피해자의 거처·연락처가 섞여 있지 않은지 확인합니다. Anthropic API로 S등급 기록을 보내고 있다면 별도 계약 조건을 확인합니다.
 
 ## 1.3 근태·급여와 전자결재를 직접 만들 때의 기준 (2026.10)
