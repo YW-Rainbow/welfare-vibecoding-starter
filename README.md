@@ -9,7 +9,7 @@
 
 | 버전 | 바뀐 것 | 이미 만든 앱에서 할 일 |
 | :--- | :--- | :--- |
-| **1.4**<br>2026.10 | AI로 보내는 기록의 국외이전 근거 정정([`consent-notes.md`](ops/consent-notes.md) 1절): 보관과 AI 처리는 근거가 같아서, 학습에 쓰지 않는 업체에 계약이 있는 사람의 정보를 맡기면 처리방침 공개로 됨. 국외이전 동의는 계약이 없는 사람의 정보에만 받고, 동의서에서 AI 국외이전 동의 항목을 뺌. 명부 필드는 `AI처리_가능`으로. 민감정보는 법령이 허용하는 위탁 사무면 동의 없이 처리 가능. 학대 신고자 정보와 피해자의 거처·연락처는 AI에 보내지 않고, 상담 기록은 담당자가 먼저 씀. 업체 계약 비교 정정(Anthropic, AWS Bedrock). 공공 AI·클라우드 기준과의 관계([`public-ai-standards.md`](starter/public-ai-standards.md)). 보안 점검 순서(보고, 승인, 수정, 다시 점검), Apps Script 공개 범위 규칙, 유출 사고 대응 | AI 전송에 동의를 받고 있어도 위법은 아님. 빼려면 처리방침에 AI 회사와 거부 방법을 적고, 안내 사항에 AI 처리 항목을 넣고, 명부 필드를 바꾸기. 신고자 정보와 피해자의 거처·연락처가 AI로 가지 않는지 확인. Anthropic API로 S등급 기록을 보내고 있다면 계약 다시 확인. Apps Script 앱은 화면에서 쓰지 않는 함수 이름 끝에 `_`를 붙이고, 인수인계서에 유출 사고 보고 체계와 보안 점검일을 적기 |
+| **1.4**<br>2026.10 | AI로 보내는 기록의 국외이전 근거 정정([`consent-notes.md`](ops/consent-notes.md) 1절): 보관과 AI 처리는 근거가 같아서, 학습에 쓰지 않는 업체에 계약이 있는 사람의 정보를 맡기면 처리방침 공개로 됨. 국외이전 동의는 계약이 없는 사람의 정보에만 받고, 동의서에서 AI 국외이전 동의 항목을 뺌. 명부 필드는 `AI처리_가능`으로. 민감정보는 법령이 허용하는 위탁 사무면 동의 없이 처리 가능. 학대 신고자 정보와 피해자의 거처·연락처는 AI에 보내지 않고, 상담 기록은 담당자가 먼저 씀. 업체 계약 비교 정정(Anthropic, AWS Bedrock). 공공 AI·클라우드 기준과의 관계([`public-ai-standards.md`](starter/public-ai-standards.md)). 보안 점검 순서(보고, 승인, 수정, 다시 점검), Apps Script 공개 범위 규칙, 유출 사고 대응. 다른 기관에서 받은 앱은 기관마다 다른 항목을 다시 판정. 통계 화면에 세지 않은 것도 표시하고, 쓰기 시작한 뒤 사용 점검 | AI 전송에 동의를 받고 있어도 위법은 아님. 빼려면 처리방침에 AI 회사와 거부 방법을 적고, 안내 사항에 AI 처리 항목을 넣고, 명부 필드를 바꾸기. 신고자 정보와 피해자의 거처·연락처가 AI로 가지 않는지 확인. Anthropic API로 S등급 기록을 보내고 있다면 계약 다시 확인. Apps Script 앱은 화면에서 쓰지 않는 함수 이름 끝에 `_`를 붙이고, 인수인계서에 유출 사고 보고 체계, 보안 점검일, 사용 점검 주기를 적기. 다른 기관에서 받은 앱이면 만든 사람의 계정과 주소가 남아 있는지 확인 |
 | **1.3**<br>2026.10 | 근태·급여와 전자결재를 직접 만들 때의 기준([`record-integrity.md`](starter/data/record-integrity.md)): 처음 설계할 때 8개 원칙을 넣고, 승인된 문서는 고치지 않고 취소와 새 기안으로 바꾸며, 외부 감사에게 설명할 수 있는 수준이 목표. 근태·급여는 확정 내역과 급여명세서를 직원 개인 메일로 보내 기관 밖 사본으로 삼음 | 승인된 문서를 고치거나 지우는 기능이 있으면 취소와 새 기안으로 바꾸고, 그 절차를 [`DECISION.md`](starter/templates/DECISION.md)에 적기 |
 | **1.2**<br>2026.09 | Aside 같은 에이전트 브라우저로 정부 업무 시스템(희망이음 등)과 기관 앱·시트를 동기화할 때의 주의점([`starter/assess/screen-agent.md`](starter/assess/screen-agent.md)). [`masking.md`](starter/requirements/masking.md)의 AI 전송 제외 대상을 정부 업무 시스템 자료로 정리하고, 한국 안에서만 추론하는 경로(Bedrock 서울 등) 갱신. 웹훅 요건과 접속기록 기준(2026.11.1 시행, [`requirements.md`](starter/requirements/requirements.md)) | 에이전트 브라우저를 쓰면 원본, 운영 기관 약관·위수탁 협약 확인, 사람이 누르는 버튼(저장, 제출, 결재 요청), 작업 로그 위치를 [`DECISION.md`](starter/templates/DECISION.md)에 적기. 웹훅 payload에 개인정보가 없는지 확인. 접속기록 대상과 점검 주기를 내부 관리계획과 맞추기 |
 
@@ -199,7 +199,7 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 - 아직 없습니다. 이 절차로 앱을 만들었다면 [기여 안내](.github/CONTRIBUTING.md)를 보고 알려 주세요. 판단 기록(`DECISION.md`)과 함께 여기에 연결합니다.
 
 **읽을거리**
-- [사회복지사가 바이브 코딩까지 해요](https://socialwork-vibecoding.jijun74.workers.dev/): 전재일. 온라인 책
+- [사회복지사가 바이브 코딩까지 해요](https://socialwork-vibecoding.jijun74.workers.dev/): 전재일. 앱 서른 개를 만들어 쓰고 나눈 1년의 기록. 앱을 내놓은 뒤에 보이는 것들
 - [모두를 위한 스마트워크](https://wish.welfare.seoul.kr/swflmsfront/coworker/ksdetail.do?pno=10026&userno=58550): 신용우. 이 저장소를 소개하는 「바이브코딩을 시작하기 전에」 연재가 있는 곳입니다. 앞선 데이터 설계 방법론과 온톨로지 연재는 [`levels.md`](starter/data/levels.md) 4단계의 바탕
 - [기록에서 데이터로, 데이터에서 삶으로](https://www.dtsw.org/journal/5668173483343872): 김진래. 흩어진 기록을 원장 하나로 모은 뒤 AI를 연계한 2년의 실천 보고. [`ai.md`](starter/requirements/ai.md)의 바탕
 - [AI 시대, 사회복지 현장이 바꿀 것, 버릴 것, 지킬 것](https://www.welfare.net/communication/promotion/card-news-detail?searchType=all&searchValue=%EC%8B%A0%EC%9A%A9%EC%9A%B0&id=888716): 신용우. 칼럼(한국사회복지사협회 카드뉴스)과 실천지혜 연작. [`ai.md`](starter/requirements/ai.md)의 바탕
