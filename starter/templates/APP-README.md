@@ -1,6 +1,6 @@
 # (앱 이름)
 
-> 이 저장소는 [사회복지 바이브코딩 스타터팩](https://github.com/YW-Rainbow/welfare-vibecoding-starter)의 절차로 판정한 뒤 만들었습니다. 판단 근거는 `DECISION.md`에, 판단 절차와 개발 규칙은 `starter/`에 있습니다.
+> 이 저장소는 [사회복지 바이브코딩 스타터팩](https://github.com/YW-Rainbow/welfare-vibecoding-starter)의 절차로 판정한 뒤 만들었습니다. 판단 근거는 [`DECISION.md`](DECISION.md)에, 판단 절차와 개발 규칙은 `starter/`에 있습니다.
 
 ## 무엇을 하는 앱인가
 
@@ -20,8 +20,8 @@
 
 - 담당자:
 - 백업 주기와 방법:
-- 인수인계 문서: `ops/handover.md`
-- 파기 대장: `ops/destruction-log.md`
+- 인수인계 문서: `starter/templates/HANDOVER.md`
+- 파기 대장: `starter/templates/DESTRUCTION-LOG.md`
 - 동의서와 처리방침:
 
 ## 개발 규칙

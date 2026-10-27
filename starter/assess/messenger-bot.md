@@ -6,11 +6,11 @@
 
 ## 언제 필요한가
 
-에이전트는 데이터가 있어야 일합니다. 이용자 명부가 단일 원본이고(`../data/ssot.md`), 기관에 공용 데이터와 API가 있을 때(`../data/levels.md` 3단계) 봇은 조회, 요약, 초안 작성, 알림을 할 수 있습니다. 데이터 레이어가 없으면 봇은 답할 데이터가 없어 채팅 상대에 그칩니다. 그 전 단계의 기관은 직원 개인이 쓰는 Claude Code·Codex와 메신저의 공식 앱으로 충분합니다.
+에이전트는 데이터가 있어야 일합니다. 이용자 명부가 단일 원본이고([`single-source.md`](../data/single-source.md)), 기관에 공용 데이터와 API가 있을 때([`levels.md`](../data/levels.md) 3단계) 봇은 조회, 요약, 초안 작성, 알림을 할 수 있습니다. 데이터 레이어가 없으면 봇은 답할 데이터가 없어 채팅 상대에 그칩니다. 그 전 단계의 기관은 직원 개인이 쓰는 Claude Code·Codex와 메신저의 공식 앱으로 충분합니다.
 
 "업무포털에 AI 채팅창을 넣고 싶다"는 요구도 대부분 데이터 레이어가 없는 상태에서 화면만 원하는 경우입니다. 포털은 단일 원본을 보여 주는 화면이고, 봇은 그 데이터를 메신저에서 쓰게 하는 또 하나의 화면입니다. 둘 다 데이터 레이어를 먼저 갖춰야 합니다.
 
-`../workflow.md`의 시작 전 확인을 여기에도 적용합니다. 봇으로 자동화하려는 절차가 없어도 되는 절차인지 먼저 봅니다.
+[`workflow.md`](../workflow.md)의 시작 전 확인을 여기에도 적용합니다. 봇으로 자동화하려는 절차가 없어도 되는 절차인지 먼저 봅니다.
 
 ## 원칙: 개인 구독으로 기관 봇을 만들지 않습니다
 
@@ -18,7 +18,7 @@ API 비용을 내지 않으려고 직원 한 명의 구독 계정(Claude Pro·Ma
 
 1. **계정의 주인.** 봇이 한 직원의 계정에 묶입니다. 그 직원이 나가면 봇이 멈추고, 그동안 기관 데이터를 개인 명의로 처리한 셈이 됩니다. 한 계정을 여러 사람이 쓰는 것은 대부분의 약관이 금지하는 계정 공유입니다.
 2. **한도.** 구독 한도는 그 개인의 것입니다. 기관 전체가 쓰면 낮 시간에 한도가 소진되어 봇이 멈춥니다.
-3. **데이터 처리 계약.** 개인 플랜에는 소비자 약관이 적용됩니다. 기관이 요구해야 하는 DPA(개인정보 처리 부속계약)가 없고, 학습 미사용 설정을 사용자가 직접 켜야 합니다. `../requirements/ai-send.md`의 조건을 충족할 수 없습니다.
+3. **데이터 처리 계약.** 개인 플랜에는 소비자 약관이 적용됩니다. 기관이 요구해야 하는 DPA(개인정보 처리 부속계약)가 없고, 학습 미사용 설정을 사용자가 직접 켜야 합니다. [`sending-data-to-ai.md`](../requirements/sending-data-to-ai.md)의 조건을 충족할 수 없습니다.
 
 기관 봇은 **기관 플랜**(Claude Team·Enterprise, ChatGPT Business·Enterprise)이나 **기관이 결제하는 API 키**로 만듭니다.
 
@@ -33,21 +33,21 @@ API 비용을 내지 않으려고 직원 한 명의 구독 계정(Claude Pro·Ma
 | **Claude Tag** (Slack 전용 공식 봇) | Claude Team·Enterprise 플랜, 기관 Slack 워크스페이스 | 기관이 서버를 두지 않아도 됩니다. 조직 소유자가 한 번 설정하면 채널의 누구나 `@Claude`로 일을 맡깁니다. 관리자가 채널별로 접근 범위를 정하고, 외부 서비스마다 Claude 전용 계정을 만들어 연결하며, 월 지출 한도를 겁니다. 채널 작업은 기관 잔액에서 사용량만큼 과금됩니다 | 공개 베타입니다. Slack만 지원합니다. 사용자당 요금과 별도로 사용량 잔액을 충전하는 예산 집행 방식이 필요합니다. 채널 메모리가 무엇을 기억하는지 관리자가 확인합니다. Anthropic 문서가 "채널의 다른 메시지 지시를 따를 수 있으니 신뢰할 수 있는 대화에서만 쓰라"고 경고합니다 |
 | Pro·Max의 Claude Code in Slack | 개인 플랜 | 개인이 자기 코딩 작업을 Slack에서 맡길 수 있습니다 | 각자 자기 계정과 한도로 세션이 실행됩니다. 기관 공용 봇이 아니고 코딩용입니다 |
 | **자체 호스팅 OpenClaw 또는 Hermes Agent + ChatGPT Business 사용자 계정** | ChatGPT Business 이상, 기관 서버, 운영 담당자 | OpenAI가 구독 로그인을 공식 허용했고 Business 계정으로 로그인이 됩니다. Business는 학습 미사용이 기본이고 관리자 통제와 중앙 결제가 있습니다. 메신저 20여 종에 붙습니다. 정액입니다 | 봇 전용 사용자 계정을 두는 것이 약관에 맞는지, DPA를 체결했는지, 카카오톡 채널을 지원하는지, 사용자 계정 한도는 얼마인지 확인합니다. 코드를 실행하는 에이전트를 기관 서버에서 운영하므로 보안도 기관이 책임져야 합니다 |
-| 자체 호스팅 + 기관 API 키 (Anthropic, OpenAI, Google 등) | 기관 결제, 기관 서버, 운영 담당자 | 가장 자유롭습니다. DPA를 체결할 수 있고, 일부 모델은 Bedrock 서울처럼 한국 안에서만 추론하는 경로를 고를 수 있습니다(`../requirements/ai-send.md`) | 종량 과금이라 비용 상한과 알림을 설정합니다. 서버 운영 책임은 위와 같습니다 |
+| 자체 호스팅 + 기관 API 키 (Anthropic, OpenAI, Google 등) | 기관 결제, 기관 서버, 운영 담당자 | 가장 자유롭습니다. DPA를 체결할 수 있고, 일부 모델은 Bedrock 서울처럼 한국 안에서만 추론하는 경로를 고를 수 있습니다([`sending-data-to-ai.md`](../requirements/sending-data-to-ai.md)) | 종량 과금이라 비용 상한과 알림을 설정합니다. 서버 운영 책임은 위와 같습니다 |
 | 자체 호스팅 + 개인 구독 로그인 | 개인 계정 | 가장 저렴합니다 | 개인용에만 씁니다. 기관 봇에는 위 원칙의 세 가지 이유로 맞지 않습니다. Claude 구독은 정책이 계속 바뀝니다 |
 
 Slack을 쓰는 기관에는 Claude Tag가 가장 간단하고, Slack을 쓰지 않는 기관은 자체 호스팅에 기관 플랜이나 API 키를 붙여야 합니다.
 
 ## 데이터
 
-- 봇이 읽을 채널을 목록으로 정합니다. 이용자 정보가 오가는 채널에는 붙이지 않습니다. 붙여야 한다면 `../requirements/ai-send.md`의 DPA, 국외이전 근거, 마스킹 조건을 먼저 갖춥니다.
-- Slack과 Discord 자체도 개인정보 수탁자이고 서버는 국외에 있습니다. 개인정보 처리방침의 사업자 목록에 넣습니다(`../../ops/consent-notes.md`).
+- 봇이 읽을 채널을 목록으로 정합니다. 이용자 정보가 오가는 채널에는 붙이지 않습니다. 붙여야 한다면 [`sending-data-to-ai.md`](../requirements/sending-data-to-ai.md)의 DPA, 국외이전 근거, 마스킹 조건을 먼저 갖춥니다.
+- Slack과 Discord 자체도 개인정보 수탁자이고 서버는 국외에 있습니다. 개인정보 처리방침의 사업자 목록에 넣습니다([`consent-guide.md`](../../agency/consent-guide.md)).
 - 봇의 메모리에 이용자 정보가 남지 않게 합니다. 무엇을 기억하고 누가 볼 수 있는지 확인합니다.
 - 봇은 채널에 있는 다른 사람의 메시지를 명령으로 받아들일 수 있습니다. 외부인이 들어오는 채널에는 붙이지 않습니다.
 
 ## 권한과 사람의 확인
 
-`../requirements/ai.md`의 규칙을 봇에 그대로 적용합니다.
+[`ai-features.md`](../requirements/ai-features.md)의 규칙을 봇에 그대로 적용합니다.
 
 - 봇 전용 계정을 만들고 읽기 권한부터 시작합니다. 쓰기, 발송, 삭제, 외부 제출은 사람이 승인하기 전에는 실행되지 않게 합니다.
 - 그런 민감한 요청은 요청한 사람이 허용 목록의 직원인지 봇이 먼저 확인하고, 목록에 없는 사람의 요청은 승인 단계로 넘기지 않고 실행하지 않습니다. 채널의 누구나 봇을 부를 수 있으므로 사람 승인만으로는 부족합니다.
@@ -57,7 +57,7 @@ Slack을 쓰는 기관에는 Claude Tag가 가장 간단하고, Slack을 쓰지 
 
 ## 운영
 
-- 봇 계정, 서버, 자격 증명의 관리자를 정하고 `../../ops/handover.md`에 적습니다. 관리자가 바뀌어도 봇이 멈추지 않아야 합니다.
+- 봇 계정, 서버, 자격 증명의 관리자를 정하고 [`HANDOVER.md`](../templates/HANDOVER.md)에 적습니다. 관리자가 바뀌어도 봇이 멈추지 않아야 합니다.
 - 한도가 소진되거나 서비스가 멈췄을 때 사람이 처리하는 절차를 둡니다.
 - 사용량 과금이면 월 상한과 알림을 설정하고 예산 집행 방식을 정합니다.
 - 중단 절차를 정합니다. Slack 앱을 제거하면 접근이 즉시 회수되는지, 자체 호스팅이면 자격 증명을 폐기하는 순서가 무엇인지 적습니다.
@@ -84,10 +84,10 @@ Slack을 쓰는 기관에는 Claude Tag가 가장 간단하고, Slack을 쓰지 
 
 ## 관련 문서
 
-- `../requirements/ai.md`: 사람이 할 일과 AI에 맡길 일, HITL 규칙
-- `../requirements/ai-send.md`: 기록을 AI로 전송할 때의 계약, 동의, 마스킹
-- `../data/levels.md`: 봇이 필요해지는 3단계
-- `../data/ssot.md`: 봇이 참조할 최초 기록
-- `../../ops/handover.md`: 봇 계정과 서버의 인수인계
+- [`ai-features.md`](../requirements/ai-features.md): 사람이 할 일과 AI에 맡길 일, HITL 규칙
+- [`sending-data-to-ai.md`](../requirements/sending-data-to-ai.md): 기록을 AI로 전송할 때의 계약, 동의, 마스킹
+- [`levels.md`](../data/levels.md): 봇이 필요해지는 3단계
+- [`single-source.md`](../data/single-source.md): 봇이 참조할 최초 기록
+- [`HANDOVER.md`](../templates/HANDOVER.md): 봇 계정과 서버의 인수인계
 
 출처: [Claude Tag 문서](https://claude.com/docs/claude-tag/overview), [Claude Code in Slack 문서](https://code.claude.com/docs/en/slack), [Claude Agent SDK와 구독 플랜(도움말)](https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan), [OpenClaw](https://docs.openclaw.ai/), [Hermes Agent](https://hermes-agent.nousresearch.com/), [ChatGPT Business FAQ](https://help.openai.com/en/articles/8542115-chatgpt-business-general-faq)

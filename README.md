@@ -9,9 +9,9 @@
 
 | 버전 | 바뀐 것 | 이미 만든 앱에서 할 일 |
 | :--- | :--- | :--- |
-| **1.5**<br>2026.10 | 기관 전체에 쓰는 [AI 윤리·활용 가이드라인 샘플](ops/ai-guideline-sample.md)(윤리 원칙, 직원이 지킬 것, 기관·담당자가 챙길 것, 조문형 규정, 1분 점검표, Q&A). AI에 보내기 전 판단 순서를 정보 등급 → 그 등급을 계약으로 받는 도구로 정리하고, 도구를 세 칸(민감정보까지 / 일반 개인정보까지 / 개인정보 없음만)으로 나눔. 민감정보까지는 기관 Workspace의 Gemini(채팅형 포함), 결제를 연결한 Gemini API, Azure OpenAI, AWS Bedrock. ChatGPT Business·Claude Team과 OpenAI·Anthropic API 직접 계약은 일반 개인정보까지. `masking.md`를 [`ai-send.md`](starter/requirements/ai-send.md)로 바꾸고 마스킹은 선택 절로 내림 | 기관 가이드라인을 정하고 AI 사용 목록을 만들기. OpenAI·Anthropic 표준 계약으로 민감정보를 보내고 있다면 "민감정보까지" 칸의 도구로 옮기기. Gemini API 키가 결제를 연결한 프로젝트의 키인지 확인. 문서 안의 `masking.md` 링크를 `ai-send.md`로 바꾸기 |
-| **1.4**<br>2026.10 | AI로 보내는 기록의 국외이전 근거 정정([`consent-notes.md`](ops/consent-notes.md) 1절): 보관과 AI 처리는 근거가 같아서, 학습에 쓰지 않는 업체에 계약이 있는 사람의 정보를 맡기면 처리방침 공개로 됨. 국외이전 동의는 계약이 없는 사람의 정보에만 받고, 동의서에서 AI 국외이전 동의 항목을 뺌. 명부 필드는 `AI처리_가능`으로. 민감정보는 법령이 허용하는 위탁 사무면 동의 없이 처리 가능. 학대 신고자 정보와 피해자의 거처·연락처는 AI에 보내지 않고, 상담 기록은 담당자가 먼저 씀. 업체 계약 비교 정정(Anthropic, AWS Bedrock). 공공 AI·클라우드 기준과의 관계([`public-ai-standards.md`](starter/public-ai-standards.md)). 보안 점검 순서(보고, 승인, 수정, 다시 점검), Apps Script 공개 범위 규칙, 유출 사고 대응. 다른 기관에서 받은 앱은 기관마다 다른 항목을 다시 판정. 통계 화면에 세지 않은 것도 표시하고, 쓰기 시작한 뒤 사용 점검. 공공에서 직접 만드는 흐름(AI 정부 실험실)과 현장 공무원이 만든 법령·문서·복지정보 도구. 앱의 이름을 짓기 전에 기관 용어 사전 정하기 | AI 전송에 동의를 받고 있어도 위법은 아님. 빼려면 처리방침에 AI 회사와 거부 방법을 적고, 안내 사항에 AI 처리 항목을 넣고, 명부 필드를 바꾸기. 신고자 정보와 피해자의 거처·연락처가 AI로 가지 않는지 확인. Anthropic API로 S등급 기록을 보내고 있다면 계약 다시 확인. Apps Script 앱은 화면에서 쓰지 않는 함수 이름 끝에 `_`를 붙이고, 인수인계서에 유출 사고 보고 체계, 보안 점검일, 사용 점검 주기를 적기. 기관 용어 사전이 있으면 그 위치를 [`DECISION.md`](starter/templates/DECISION.md)에 적기. 다른 기관에서 받은 앱이면 만든 사람의 계정과 주소가 남아 있는지 확인 |
-| **1.3**<br>2026.10 | 근태·급여와 전자결재를 직접 만들 때의 기준([`record-integrity.md`](starter/data/record-integrity.md)): 처음 설계할 때 8개 원칙을 넣고, 승인된 문서는 고치지 않고 취소와 새 기안으로 바꾸며, 외부 감사에게 설명할 수 있는 수준이 목표. 근태·급여는 확정 내역과 급여명세서를 직원 개인 메일로 보내 기관 밖 사본으로 삼음 | 승인된 문서를 고치거나 지우는 기능이 있으면 취소와 새 기안으로 바꾸고, 그 절차를 [`DECISION.md`](starter/templates/DECISION.md)에 적기 |
+| **1.5.1**<br>2026.10 | 폴더와 파일 이름 정리. 기관 문서는 [`agency/`](agency/)(가이드라인, 동의서 양식 A·B·C, 동의와 처리방침 판단 기준), 인수인계서와 파기 대장은 [`starter/templates/`](starter/templates/)로 옮기고 `ops/`를 없앰. `chat-prompt.md`·`platform-facts.md`는 [`workflow.md`](starter/workflow.md)에, 양식 문서 두 개는 [`forms.md`](starter/assess/forms.md)에 합침. 줄임말 파일 이름을 풀어 씀(`gas.md` → `apps-script.md` 등, 전체 목록은 [`CHANGELOG.md`](CHANGELOG.md)). AI 처리는 알리고 거부할 수 있게 하는 방식으로 문서 전체를 맞추고 남용을 막는 장치를 더함 | 앱 폴더에 복사해 둔 동의서·가이드라인 사본을 지우고 기관 원본으로 연결하기. 이용자 명부에 `동의_확인일` 더하기 |
+| **1.5**<br>2026.10 | 기관 전체에 쓰는 [AI 윤리·활용 가이드라인 샘플](agency/ai-guideline.md)(윤리 원칙, 직원이 지킬 것, 기관·담당자가 챙길 것, 조문형 규정, 1분 점검표, Q&A). AI에 보내기 전 판단 순서를 정보 등급 → 그 등급을 계약으로 받는 도구로 정리하고, 도구를 세 칸(민감정보까지 / 일반 개인정보까지 / 개인정보 없음만)으로 나눔. 민감정보까지는 기관 Workspace의 Gemini(채팅형 포함), 결제를 연결한 Gemini API, Azure OpenAI, AWS Bedrock. ChatGPT Business·Claude Team과 OpenAI·Anthropic API 직접 계약은 일반 개인정보까지. `masking.md`를 `ai-send.md`(1.5.1부터 [`sending-data-to-ai.md`](starter/requirements/sending-data-to-ai.md))로 바꾸고 마스킹은 선택 절로 내림 | 기관 가이드라인을 정하고 AI 사용 목록을 만들기. OpenAI·Anthropic 표준 계약으로 민감정보를 보내고 있다면 "민감정보까지" 칸의 도구로 옮기기. Gemini API 키가 결제를 연결한 프로젝트의 키인지 확인. 문서 안의 `masking.md` 링크를 `sending-data-to-ai.md`로 바꾸기 |
+| **1.4**<br>2026.10 | AI로 보내는 기록의 국외이전 근거 정정([`consent-guide.md`](agency/consent-guide.md) 1절): 보관과 AI 처리는 근거가 같아서, 학습에 쓰지 않는 업체에 계약이 있는 사람의 정보를 맡기면 처리방침 공개로 됨. 국외이전 동의는 계약이 없는 사람의 정보에만 받고, 동의서에서 AI 국외이전 동의 항목을 뺌. 명부 필드는 `AI처리_가능`으로. 민감정보는 법령이 허용하는 위탁 사무면 동의 없이 처리 가능. 학대 신고자 정보와 피해자의 거처·연락처는 AI에 보내지 않고, 상담 기록은 담당자가 먼저 씀. 업체 계약 비교 정정(Anthropic, AWS Bedrock). 공공 AI·클라우드 기준과의 관계([`reference/public-ai-standards.md`](starter/reference/public-ai-standards.md)). 보안 점검 순서(보고, 승인, 수정, 다시 점검), Apps Script 공개 범위 규칙, 유출 사고 대응. 다른 기관에서 받은 앱은 기관마다 다른 항목을 다시 판정. 통계 화면에 세지 않은 것도 표시하고, 쓰기 시작한 뒤 사용 점검. 공공에서 직접 만드는 흐름(AI 정부 실험실)과 현장 공무원이 만든 법령·문서·복지정보 도구. 앱의 이름을 짓기 전에 기관 용어 사전 정하기 | AI 전송에 동의를 받고 있어도 위법은 아님. 빼려면 처리방침에 AI 회사와 거부 방법을 적고, 안내 사항에 AI 처리 항목을 넣고, 명부 필드를 바꾸기. 신고자 정보와 피해자의 거처·연락처가 AI로 가지 않는지 확인. Anthropic API로 S등급 기록을 보내고 있다면 계약 다시 확인. Apps Script 앱은 화면에서 쓰지 않는 함수 이름 끝에 `_`를 붙이고, 인수인계서에 유출 사고 보고 체계, 보안 점검일, 사용 점검 주기를 적기. 기관 용어 사전이 있으면 그 위치를 [`DECISION.md`](starter/templates/DECISION.md)에 적기. 다른 기관에서 받은 앱이면 만든 사람의 계정과 주소가 남아 있는지 확인 |
 
 이미 만든 앱은 [`DECISION.md`](starter/templates/DECISION.md)의 "참고한 저장소 주소와 버전"에 적은 번호의 앞 두 자리와 같은 버전부터 보면 됩니다(1.2.1이면 1.2부터). 전체 기록은 [`CHANGELOG.md`](CHANGELOG.md)에 있습니다.
 
@@ -23,7 +23,7 @@
 |---|---|
 | **Claude Code나 Codex로 새 앱을 만든다** | 이 페이지 위쪽의 **Use this template** 버튼으로 앱 이름의 저장소를 새로 만들고, 클론한 폴더 안에서 도구를 실행해 바로 대화를 시작합니다. 규칙 파일은 도구가 자동으로 읽습니다. 이미 템플릿으로 만든 저장소를 보고 있다면 클론부터 하면 됩니다. |
 | **이미 만들던 앱 폴더가 있거나, 앱을 여러 개 만들 계획이다** | 이 저장소를 플러그인으로 한 번 설치해 둡니다. 그러면 어느 폴더에서 대화하든 판단 절차가 시작됩니다. |
-| **Claude나 ChatGPT 채팅창만 쓴다** | [`chat-prompt.md`](starter/chat-prompt.md)를 열어 내용 전체를 복사해 첫 메시지로 붙입니다. 링크만 주면 AI가 문서를 다 읽지 못합니다. |
+| **Claude나 ChatGPT 채팅창만 쓴다** | [`workflow.md`](starter/workflow.md)를 열어 내용 전체를 복사해 첫 메시지로 붙입니다. 링크만 주면 AI가 문서를 다 읽지 못합니다. |
 
 자세한 방법은 아래 [사용방법](#사용방법)에 있습니다. `/init`은 실행하지 않습니다. 규칙 파일이 이미 갖춰져 있어서 `/init`이 만들어 주는 내용은 필요하지 않습니다.
 
@@ -61,9 +61,9 @@ AI에게 프로그램 신청 앱을 만들어 달라고 하면 신청서 화면�
 
 제가 요즘 가장 크게 느끼는 것은 우리 현장에 최초 기록을 참조하는 구조가 없다는 것입니다. 프로그램 접수는 전화와 종이로 받아 엑셀에 적고, 출석은 인쇄한 출석부에 강사가 표시하고, 담당자가 합계만 엑셀로 옮기고, 팀과 기관이 취합해 시군구에 내면, 시군구는 그것을 다시 모아 위로 올립니다. 단계마다 사람이 옮겨 적고, 중간에 한 번 틀리면 그 이후 작업을 전부 다시 합니다.
 
-모든 결과물은 결국 최초 기록에서 나오는데, 정작 최초 기록을 참조하지 않고 사본을 다시 사본으로 만듭니다. 저는 디지털 전환이 종이를 화면으로 바꾸는 일이 아니라, 기록이 처음 생길 때 제대로 남기고 그 뒤의 모든 작업이 그 기록을 참조하게 만드는 일이라고 생각합니다. 엑셀에 옮겨 적는 것은 디지털이 아니라 옮겨 적기입니다. 이것이 되어야 디지털 전환이 시작되고, AI 전환도 그다음에야 할 수 있습니다. 사람이 꼭 할 일을 먼저 정하고, 나머지 가운데 AI에 맡길 일을 고르고, AI가 한 일은 사람이 확인하고 되돌릴 수 있어야 합니다. 최초 기록을 원본으로 삼는 방법은 [`ssot.md`](starter/data/ssot.md)에, 사람이 할 일과 AI에 맡길 일을 나누는 방법은 [`ai.md`](starter/requirements/ai.md)에 정리했습니다.
+모든 결과물은 결국 최초 기록에서 나오는데, 정작 최초 기록을 참조하지 않고 사본을 다시 사본으로 만듭니다. 저는 디지털 전환이 종이를 화면으로 바꾸는 일이 아니라, 기록이 처음 생길 때 제대로 남기고 그 뒤의 모든 작업이 그 기록을 참조하게 만드는 일이라고 생각합니다. 엑셀에 옮겨 적는 것은 디지털이 아니라 옮겨 적기입니다. 이것이 되어야 디지털 전환이 시작되고, AI 전환도 그다음에야 할 수 있습니다. 사람이 꼭 할 일을 먼저 정하고, 나머지 가운데 AI에 맡길 일을 고르고, AI가 한 일은 사람이 확인하고 되돌릴 수 있어야 합니다. 최초 기록을 원본으로 삼는 방법은 [`single-source.md`](starter/data/single-source.md)에, 사람이 할 일과 AI에 맡길 일을 나누는 방법은 [`ai-features.md`](starter/requirements/ai-features.md)에 정리했습니다.
 
-정부 업무 시스템(희망이음 등)과도 같은 문제가 있습니다. 시설은 인사, 회계, 후원, 보고, 서비스 이력을 이 시스템에 입력하고, 기관 앱과 시트에도 같은 내용을 적습니다. 이 시스템에는 기관이 쓸 수 있는 API가 없으니 SSoT(단일 원본)를 지킬 수 없고, 두 곳을 손으로 동기화하다 보면 불편하고 누락이 생깁니다. 그래서 요즘은 Aside 같은 에이전트 브라우저에 이 동기화를 맡기려는 분들이 늘고 있습니다. 저는 이 흐름을 막기보다 안전하게 쓰는 법을 함께 정하는 것이 맞다고 생각합니다. 기관 앱·시트를 원본으로 두고, 처음에는 대조만 시키고, 로그인과 저장·제출은 사람이 하는 순서를 [`screen-agent.md`](starter/assess/screen-agent.md)에 정리했습니다.
+정부 업무 시스템(희망이음 등)과도 같은 문제가 있습니다. 시설은 인사, 회계, 후원, 보고, 서비스 이력을 이 시스템에 입력하고, 기관 앱과 시트에도 같은 내용을 적습니다. 이 시스템에는 기관이 쓸 수 있는 API가 없으니 SSoT(단일 원본)를 지킬 수 없고, 두 곳을 손으로 동기화하다 보면 불편하고 누락이 생깁니다. 그래서 요즘은 Aside 같은 에이전트 브라우저에 이 동기화를 맡기려는 분들이 늘고 있습니다. 저는 이 흐름을 막기보다 안전하게 쓰는 법을 함께 정하는 것이 맞다고 생각합니다. 기관 앱·시트를 원본으로 두고, 처음에는 대조만 시키고, 로그인과 저장·제출은 사람이 하는 순서를 [`agent-browser.md`](starter/assess/agent-browser.md)에 정리했습니다.
 
 그런데 막상 기관에서 하려고 하면, 생각보다 저항이 심합니다. 당장 일이 많아지는 것 같기도 하고, 기존에 하던 방식이 마치 잘못된 것처럼 느껴지도록 메시지를 잘못 전하기도 하는 것 같습니다. 저는 우리가 ‘문제를 문제라고 정의하는 것’ 자체를 터부시하고, 그 일에 익숙하지 않기 때문은 아닐까 생각합니다.
 
@@ -88,7 +88,7 @@ AI에게 프로그램 신청 앱을 만들어 달라고 하면 신청서 화면�
 
 직원의 근태나 위치, 이용자의 상담 내용을 기록하는 앱이라면 만들기 전에 따져 볼 다섯 가지 질문을 [`ethics.md`](starter/assess/ethics.md)에 모았습니다. 목적, 필요성, 대체 수단, 부담, 당사자 관점입니다. 어떤 위험과 부담이 있는지 알고 기관이 결정하기 위한 것입니다.
 
-모든 문서는 개발 지식이 없는 독자를 기준으로 썼고, 낯선 용어는 [`glossary.md`](starter/glossary.md)에 정리했습니다. AI도 이 문서를 바탕으로 작업할 때는 용어를 설명하면서 작업하도록 했습니다. 처음부터 다 알고 시작하는 사람은 없습니다. 저도 계속 배우면서 스타터팩을 고쳐 가겠습니다.
+모든 문서는 개발 지식이 없는 독자를 기준으로 썼고, 낯선 용어는 [`reference/glossary.md`](starter/reference/glossary.md)에 정리했습니다. AI도 이 문서를 바탕으로 작업할 때는 용어를 설명하면서 작업하도록 했습니다. 처음부터 다 알고 시작하는 사람은 없습니다. 저도 계속 배우면서 스타터팩을 고쳐 가겠습니다.
 
 ## 사용방법
 
@@ -104,12 +104,12 @@ AI에게 프로그램 신청 앱을 만들어 달라고 하면 신청서 화면�
 
 1. 이 페이지 위쪽의 **Use this template** 버튼을 누르고 앱 이름으로 저장소를 만듭니다. 문서만 복사되고 이 저장소의 이력은 따라오지 않습니다.
 2. 만든 저장소를 컴퓨터로 클론하고, **그 폴더 안에서** Claude Code나 Codex를 실행합니다. Claude Code는 [`CLAUDE.md`](CLAUDE.md)를, Codex는 [`AGENTS.md`](AGENTS.md)를 자동으로 읽고 나머지 문서로 이어집니다.
-3. 판정이 끝나면 AI가 판정 결과와 기관의 결정을 `DECISION.md`에 적고, 선택한 개발 규칙을 `CLAUDE.md`와 `AGENTS.md`에 연결합니다. 앱은 같은 저장소의 `app/` 같은 폴더에서 만듭니다. `starter/`와 `ops/`는 판단 근거와 운영 자료이므로 지우지 않습니다. 이 README는 [`starter/templates/APP-README.md`](starter/templates/APP-README.md)를 바탕으로 앱 소개로 바뀌고, 스타터 안내는 원본 저장소 링크로 남습니다. 운영하고 있는 앱(실제 직원과 이용자가 쓰는 앱)에 반영하거나 운영 DB를 바꿀 때는 AI가 바뀌는 내용과 되돌릴 방법을 먼저 보고하고 실행 허락을 묻습니다. 보고를 읽고 허락하는 것이 사람의 결정입니다.
+3. 판정이 끝나면 AI가 판정 결과와 기관의 결정을 `DECISION.md`에 적고, 선택한 개발 규칙을 [`CLAUDE.md`](CLAUDE.md)와 [`AGENTS.md`](AGENTS.md)에 연결합니다. 앱은 같은 저장소의 `app/` 같은 폴더에서 만듭니다. `starter/`와 `agency/`는 판단 근거와 기관 기준이므로 지우지 않습니다. 이 README는 [`starter/templates/APP-README.md`](starter/templates/APP-README.md)를 바탕으로 앱 소개로 바뀌고, 스타터 안내는 원본 저장소 링크로 남습니다. 운영하고 있는 앱(실제 직원과 이용자가 쓰는 앱)에 반영하거나 운영 DB를 바꿀 때는 AI가 바뀌는 내용과 되돌릴 방법을 먼저 보고하고 실행 허락을 묻습니다. 보고를 읽고 허락하는 것이 사람의 결정입니다.
 4. 다음 앱도 템플릿 버튼을 다시 눌러 새 저장소에서 시작합니다. 한 저장소에 앱을 두 개 만들지 않습니다. 앱을 자주 만든다면 아래 플러그인 방식이 편합니다.
 
 ### 플러그인으로 시작하기: 한 번 설치하고 어느 폴더에서나 쓴다
 
-이미 앱 폴더가 있거나 여러 앱을 만들 계획이라면 이 저장소를 플러그인으로 설치합니다. 한 번 설치하면 어느 폴더에서든 "복지관 앱을 만들고 싶어" 같은 말에 판단 절차가 자동으로 시작됩니다. 그렇지 않으면 "사회복지 앱 판단 절차로 시작해 줘"라고 요청합니다. 스킬은 두 개입니다. 앱 아이디어에서 시작하는 판정 절차와, HWP 양식 파일에서 시작하는 양식→앱 절차([`form-to-app.md`](starter/assess/form-to-app.md))입니다.
+이미 앱 폴더가 있거나 여러 앱을 만들 계획이라면 이 저장소를 플러그인으로 설치합니다. 한 번 설치하면 어느 폴더에서든 "복지관 앱을 만들고 싶어" 같은 말에 판단 절차가 자동으로 시작됩니다. 그렇지 않으면 "사회복지 앱 판단 절차로 시작해 줘"라고 요청합니다. 스킬은 두 개입니다. 앱 아이디어에서 시작하는 판정 절차와, HWP 양식 파일에서 시작하는 양식→앱 절차([`forms.md`](starter/assess/forms.md))입니다.
 
 Claude Code에서는 두 줄입니다.
 
@@ -125,17 +125,17 @@ codex plugin marketplace add YW-Rainbow/welfare-vibecoding-starter
 codex /plugins
 ```
 
-판정이 끝나면 AI가 `starter/`, `ops/`, `AGENTS.md`, `CLAUDE.md`를 앱 폴더로 복사해 템플릿으로 만든 저장소와 같은 구조를 갖추고, `DECISION.md`를 채운 뒤 선택한 규칙을 연결합니다. 이미 있던 앱 코드는 옮기지 않고 그대로 둡니다. 앱마다 채우는 것은 [`handover.md`](ops/handover.md)와 [`destruction-log.md`](ops/destruction-log.md)입니다. 동의서와 처리방침 파일은 참고 양식이므로 앱마다 고쳐 쓰지 않고, 기관이 실제로 쓰는 동의서와 처리방침은 기관에 하나만 두고 그 위치를 `DECISION.md`에 적습니다. 판단 근거가 앱 폴더에 남아 후임자가 읽을 수 있습니다. 다음 앱은 새 폴더에서 시작합니다.
+판정이 끝나면 AI가 `starter/`, [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md)를 앱 폴더로 복사해 템플릿으로 만든 저장소와 같은 구조를 갖추고, `DECISION.md`를 채운 뒤 선택한 규칙을 연결합니다. 이미 있던 앱 코드는 옮기지 않고 그대로 둡니다. 앱마다 채우는 것은 [`HANDOVER.md`](starter/templates/HANDOVER.md)와 [`DESTRUCTION-LOG.md`](starter/templates/DESTRUCTION-LOG.md)입니다. 가이드라인과 동의서는 기관에 하나만 두는 문서라 복사하지 않고 [`agency/`](agency/)로 연결합니다. 기관이 실제로 쓰는 동의서와 처리방침의 위치는 `DECISION.md`에 적습니다. 판단 근거가 앱 폴더에 남아 후임자가 읽을 수 있습니다. 다음 앱은 새 폴더에서 시작합니다.
 
 ### 채팅만 쓴다면
 
-Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 페이지만 요약해서 읽고, `CLAUDE.md` 같은 규칙 파일은 아예 읽지 않습니다. 그래서 링크가 아니라 본문을 붙여야 합니다. [`chat-prompt.md`](starter/chat-prompt.md)를 열어 내용 전체를 복사해 첫 메시지로 붙이고, 이어서 만들고 싶은 앱을 설명하세요. 이 파일에는 판단 절차 본문이 그대로 들어 있습니다. 판정 뒤 실제 개발로 넘어갈 때는 위의 템플릿 방식을 권합니다.
+Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 페이지만 요약해서 읽고, [`CLAUDE.md`](CLAUDE.md) 같은 규칙 파일은 아예 읽지 않습니다. 그래서 링크가 아니라 본문을 붙여야 합니다. [`workflow.md`](starter/workflow.md)를 열어 내용 전체를 복사해 첫 메시지로 붙이고, 이어서 만들고 싶은 앱을 설명하세요. 이 파일에는 판단 절차 본문이 그대로 들어 있습니다. 판정 뒤 실제 개발로 넘어갈 때는 위의 템플릿 방식을 권합니다.
 
 ### 양식 전체를 정리하고 싶다면
 
-앱 하나가 아니라 기관의 양식과 업무 전체를 정리하고 싶다면 [`form-audit.md`](starter/assess/form-audit.md)에서 시작하세요. 양식을 하나씩 따로 보면 모두 필요해 보이므로, 기관에서 쓰는 양식을 한곳에 모아 같은 기준으로 살펴봐야 합니다. 양식마다 근거가 무엇인지, 실제로 누가 읽는지, 법정서식인지, 같은 데이터를 반복해 적고 집계하는지를 차례로 확인하면 없앨 양식, 그대로 둘 양식, 앱으로 만들 양식을 구분할 수 있습니다. 불필요한 양식을 없애거나 합치는 것이 첫 번째 성과이고, 앱으로 전환하기로 한 양식만 [`workflow.md`](starter/workflow.md)의 판정 절차로 넘어갑니다.
+앱 하나가 아니라 기관의 양식과 업무 전체를 정리하고 싶다면 [`forms.md`](starter/assess/forms.md)에서 시작하세요. 양식을 하나씩 따로 보면 모두 필요해 보이므로, 기관에서 쓰는 양식을 한곳에 모아 같은 기준으로 살펴봐야 합니다. 양식마다 근거가 무엇인지, 실제로 누가 읽는지, 법정서식인지, 같은 데이터를 반복해 적고 집계하는지를 차례로 확인하면 없앨 양식, 그대로 둘 양식, 앱으로 만들 양식을 구분할 수 있습니다. 불필요한 양식을 없애거나 합치는 것이 첫 번째 성과이고, 앱으로 전환하기로 한 양식만 [`workflow.md`](starter/workflow.md)의 판정 절차로 넘어갑니다.
 
-앱을 여러 개 만들 계획이거나 담당자마다 별도의 파일로 이용자 정보를 관리하고 있다면 [`ssot.md`](starter/data/ssot.md)를 먼저 확인하세요. 이용자 명부 하나를 원본으로 정하지 않은 채 앱만 늘리면 같은 어르신이 파일마다 서로 다른 이름으로 기록되고, 나중에는 담당자가 자료를 일일이 대조해야 합니다. 이용자는 명부에서만 등록하고, 각 앱의 기록은 이용자 이름이 아니라 이용자 ID로 연결하는 것이 핵심입니다.
+앱을 여러 개 만들 계획이거나 담당자마다 별도의 파일로 이용자 정보를 관리하고 있다면 [`single-source.md`](starter/data/single-source.md)를 먼저 확인하세요. 이용자 명부 하나를 원본으로 정하지 않은 채 앱만 늘리면 같은 어르신이 파일마다 서로 다른 이름으로 기록되고, 나중에는 담당자가 자료를 일일이 대조해야 합니다. 이용자는 명부에서만 등록하고, 각 앱의 기록은 이용자 이름이 아니라 이용자 ID로 연결하는 것이 핵심입니다.
 
 ## 기본 흐름
 
@@ -163,15 +163,14 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 |---|---|---|
 | [`AGENTS.md`](AGENTS.md), [`CLAUDE.md`](CLAUDE.md) | AI 도구가 폴더 안에서 자동으로 읽는 작업 규칙 | Codex, Claude Code |
 | [`skills/`](skills/) | 플러그인으로 설치할 때 사용하는 스킬 두 개. 판정 절차와 HWP 양식→앱 절차. 규격상 위치가 고정되어 있습니다 | 도구 |
-| [`starter/workflow.md`](starter/workflow.md) | 판단 절차 본문. 어떤 방법으로 시작해도 AI는 결국 이 문서를 읽습니다 | AI |
-| [`starter/chat-prompt.md`](starter/chat-prompt.md) | 채팅창에 붙이는 판단 안내 | 채팅 사용자 |
-| [`starter/assess/`](starter/assess/) | 양식 점검, HWP 양식→앱 절차, 윤리 검토, 기관 공용 AI 에이전트(Slack 봇 등), 에이전트 브라우저로 정부 업무 시스템 동기화 | AI, 실무자 |
-| [`starter/data/`](starter/data/) | SSoT(단일 원본), 자체 개발 전자결재·근태·회계 기록의 무결성([`record-integrity.md`](starter/data/record-integrity.md)), 데이터 관리 다섯 단계 | AI, 실무자 |
-| [`starter/requirements/`](starter/requirements/) | 공통 요구사항 12개(웹훅 포함), 당사자 화면 설계·접근성, 인쇄·엑셀, 개인정보를 AI에 보내기 전 확인([`ai-send.md`](starter/requirements/ai-send.md)), HWP, AI 기능 | AI, 실무자 |
-| [`starter/glossary.md`](starter/glossary.md), [`starter/platform-facts.md`](starter/platform-facts.md), [`starter/public-ai-standards.md`](starter/public-ai-standards.md), [`starter/resources.md`](starter/resources.md) | 용어사전, 바뀌는 플랫폼 정보, 공공 AI·클라우드 기준과의 관계, 함께 볼 자료 | 실무자 |
-| [`starter/rules/`](starter/rules/) | 플랫폼별 개발 규칙과 에이전트 안전 경계. 판정 뒤 `CLAUDE.md`와 `AGENTS.md`에 연결합니다 | AI |
-| [`starter/templates/`](starter/templates/) | `DECISION.md`와 앱 README의 빈 양식 | AI가 복사 |
-| [`ops/`](ops/) | 앱마다 채우는 인수인계·파기 대장과, 동의서·처리방침 참고 양식, 기관 전체에 쓰는 [AI 윤리·활용 가이드라인 샘플](ops/ai-guideline-sample.md). 실제 동의서와 처리방침은 기관에 하나만 두고 위치를 `DECISION.md`에 적습니다 | 기관 담당자 |
+| [`starter/workflow.md`](starter/workflow.md) | 판단 절차 본문. 어떤 방법으로 시작해도 AI는 결국 이 문서를 읽습니다. 채팅만 쓴다면 이 문서 전체를 붙이고, 바뀔 수 있는 플랫폼 정보도 여기 있습니다 | AI, 채팅 사용자 |
+| [`starter/assess/`](starter/assess/) | 기관 양식 점검과 HWP 양식→앱 절차([`forms.md`](starter/assess/forms.md)), 윤리 검토, 기관 공용 메신저 봇([`messenger-bot.md`](starter/assess/messenger-bot.md)), 에이전트 브라우저로 정부 업무 시스템 동기화([`agent-browser.md`](starter/assess/agent-browser.md)) | AI, 실무자 |
+| [`starter/data/`](starter/data/) | 단일 원본과 이용자 명부([`single-source.md`](starter/data/single-source.md)), 자체 개발 전자결재·근태·회계 기록의 무결성([`record-integrity.md`](starter/data/record-integrity.md)), 데이터 관리 다섯 단계 | AI, 실무자 |
+| [`starter/requirements/`](starter/requirements/) | 공통 요구사항 12개(웹훅 포함), 당사자 화면 설계·접근성, 인쇄·엑셀, 개인정보를 AI에 보내기 전 확인([`sending-data-to-ai.md`](starter/requirements/sending-data-to-ai.md)), HWP, AI 기능 | AI, 실무자 |
+| [`starter/reference/`](starter/reference/) | 용어사전, 공공 AI·클라우드 기준과의 관계, 함께 볼 자료 | 실무자 |
+| [`starter/rules/`](starter/rules/) | 플랫폼별 개발 규칙(Apps Script, Google Cloud, Cloudflare, Cloudflare+Supabase)과 에이전트 안전 경계. 판정 뒤 [`CLAUDE.md`](CLAUDE.md)와 [`AGENTS.md`](AGENTS.md)에 연결합니다 | AI |
+| [`starter/templates/`](starter/templates/) | 앱마다 복사해 채우는 빈 양식. 판단 기록, 앱 README, 인수인계서, 파기 대장 | AI가 복사 |
+| [`agency/`](agency/) | 기관에 하나만 두는 문서. [AI 윤리·활용 가이드라인 샘플](agency/ai-guideline.md), [동의서 양식](agency/consent-forms.md), [동의와 처리방침의 판단 기준](agency/consent-guide.md). 앱 폴더로 복사하지 않습니다 | 기관 담당자 |
 | `DECISION.md` | 판정 뒤 생기는 판단 기록 | AI, 실무자 |
 | [`CHANGELOG.md`](CHANGELOG.md) | 버전 기록. 판단 기준이 바뀐 것을 버전별로 적고, 최근 3개 버전은 이 README 맨 위에도 있습니다 | 실무자 |
 | `app/` | 판정 뒤 앱 코드가 들어가는 자리. 처음에는 없습니다 | AI, 실무자 |
@@ -179,38 +178,7 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 
 ## 함께 보면 좋은 자료
 
-현장에서 이미 만들어 쓰고 있는 도구와 앱, 그리고 이 저장소의 바탕이 된 글입니다. 이 저장소는 아래 분들의 작업 덕분에 만들 수 있었습니다. 감사드립니다. 자료마다 자세한 소개와 이어지는 문서는 [`resources.md`](starter/resources.md)에 적었습니다.
-
-**스타터 템플릿**
-- [apps-script-vibe-starter](https://github.com/YW-Rainbow/apps-script-vibe-starter): 신용우. 경로 C(GAS+시트)용. clasp 설정과 에이전트 규칙이 갖춰져 있습니다. 별도 저장소로 클론하지 않고 내용을 앱 저장소의 `app/`에 복사해 시작합니다.
-
-**만들 때 쓰는 도구**
-- [urimal-for-socialworker](https://github.com/dreamworker0/urimal-for-socialworker): 김종원. 계획서와 보고서를 자연스러운 우리말로 다듬는 Claude Code 스킬
-- [EASYREAD](https://github.com/SWJoong/EASYREAD): 최중호. 복잡한 한국어를 쉬운 정보(Easy-Read)로 바꾸는 MCP 서버
-- [rhwp](https://github.com/edwardkim/rhwp): Edward Kim(edwardkim). 브라우저에서 HWP를 읽고 누름틀을 채워 저장하는 오픈소스 엔진. MCP로 AI가 HWP 양식을 직접 읽고, [크롬 확장](https://chromewebstore.google.com/detail/pgakpjflombjmehnebnbpnalhegaanag)으로 HWP를 브라우저에서 바로 엽니다
-- [rhwp-studio](https://github.com/dreamworker0/rhwp-studio): 김종원. Google Drive의 HWP를 열어 편집하고 저장하는 웹 편집기
-- [korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp): 류승인. 법령·판례를 찾고 AI가 인용한 조문을 법제처 원문과 대조하는 MCP 서버
-- [kordoc](https://github.com/chrisryugj/kordoc): 류승인. 한컴오피스 없이 HWP·PDF를 읽고 HWPX 공문서를 만드는 문서 엔진
-- [복지정보MCP](https://integrated-care-national-dashboard.xgfox54.chatgpt.site/welfaremcp): 양기혁. 전국 통합돌봄 사업, 복지제도, 매뉴얼, 예산, 통계를 출처와 함께 조회하는 MCP 서버
-
-**현장에서 만든 앱**
-- [vehicle-drive-log](https://github.com/dreamworker0/vehicle-drive-log): 김종원. 여러 기관이 함께 쓰는 차량 운행일지 웹앱, 실제 운영 중
-- [Family-tree](https://github.com/dreamworker0/Family-tree): 김종원. 서버 없이 브라우저에서만 동작하는 대화형 가계도(Genogram) 웹앱
-- [SW_EDMS](https://github.com/SWJoong/SW_EDMS): 최중호. 기록 무결성을 보강한 전자결재 학습용 샘플
-
-**이 저장소의 절차로 만든 앱**
-- 아직 없습니다. 이 절차로 앱을 만들었다면 [기여 안내](.github/CONTRIBUTING.md)를 보고 알려 주세요. 판단 기록(`DECISION.md`)과 함께 여기에 연결합니다.
-
-**읽을거리**
-- [사회복지사가 바이브 코딩까지 해요](https://socialwork-vibecoding.jijun74.workers.dev/): 전재일. 앱 서른 개를 만들어 쓰고 나눈 1년의 기록. 앱을 내놓은 뒤에 보이는 것들
-- [모두를 위한 스마트워크](https://wish.welfare.seoul.kr/swflmsfront/coworker/ksdetail.do?pno=10026&userno=58550): 신용우. 이 저장소를 소개하는 「바이브코딩을 시작하기 전에」 연재가 있는 곳입니다. 앞선 데이터 설계 방법론과 온톨로지 연재는 [`levels.md`](starter/data/levels.md) 4단계의 바탕
-- [기록에서 데이터로, 데이터에서 삶으로](https://www.dtsw.org/journal/5668173483343872): 김진래. 흩어진 기록을 원장 하나로 모은 뒤 AI를 연계한 2년의 실천 보고. [`ai.md`](starter/requirements/ai.md)의 바탕
-- [AI 시대, 사회복지 현장이 바꿀 것, 버릴 것, 지킬 것](https://www.welfare.net/communication/promotion/card-news-detail?searchType=all&searchValue=%EC%8B%A0%EC%9A%A9%EC%9A%B0&id=888716): 신용우. 칼럼(한국사회복지사협회 카드뉴스)과 실천지혜 연작. [`ai.md`](starter/requirements/ai.md)의 바탕
-- [사회복지 현장 AI·바이브코딩 안전사용 가이드](https://docs.google.com/document/d/1at2PqpW1kG3zEh5XIDaTLMC2ozN0Ar1Gf9YgvSjmnTc/edit?usp=sharing): 신용우. 기관용 AI 사용 가이드라인·동의서·처리방침 제작 매뉴얼. AI 전송을 동의로 처리하는 부분은 1.4부터 [`consent-notes.md`](ops/consent-notes.md) 1절이 다릅니다
-- [vibecoding-pub의 사용자 권한 프로토콜](https://github.com/elbumlee/vibecoding-pub/blob/main/references/user-authority.md): 이경태. 사용자를 목적과 범위를 정하는 결정권자로 보는 관점. [`agentic.md`](starter/rules/agentic.md)의 바탕
-- [사회복지기관 DX·AX 전략서](https://docs.google.com/document/d/1JM8qmAkTnhmj9eCPdIph0D1YJC88VNvKyKLFcE6-aJE/edit?usp=sharing): 김종원. 구글 워크스페이스로 시작하는 3년. 기관장과 중간관리자를 위한 전략서 초안. 국외이전을 동의로 받는 쪽을 권하는 부분은 1.4의 [`consent-notes.md`](ops/consent-notes.md) 1절과 다릅니다
-- [성민복지용어사전](http://www.smw.or.kr/bbs/board.php?bo_table=m08_06&wr_id=6): 성민종합사회복지관. 기관이 쓰는 복지 용어를 주민의 관점에서 바꿔 정리한 사전(2020 개정판). 앱의 이름을 짓기 전에 기관의 말을 먼저 정한 예. 용어는 그 기관의 기준이므로 정하는 방식만 참고
-- [AI는 만들고, 리더는 판단한다](https://thornjsh.github.io/AI%20%EB%A6%AC%EB%8D%94%EC%8B%AD%202026-0819.pdf): 정수홍. 사회복지시설의 DX·AX를 이끄는 리더십. 없앨 업무를 결정하고 책임의 경계를 정하는 기관장의 몫
+현장에서 이미 만들어 쓰고 있는 도구와 앱, 그리고 이 저장소의 바탕이 된 글을 [`resources.md`](starter/reference/resources.md)에 모았습니다. 스타터 템플릿, 만들 때 쓰는 도구, 현장에서 만든 앱, 읽을거리 순서로 소개합니다. 김종원, 최중호, 류승인, 양기혁, Edward Kim, 전재일, 김진래, 이경태, 정수홍 님과 성민종합사회복지관의 작업 덕분에 이 저장소를 만들 수 있었습니다. 감사드립니다.
 
 ## 알아둘 것
 

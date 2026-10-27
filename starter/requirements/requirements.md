@@ -1,7 +1,7 @@
 # 공통 요구사항 12개: 정의와 구현 기준
 
 > 출처·최신판: https://github.com/YW-Rainbow/welfare-vibecoding-starter
-> 이 문서의 요구사항은 개인정보 보호법과 실제 운영 조건에서 나오므로 플랫폼과 관계없이 적용됩니다. 플랫폼별 지원 범위는 `../workflow.md`의 요건 매트릭스를 참고하세요.
+> 이 문서의 요구사항은 개인정보 보호법과 실제 운영 조건에서 나오므로 플랫폼과 관계없이 적용됩니다. 플랫폼별 지원 범위는 [`workflow.md`](../workflow.md)의 요건 매트릭스를 참고하세요.
 > 법령 인용은 2026년 8월, AI 사업자 계약 확인은 2026년 9월 기준이며, 이 문서는 법률 자문이 아닙니다.
 
 ## 1. 인증
@@ -37,11 +37,11 @@ ESLint 규칙은 정상 코드를 잘못 막는 오탐(false positive)을 줄이
 **확인 사항**:
 
 - 국내 리전에 저장하더라도 해외 관리자가 데이터에 접근할 수 있다면 국외이전에 해당할 수 있습니다.
-- 국외이전의 법적 근거는 별도 동의만 있는 것이 아닙니다. 무료 프로그램 신청자를 포함해 이용 계약이 있는 이용자와 근로 계약이 있는 직원의 정보를 업무용 클라우드에 보관할 때는 개인정보 처리방침에 공개하면 됩니다(제28조의8 제1항 제3호). 설문 응답자나 신청 없이 참여한 행사 참가자처럼 계약이 없는 사람에게는 수집 양식에서 국외이전 동의를 받습니다. 생성형 AI로 기록을 정리하려고 보낼 때도 기준이 같습니다. 업체가 입력을 학습에 쓰지 않아야 하고, 계약이 없는 사람의 정보는 동의를 받습니다(같은 항 제1호, `../../ops/consent-notes.md` 1절).
+- 국외이전의 법적 근거는 별도 동의만 있는 것이 아닙니다. 무료 프로그램 신청자를 포함해 이용 계약이 있는 이용자와 근로 계약이 있는 직원의 정보를 업무용 클라우드에 보관할 때는 개인정보 처리방침에 공개하면 됩니다(제28조의8 제1항 제3호). 설문 응답자나 신청 없이 참여한 행사 참가자처럼 계약이 없는 사람에게는 수집 양식에서 국외이전 동의를 받습니다. 생성형 AI로 기록을 정리하려고 보낼 때도 기준이 같습니다. 업체가 입력을 학습에 쓰지 않아야 하고, 계약이 없는 사람의 정보는 동의를 받습니다(같은 항 제1호, [`consent-guide.md`](../../agency/consent-guide.md) 1절).
 - 해석이 달라질 수 있는 부분은 시스템 도입 전에 개인정보 전문가에게 확인합니다.
 - 지자체 위수탁 협약서에 개인정보 반출이나 클라우드 이용 제한이 있으면 이용자의 동의만으로 해당 제한을 해제할 수 없습니다. 개발 전에 협약서를 먼저 확인합니다.
-- AI 업체의 DPA에서 민감정보 처리를 허용하는지 계약 문서를 직접 확인합니다. 2026년 10월 기준 Google(Workspace의 Gemini, Vertex AI·Gemini API 유료), Microsoft(Azure OpenAI), AWS(Bedrock)의 DPA는 민감정보를 처리 범위에 넣습니다. Anthropic과 OpenAI의 표준 DPA에는 금지 조항은 없지만 민감정보를 받는 것을 전제로 하지 않으므로 민감정보에는 쓰지 않습니다(`ai-send.md`의 "도구 고르기").
-- 민감정보를 AI API로 전송할 때는 `ai-send.md`의 계약, 국외이전 근거와 민감정보 동의(`../../ops/consent-form-sample.md`, `../../ops/consent-form-intake.md`), 개인정보 처리방침, 서버 검증 요건을 적용합니다. 개인정보에는 무료 등급 API를 사용하지 않습니다.
+- AI 업체의 DPA에서 민감정보 처리를 허용하는지 계약 문서를 직접 확인합니다. 2026년 10월 기준 Google(Workspace의 Gemini, Vertex AI·Gemini API 유료), Microsoft(Azure OpenAI), AWS(Bedrock)의 DPA는 민감정보를 처리 범위에 넣습니다. Anthropic과 OpenAI의 표준 DPA에는 금지 조항은 없지만 민감정보를 받는 것을 전제로 하지 않으므로 민감정보에는 쓰지 않습니다([`sending-data-to-ai.md`](sending-data-to-ai.md)의 "도구 고르기").
+- 민감정보를 AI API로 전송할 때는 [`sending-data-to-ai.md`](sending-data-to-ai.md)의 계약, 국외이전 근거와 민감정보 동의([`consent-forms.md`](../../agency/consent-forms.md)), 개인정보 처리방침, 서버 검증 요건을 적용합니다. 개인정보에는 무료 등급 API를 사용하지 않습니다.
 
 ## 4. 파일 비공개 저장
 
@@ -111,7 +111,7 @@ DB 백업에 Storage 파일이 포함된다고 가정하지 않습니다. 대부
 
 **구현 기준**:
 
-앱 코드에서만 로그를 작성하면 DB 콘솔이나 service role key로 직접 수정한 작업이 기록되지 않습니다. 가능하면 PostgreSQL trigger나 Firestore trigger처럼 DB에 가까운 위치에서 로그를 남깁니다. 자세한 구현 기준은 `../data/record-integrity.md`의 보관 등급을 참고하세요.
+앱 코드에서만 로그를 작성하면 DB 콘솔이나 service role key로 직접 수정한 작업이 기록되지 않습니다. 가능하면 PostgreSQL trigger나 Firestore trigger처럼 DB에 가까운 위치에서 로그를 남깁니다. 자세한 구현 기준은 [`record-integrity.md`](../data/record-integrity.md)의 보관 등급을 참고하세요.
 
 [vehicle-drive-log](https://github.com/dreamworker0/vehicle-drive-log)의 `functions/src/handlers/triggers/auditLog.ts`의 구현 주석에는 다음 원칙이 적혀 있습니다.
 
@@ -135,7 +135,7 @@ DB에서 `DELETE`를 실행하기는 쉽지만 연결된 데이터를 모두 삭
 
 **근거**: 인공지능기본법 제31조와 개인정보 보호법 제22조·제23조·제28조의8·제30조를 확인합니다. 인공지능기본법의 고지 의무는 이용자에게 AI 제품이나 서비스를 직접 제공하는 사업자를 대상으로 하므로 직원의 내부 업무 보조 기능에는 적용되지 않을 수 있지만, 이용자용 챗봇에는 적용될 수 있습니다.
 
-법적 문서는 플랫폼이 제공하지 않으므로 기관이 직접 작성하고 관리합니다. 자세한 내용은 `../../ops/consent-notes.md`를 참고하세요.
+법적 문서는 플랫폼이 제공하지 않으므로 기관이 직접 작성하고 관리합니다. 자세한 내용은 [`consent-guide.md`](../../agency/consent-guide.md)를 참고하세요.
 
 ## 11. 인수인계
 
@@ -148,9 +148,9 @@ DB에서 `DELETE`를 실행하기는 쉽지만 연결된 데이터를 모두 삭
 - 비개발자도 데이터를 확인할 수 있는 관리 UI
 - 기관 명의 계정과 저장소
 - 계정, API 키, 환경 변수의 인수인계 절차
-- `../../ops/handover.md` 체크리스트
+- [`HANDOVER.md`](../templates/HANDOVER.md) 체크리스트
 - 데이터를 엑셀, CSV, JSON 등 표준 형식으로 내보내는 기능
-- `print.md`에 따른 종이 출력 기능
+- [`print.md`](print.md)에 따른 종이 출력 기능
 
 계정과 저장소는 개인 명의가 아니라 기관 명의로 만들고 최소 두 명이 관리할 수 있게 합니다.
 
@@ -173,5 +173,5 @@ DB에서 `DELETE`를 실행하기는 쉽지만 연결된 데이터를 모두 삭
 - **서명 검증**: 보내는 쪽은 secret으로 payload에 HMAC 서명을 붙이고, 받는 쪽은 서명과 timestamp를 검증해 위조와 replay를 막습니다. Standard Webhooks 규격을 따르면 라이브러리를 그대로 쓸 수 있습니다.
 - **멱등 처리**: 같은 웹훅이 두 번 와도 한 번만 반영되도록 이벤트 ID를 기록합니다.
 - **먼저 응답, 처리는 나중에**: 받는 쪽은 바로 2xx로 응답하고 실제 처리는 큐나 트리거로 미룹니다. 보내는 쪽은 실패하면 exponential backoff로 재시도하고, 최종 실패는 로그로 남깁니다.
-- **GAS의 제약**: GAS 웹앱의 `doPost(e)`는 요청 헤더를 읽을 수 없어 헤더의 서명을 검증할 수 없습니다. 서명 검증이 필요하면 Cloudflare Workers 같은 relay에서 검증한 뒤 GAS로 넘깁니다(`../rules/gas.md`).
+- **GAS의 제약**: GAS 웹앱의 `doPost(e)`는 요청 헤더를 읽을 수 없어 헤더의 서명을 검증할 수 없습니다. 서명 검증이 필요하면 Cloudflare Workers 같은 relay에서 검증한 뒤 GAS로 넘깁니다([`apps-script.md`](../rules/apps-script.md)).
 
