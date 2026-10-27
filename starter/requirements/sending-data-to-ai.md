@@ -6,7 +6,7 @@
 > 상담·사례관리 앱이 기록을 AI API로 보내는 경우는 이 문서 전체를 적용합니다. 직원이 채팅형 AI를 쓰는 경우는 "채팅형 AI에서"를 봅니다.
 > **마스킹은 의무가 아니라 선택 사항입니다.** 지자체 협약, 업체 계약, 동의서, 개인정보 처리방침, 앱 동작이 요구사항을 충족하면 민감정보를 마스킹하지 않고 전송할 수 있습니다. 마스킹은 재식별 위험을 낮추기 위해 추가로 적용할 수 있는 보호 조치입니다.
 > 마스킹 코드를 만들기 전에 아래 사전 조건부터 확인합니다. 마스킹해도 법적 동의가 면제되지 않으며, 마스킹해야만 AI API를 사용할 수 있는 것도 아닙니다.
-> 계약·법령·가격은 2026-09-08에 공식 문서를 확인했고, 가격·비영리 혜택·추론 위치는 2026-09-30에, 업체 계약 비교는 2026-10-02와 2026-10-27에 다시 확인했습니다("이 문서가 직접 확인한 것").
+> 계약·법령·가격은 2026-09-08에 공식 문서를 확인했고, 가격·비영리 혜택·추론 위치는 2026-09-30에, 업체 계약 비교는 2026-10-02, 10-27에 다시 확인하고 "도구 고르기" 표는 2026-10-28에 마지막으로 확인했습니다("이 문서가 직접 확인한 것").
 > 법률 자문이 아니며, 도입 전에 개인정보 전문가의 검토를 거칩니다.
 
 ## 도구 고르기: 정보 등급별로 쓸 수 있는 AI
@@ -18,17 +18,23 @@
 
 아래 표는 공개된 약관과 DPA 문구를 읽고 나눈 출발점이지 허용 목록이 아닙니다. 칸에 들어 있다고 그 도구로 보내도 된다는 결론이 나오지 않습니다. 기관이 실제로 맺은 계약과 요금제, 관리자 설정, 당사자에게서 받은 근거를 확인한 뒤 기관의 AI 사용 목록에 확정합니다.
 
-| 칸 | 도구 | 근거 | 지킬 것 |
-|---|---|---|---|
-| **민감정보까지** | 기관 Google Workspace 계정의 Gemini(Docs·Sheets 안의 Gemini, 채팅형 Gemini 앱, NotebookLM) | Workspace 약관이 적용되고 사람이 검토하거나 학습에 쓰지 않음. Cloud DPA가 처리하는 개인정보에 "특별범주·민감정보를 포함"한다고 정의 | 기관 계정으로 로그인. 👍👎 피드백을 보내지 않음(질문과 근거 문서가 넘어가 최대 18개월 보관). 관리자가 대화 보관 기간을 줄임(기본 18개월). 만 18세 미만은 쓸 수 없음 |
-| | Gemini API 유료(결제 계정을 연결한 Cloud 프로젝트) | 학습 미사용, Cloud DPA 적용 | 결제를 연결하지 않은 키는 기관 계정에서 만들었어도 무료 등급. 오남용 감시로 55일 보관하고 안전 필터에 걸린 내용은 Google 직원이 볼 수 있음 |
-| | Azure OpenAI(Microsoft Foundry의 Azure 판매 모델. 비영리 Azure 크레딧 포함) | Microsoft DPA 부록 B가 건강 데이터 등 특별범주를 고객이 넣을 수 있는 개인정보로 적음. 입력은 OpenAI 회사가 보지 않고 학습에 쓰지 않음 | 정식 모델만. 미리보기(Preview)와 Bing 검색 연결(Grounding with Bing), Web IQ에는 DPA가 적용되지 않으므로 개인정보에 쓰지 않음. 오남용 감시에 걸린 대화는 저장되고 Microsoft 직원이 볼 수 있음. 이를 끄는 신청은 Microsoft 담당자가 관리하는 고객만 가능 |
-| | AWS Bedrock | AWS DPA에 민감정보 제외 조항 없음, 학습 미사용, 기본 무보관 | 쓰려는 모델의 보관 조건 확인. Claude로 민감정보를 다루려면 이 경로 |
-| **일반 개인정보까지** | ChatGPT Business·Enterprise, Claude Team·Enterprise, OpenAI API·Claude API 직접 계약 | 학습 미사용, DPA 있음. 다만 표준 DPA가 민감정보를 처리 범위에 넣지 않음(OpenAI "No sensitive data is intended to be transferred", Anthropic 특별범주 "None") | 민감정보는 동의를 받았더라도 보내지 않음. 위법이라고 단정할 근거는 없지만, 사고나 점검 때 "민감정보를 맡길 계약이었다"고 서류로 보여 줄 수 없으므로 기관 기준으로 쓰지 않음 |
-| **개인정보 없음만** | 무료 서비스, 결제를 연결하지 않은 API 키, 직원 개인 계정 | 입력을 학습이나 제품 개선에 쓰고 사람이 읽을 수 있음. Gemini API 무료 약관은 "Do not submit sensitive, confidential, or personal information"이라고 적음 | 개인 계정은 어떤 등급이든 기관 업무에 쓰지 않음 |
+칸을 가르는 기준은 **회사 계약(DPA)이 민감정보를 처리 대상으로 적고 있는가**입니다. 학습에 쓰지 않는다는 약속, 보관 기간, 처리 위치는 그다음에 봅니다. 계약이 민감정보를 적지 않았거나 받지 않는다고 적었으면 동의를 받았더라도 민감정보를 보내지 않습니다.
+
+| 칸 | 도구 | 계약에 민감정보가 들어 있나 | 지킬 것 | 확인일 |
+|---|---|---|---|---|
+| **민감정보까지** | 기관 Google Workspace 계정의 Gemini(Docs·Sheets 안의 Gemini, 채팅형 Gemini 앱, Gemini Notebook(옛 NotebookLM)) | **들어 있음.** Workspace 계약에 붙는 Cloud DPA(2026-06-08 개정판)가 고객 개인정보를 "특별범주 개인정보나 적용 법률이 정한 민감정보를 포함"한다고 정의. Privacy Hub(2026-10-06 갱신)는 Gemini 앱과 Gemini Notebook에도 이 DPA가 적용되고 사람이 검토하거나 학습에 쓰지 않는다고 적음 | 기관 계정으로 로그인. 👍👎 피드백을 보내지 않음(최대 18개월 보관). 관리자가 Gemini 앱 대화 보관 기간을 줄임(기본 18개월) | 2026-10-28 |
+| | Gemini Enterprise Agent Platform(옛 Vertex AI)의 Gemini | **들어 있음.** Google Cloud 서비스 목록(2026-10-21 개정)에 Google Cloud Platform 서비스로 올라 있어 위와 같은 Cloud DPA가 적용 | 앱에서 Gemini로 민감정보를 다루려면 이 경로. 남용 감시 기록과 캐시 설정은 아래 1번 표를 봄 | 2026-10-28 |
+| | Azure OpenAI(Microsoft Foundry의 Azure 판매 모델. 비영리 Azure 크레딧 포함) | **들어 있음.** Microsoft DPA(2026-05-22판) 부록 B가 건강 데이터 등 특별범주를 고객이 넣을 수 있는 개인정보로 적음 | 정식 모델만. 미리보기(Preview)에는 DPA의 개인정보 처리 조항이 적용되지 않음. 입력은 OpenAI 회사가 보지 않고 학습에 쓰지 않음. 오남용 감시로 일부 대화가 골라지면 자동 검토 뒤 필요하면 사람이 검토 | 2026-10-28 |
+| **일반 개인정보까지** | Gemini API 유료(AI Studio 키에 결제 계정을 연결한 경우) | **적혀 있지 않음.** 약관(2026-03-23 효력)은 유료 서비스에 Cloud DPA가 아니라 「Data Processing Addendum for Products Where Google is a Data Processor」를 적용. 이 DPA는 처리 항목을 서비스 목록으로 넘기고, 목록은 "프롬프트와 응답에 든 개인정보"라고만 적음 | 학습 미사용. 오남용 감시로 55일 보관하고, 의심 활동이 있으면 Google 직원이 볼 수 있음. 민감정보는 위 Gemini Enterprise Agent Platform으로 보냄 | 2026-10-28 |
+| | AWS Bedrock | **적혀 있지 않음.** AWS DPA는 고객 데이터를 "업로드한 개인정보"로 정의할 뿐 민감정보를 넣는다는 문구도, 빼는 문구도 없음 | 모델 제공 업체는 입력과 출력에 접근하지 않음. 민감정보를 보내려면 AWS와 별도 계약 조건을 확인 | 2026-10-28 |
+| | ChatGPT Business·Enterprise, OpenAI API | **받지 않는 것을 전제로 함.** OpenAI DPA(v.010126) 처리 설명 5번 "No sensitive data is intended to be transferred unless the user includes it unexpectedly in unstructured data" | 학습 미사용. API 오남용 감시 기록 기본 30일. 미국 의료정보용 BAA는 조건부로 별도 제공 | 2026-10-28 |
+| | Claude Team·Enterprise, Claude API | **없음으로 정함.** Anthropic DPA(2025-02-24 효력) B.3 특별범주 개인정보 "None" | 학습 미사용. API 입력·출력 기본 30일 안에 삭제 | 2026-10-28 |
+| **개인정보 없음만** | 무료 서비스, 결제를 연결하지 않은 API 키, 직원 개인 계정 | 해당 없음. Gemini API 무료 약관은 "Do not submit sensitive, confidential, or personal information"이라고 적음 | 입력을 학습이나 제품 개선에 쓰고 사람이 읽을 수 있음. 개인 계정은 어떤 등급이든 기관 업무에 쓰지 않음 | 2026-10-28 |
+
+"적혀 있지 않음"은 위법이라는 뜻이 아닙니다. 사고나 점검 때 "민감정보를 맡길 계약이었다"고 서류로 보여 줄 수 없으므로 기관 기준으로 민감정보에 쓰지 않는다는 뜻입니다.
 
 - 세 회사 모두 법이나 법원·행정기관의 명령이 있으면 데이터를 내줄 수 있다고 계약에 적습니다. 정부 열람 위험은 회사를 가르는 기준이 아닙니다. 칸을 가르는 기준은 계약에 민감정보 처리가 들어 있느냐입니다.
-- 오남용 감시 기록이 남고 일부를 회사 직원이 볼 수 있는 서비스(Gemini API, Azure OpenAI 등)로 민감정보를 보낸다면, 동의서와 처리방침에 그 사실을 적습니다. 이름과 연락처를 가리고 보내는 것은 그다음에 더하는 보호 조치입니다. 상담 기록은 자해·학대 내용 때문에 안전 필터에 걸리기 쉽습니다.
+- 오남용 감시 기록이 남고 일부를 회사 직원이 볼 수 있는 서비스(Azure OpenAI 등)로 민감정보를 보낸다면, 동의서와 처리방침에 그 사실을 적습니다. 이름과 연락처를 가리고 보내는 것은 그다음에 더하는 보호 조치입니다. 상담 기록은 자해·학대 내용 때문에 안전 필터에 걸리기 쉽습니다.
 - 처리 위치(한국 리전)는 칸을 가르는 기준이 아닙니다. 대부분 해외에서 처리될 수 있으므로 국외이전으로 보고 처리방침에 적습니다(아래 "처리 위치").
 - 이 표는 바뀝니다. 도입 전에 "이 문서가 직접 확인한 것"의 주소에서 다시 확인합니다.
 
@@ -55,10 +61,10 @@
 | API 서비스 | 민감정보 관련 계약 | 모델 학습 사용 | 보존기간 | 검토 결과 |
 |---|---|---|---|---|
 | **Anthropic API** | 금지 조항은 없지만, 표준 DPA(2025-02-24 효력)의 처리 설명 B.3이 특별범주 개인정보를 `None`으로 정함. B.1·B.2는 고객이 정하는 항목이지만 B.3은 업체가 정한 문구라서 민감정보를 받는 것을 전제로 하지 않음 | 미사용 | 기본 30일. Zero Data Retention(ZDR)은 별도 협의 | 표준 DPA만으로는 민감정보 처리를 전제로 하지 않으므로 별도 계약 조건을 확인. 미국 의료정보용 BAA는 별도로 신청 가능 |
-| **Google Vertex AI / Gemini API 유료** | Cloud DPA가 고객 개인정보에 특별범주·민감정보를 포함한다고 정의. Gemini API 약관(2026-04-28)은 유료 서비스에 DPA를 적용 | 미사용(유료 서비스). Vertex AI는 사전 허락 없이 학습·미세조정에 쓰지 않음 | Gemini API 유료는 오남용 감시로 55일 보관, 안전 필터에 걸린 내용은 Google 직원이 볼 수 있음. Vertex AI는 메모리 캐시 24시간(끌 수 있음)과 남용 감시용 프롬프트 기록(예외 신청 가능). 두 가지를 조치하면 무보관 | 계약에 민감정보 관련 정의가 명시되어 있음. 무료 서비스는 학습과 사람의 검토에 사용될 수 있으므로 개인정보 전송 금지 |
+| **Google Gemini Enterprise Agent Platform(옛 Vertex AI) / Gemini API 유료** | Agent Platform은 Cloud DPA(2026-06-08)가 고객 개인정보에 특별범주·민감정보를 포함한다고 정의. Gemini API 유료는 약관(2026-03-23 효력)상 Cloud DPA가 아니라 「Data Processing Addendum for Products Where Google is a Data Processor」가 적용되고, 이 DPA에는 민감정보 문구가 없음 | 미사용(유료 서비스). Vertex AI는 사전 허락 없이 학습·미세조정에 쓰지 않음 | Gemini API 유료는 오남용 감시로 55일 보관, 안전 필터에 걸린 내용은 Google 직원이 볼 수 있음. Vertex AI는 메모리 캐시 24시간(끌 수 있음)과 남용 감시용 프롬프트 기록(예외 신청 가능). 두 가지를 조치하면 무보관 | 민감정보는 Agent Platform으로만 보냄. Gemini API 유료는 일반 개인정보까지. 무료 서비스는 학습과 사람의 검토에 사용될 수 있으므로 개인정보 전송 금지 |
 | **OpenAI API** | DPA(v.010126)의 처리 설명 5번 항목에 "No sensitive data is intended to be transferred unless the user includes it unexpectedly in unstructured data"라는 문구가 있음. 일정 조건에서 API용 BAA 제공 | 미사용 | 기본 30일 | 표준 DPA만으로 기관의 민감정보 처리를 충족하는지 추가 검토하고 필요한 경우 BAA와 ZDR 조건 확인 |
 | **Azure OpenAI(Foundry, Azure 판매 모델)** | Microsoft DPA(2026-05-22) 부록 B가 특별범주(건강 데이터 등)를 고객이 넣을 수 있는 개인정보로 적음. Product Terms상 DPA가 Azure 전체에 적용되며, 미리보기·Bing 검색 연결·Web IQ는 예외 | 미사용. OpenAI 회사는 입력을 보지 않음 | 오남용 감시에 걸린 대화는 리소스 지역에 저장되고 승인된 Microsoft 직원이 볼 수 있음(보관 기간 미확인). 저장·사람 검토를 끄는 신청은 Microsoft 담당자가 관리하는 고객만 | 계약에 민감정보 포함. 정식 모델만 쓰고 Bing 검색 연결은 끔. 비영리 크레딧 구독도 같은 약관 |
-| **AWS Bedrock** | AWS DPA에 민감정보를 제외하는 조항이 없음 | AWS와 모델 제공 업체 모두 미사용 | 기본 무보관, 운영자와 모델 제공 업체 모두 입력·출력에 접근하지 않음. Claude Fable 5 계열만 30일 보관과 일부 사람 검토 | 계약상 민감정보를 제외하지 않음. 쓰려는 모델의 보관 조건을 확인. 서울 리전 내 추론은 아래 "마스킹과 AI 추론의 처리 위치" |
+| **AWS Bedrock** | AWS DPA에 민감정보를 넣는다는 문구도 빼는 문구도 없음 | AWS와 모델 제공 업체 모두 미사용 | 기본 무보관, 운영자와 모델 제공 업체 모두 입력·출력에 접근하지 않음. Claude Fable 5 계열만 30일 보관과 일부 사람 검토 | 계약상 민감정보를 빼지도 넣지도 않음. 민감정보는 AWS와 별도 계약 조건을 확인하기 전에는 보내지 않음. 쓰려는 모델의 보관 조건도 확인. 서울 리전 내 추론은 아래 "마스킹과 AI 추론의 처리 위치" |
 
 Anthropic, Google, OpenAI의 비영리 혜택은 채팅 화면을 쓰는 사용자당 요금제에만 적용되고(Google은 Workspace와 Gemini 앱을 무료로 제공합니다) API 요금에는 적용되지 않습니다. Microsoft는 비영리단체에 연 2,000달러의 Azure 크레딧을 주며, 이 크레딧으로 Azure OpenAI를 쓸 수 있습니다. 앱에서 사용하는 API는 실제 입력·출력 토큰 사용량을 기준으로 과금됩니다.
 
@@ -352,23 +358,27 @@ def token(name: str, case_id: str, role: str, secret: bytes) -> str:
 
 ## 이 문서가 직접 확인한 것
 
-아래 표는 2026년 9월 8일에 각 서비스의 공식 문서를 확인하고, 가격·비영리 혜택·추론 위치는 9월 30일에, 업체 계약 비교는 10월 2일에 다시 확인한 결과입니다. 계약, 리전 정책, 가격은 바뀔 수 있으므로 도입 전에 같은 주소에서 최신 내용을 다시 확인하세요.
+아래 표는 2026년 9월 8일에 각 서비스의 공식 문서를 확인하고, 가격·비영리 혜택·추론 위치는 9월 30일에, 업체 계약 비교는 10월 2일에 다시 확인한 결과입니다. 계약의 민감정보 포함 여부와 "도구 고르기" 표의 근거는 10월 28일에 원문을 다시 읽어 확인했고, 그날 확인한 줄에는 확인일을 적었습니다. 계약, 리전 정책, 가격은 바뀔 수 있으므로 도입 전에 같은 주소에서 최신 내용을 다시 확인하세요.
 
 | 사실 | 출처 | 문서 날짜 |
 |---|---|---|
-| Anthropic DPA에 금지 조항은 없지만 처리 설명 B.3이 특별범주를 "None"으로 정함 | anthropic.com/legal/data-processing-addendum | 2025-02-24 효력 |
+| Anthropic DPA에 금지 조항은 없지만 처리 설명 B.3이 특별범주를 "None"으로 정함 | anthropic.com/legal/data-processing-addendum | 2025-02-24 효력, 2026-10-28 확인 |
 | Anthropic 이용약관에 건강정보 제한 없음, 학습 미사용 | anthropic.com/legal/commercial-terms | 2025-06-17 효력 |
 | Anthropic API 저장 위치 미국, `inference_geo`는 us·global | platform.claude.com/docs/en/manage-claude/data-residency | 현행 |
 | Anthropic API 가격(Haiku 4.5 $1/$5, Sonnet 5 $2/$10, Batch 50%) | platform.claude.com/docs/en/about-claude/pricing | 현행 |
 | Anthropic BAA 신청 경로, Team 불가 | support.claude.com 8114513, 13296973, 15455031 | 2026-07-01 ~ 07-23 |
 | Anthropic ZDR은 API·Claude Code Enterprise만, 영업팀 경유 | privacy.claude.com 8956058 | 현행 |
-| Anthropic API 보존 기본 30일 | privacy.claude.com 7996866 | 2026-07-01 |
+| Anthropic API 보존 기본 30일 | privacy.claude.com 7996866 | 2026-10-28 확인 |
 | Anthropic 비영리 할인은 Team $8·Enterprise만(API 없음) | claude.com/solutions/nonprofits | 현행 |
 | Google 비영리 혜택은 Workspace(Gemini 앱 포함)에만 있고 Gemini API·Vertex AI 할인은 없음 | support.google.com/nonprofits 17049066, 16245748 | 현행 |
-| Google Cloud DPA "특별범주·민감정보를 포함하여" | cloud.google.com/terms/data-processing-addendum | 현행 |
-| Gemini API 유료는 학습 미사용·DPA 적용, 무료는 학습·사람 검토 | ai.google.dev/gemini-api/terms | 2026-04-28 |
-| OpenAI DPA 처리 설명 5번: 민감정보 전송을 전제로 하지 않음 | cdn.openai.com/pdf/openai-data-processing-addendum.pdf | v.010126 |
-| AWS DPA에 민감정보 제외 조항 없음 | d1.awsstatic.com/legal/aws-dpa/aws-dpa.pdf | 현행 |
+| Google Cloud DPA "including any special categories of personal data or sensitive data" | cloud.google.com/terms/data-processing-addendum | 2026-06-08 개정, 2026-10-28 확인 |
+| Gemini Enterprise Agent Platform(옛 Vertex AI)은 Google Cloud Platform 서비스 | cloud.google.com/terms/services | 2026-10-21 개정, 2026-10-28 확인 |
+| Gemini API 유료에는 「Data Processing Addendum for Products Where Google is a Data Processor」 적용. 처리 항목은 "프롬프트와 응답에 든 개인정보"이고 민감정보 문구 없음 | ai.google.dev/gemini-api/terms, business.safety.google/processorterms, business.safety.google/services | 2026-03-23 효력, 2026-10-28 확인 |
+| Gemini API 유료는 학습 미사용, 무료는 학습·사람 검토 | ai.google.dev/gemini-api/terms | 2026-03-23 효력, 2026-10-28 확인 |
+| OpenAI DPA 처리 설명 5번: 민감정보 전송을 전제로 하지 않음 | cdn.openai.com/pdf/openai-data-processing-addendum.pdf | v.010126, 2026-10-28 확인 |
+| OpenAI API 오남용 감시 기록 기본 30일 보관, 학습 미사용 | platform.openai.com/docs/guides/your-data | 2026-10-28 확인 |
+| AWS DPA는 고객 데이터를 "업로드한 개인정보"로 정의하고 민감정보를 넣는다는 문구도 빼는 문구도 없음 | d1.awsstatic.com/legal/aws-dpa/aws-dpa.pdf | 2026-10-28 확인 |
+| Bedrock 모델 제공 업체는 Bedrock 로그와 고객 입력·출력에 접근하지 않음 | docs.aws.amazon.com/bedrock … data-protection | 2026-10-28 확인 |
 | Bedrock 입력·출력은 AWS와 모델 제공 업체가 학습에 쓰지 않음 | aws.amazon.com/bedrock/faqs | 현행 |
 | Bedrock 기본 무보관·운영자 접근 없음, Fable 5 계열 예외 | docs.aws.amazon.com/bedrock … abuse-detection | 현행 |
 | Vertex AI 학습 제한, 메모리 캐시 24시간, 남용 감시 기록과 예외 신청 | docs.cloud.google.com/vertex-ai … data-governance | 현행 |
@@ -379,13 +389,13 @@ def token(name: str, case_id: str, role: str, secret: bytes) -> str:
 | Vertex 서울에서 한국 안 처리를 보장하는 모델은 Gemini 2.5 Flash뿐(2026-10-20 종료 예정), 엔드포인트 위치만으로는 미보장 | docs.cloud.google.com … data-residency, locations, gemini 2-5-flash | 2026-09-28, 09-29 |
 | 개인정보 보호법 제23조, 제28조의8 제1항 1호·3호, 제2항 | casenote.kr 조문 | 현행 |
 | Workspace 비영리판(Nonprofits)은 Gemini 앱을 핵심 서비스로 받아 Workspace 약관 적용, 사람 검토·학습 없음. Docs·Sheets 옆 창 Gemini는 Business Standard 이상 | knowledge.workspace.google.com … turn-the-gemini-app-on-or-off, support.google.com/nonprofits 15503706 | 2026-10-27 확인 |
-| Workspace Gemini의 질문과 Gemini가 읽는 문서는 고객 데이터로 Cloud DPA 적용, 학습 제한(Service Specific Terms "Training Restriction"). 피드백은 최대 18개월 보관 | Generative AI in Google Workspace Privacy Hub | 2026-10-06 갱신 |
+| Workspace Gemini, Gemini 앱, Gemini Notebook(옛 NotebookLM)에 Cloud DPA 적용, 사람 검토·학습 없음. 피드백 최대 18개월, Gemini 앱 대화 기본 18개월 보관 | Generative AI in Google Workspace Privacy Hub | 2026-10-06 갱신, 2026-10-28 확인 |
 | Gemini API는 결제 계정을 연결한 Cloud 프로젝트로 부를 때만 유료 서비스. 무료는 "Do not submit sensitive, confidential, or personal information" | ai.google.dev/gemini-api/terms, ai.google.dev/gemini-api/docs/billing | 2026-03-23 효력 |
-| Gemini API 오남용 감시 데이터 55일 보관, 안전 필터에 걸린 내용은 승인된 Google 직원이 검토 가능 | ai.google.dev/gemini-api/docs/usage-policies | 2026-10-27 확인 |
-| Microsoft DPA 부록 B: 특별범주(건강 데이터 등)를 고객이 넣을 수 있는 개인정보로 명시. 미리보기에는 개인정보 처리 조항 미적용 | microsoft.com/licensing/docs … Data-Protection-Addendum-DPA | 2026-05-22 |
+| Gemini API 오남용 감시 데이터 55일 보관, 의심 활동이 이어지는 프로젝트는 승인된 Google 직원이 검토 가능 | ai.google.dev/gemini-api/docs/usage-policies | 2026-10-28 확인 |
+| Microsoft DPA 부록 B: 특별범주(건강 데이터 등)를 고객이 넣을 수 있는 개인정보로 명시. 미리보기에는 개인정보 처리 조항 미적용 | microsoft.com/licensing/docs … Data-Protection-Addendum-DPA | 2026-05-22판, 2026-10-28 확인 |
 | Product Terms: Bing 검색 연결(Foundry)과 Web IQ에는 DPA 미적용 | microsoft.com/licensing/terms/product/PrivacyandSecurityTerms | 2026-10-27 확인 |
-| Azure OpenAI 입력은 OpenAI가 보지 않고 학습 미사용. 오남용 감시에 걸린 대화는 저장·직원 검토, 수정 신청은 Microsoft 담당자가 관리하는 고객만 | learn.microsoft.com … responsible-ai/openai/data-privacy, limited-access, abuse-monitoring | 2026-10-27 확인 |
-| Microsoft 비영리 Azure 크레딧 연 2,000달러 | microsoft.com/en-us/nonprofits/azure | 2026-10-27 확인 |
+| Azure OpenAI 입력은 OpenAI가 보지 않고 학습 미사용. 오남용 감시로 골라진 대화는 자동 검토 뒤 필요하면 사람이 검토, 수정 신청은 Microsoft 담당자가 관리하는 고객만 | learn.microsoft.com … responsible-ai/openai/data-privacy, limited-access, abuse-monitoring | 2026-05-19 갱신, 2026-10-28 확인 |
+| Microsoft 비영리 Azure 크레딧 연 2,000달러 | microsoft.com/en-us/nonprofits/azure | 2026-10-28 확인 |
 | 세 회사 모두 법·법원·행정 명령이 있으면 고객 데이터를 공개할 수 있다고 정함 | anthropic.com/legal/commercial-terms, openai.com/policies/services-agreement, ai.google.dev/gemini-api/terms | 2026-10-27 확인 |
 | 개인정보위 안내서: 상용 LLM은 기업용 라이선스·DPA·국외이전 근거를 확인. 의료기관 진료 대화를 기업용 API로 처리한 사례 | 「생성형 AI 개발·활용을 위한 개인정보 처리 안내서」 20~22쪽 | 2025.8 |
 

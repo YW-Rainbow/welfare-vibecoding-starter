@@ -25,6 +25,12 @@
   - `data/ssot.md` → [`single-source.md`](starter/data/single-source.md)
 - **AI 처리 안내와 거부를 문서 전체에서 맞춤**: 가이드라인과 [`sending-data-to-ai.md`](starter/requirements/sending-data-to-ai.md)의 "'AI 분석 동의' 표시 확인"을 "AI 처리 거부 표시가 없는지, 민감정보면 민감정보 동의가 있는지 확인"으로 바꿨습니다. 민감정보가 없는 기록은 `동의_민감정보`가 없어도 보낼 수 있습니다. 명부 필드 `AI처리_가능`, `동의_민감정보`, `동의_확인일`의 정의를 [`single-source.md`](starter/data/single-source.md)에 두고, 비어 있으면 거짓으로 봅니다.
 - **남용을 막는 장치**: AI를 쓰는 업무를 수집 목적과 처리방침에 좁혀 적고(예측·분류·점수에는 쓰지 않음), 동의서에 'AI 처리를 원하지 않음' 칸을 두고, 거부하지 않았어도 등급에 맞는 도구에 필요한 만큼만 보내고, 연 1회 목록 밖 사용과 거부자 수를 점검합니다. 오남용 감시 기록이 남는 서비스는 그 사실을 동의서와 처리방침에 적습니다. 철회했을 때의 처리를 동의서 참고 1에 더했습니다.
+- **제품별 표 재확인(2026-10-28, [`sending-data-to-ai.md`](starter/requirements/sending-data-to-ai.md) "도구 고르기")**: 칸을 가르는 기준을 "계약(DPA)이 민감정보를 처리 대상으로 적고 있는가"로 못 박고, 각 회사 DPA 원문을 다시 읽어 줄마다 확인일을 적었습니다.
+  - **Gemini API 유료 → 일반 개인정보까지.** 1.5에서 Cloud DPA가 적용된다고 적었지만, 약관상 유료 Gemini API에는 Cloud DPA가 아니라 「Data Processing Addendum for Products Where Google is a Data Processor」가 적용되고 이 DPA에는 민감정보 문구가 없습니다.
+  - **AWS Bedrock → 일반 개인정보까지.** AWS DPA에는 민감정보를 빼는 문구도 넣는 문구도 없습니다. 1.5는 "제외 조항 없음"을 민감정보 허용으로 읽었습니다.
+  - **Gemini Enterprise Agent Platform(옛 Vertex AI) → 민감정보까지.** Google Cloud Platform 서비스라 Cloud DPA가 적용됩니다. 앱에서 Gemini로 민감정보를 다룰 때는 이 경로를 씁니다.
+  - Workspace의 Gemini(Gemini 앱, Gemini Notebook 포함)와 Azure OpenAI는 그대로 "민감정보까지"입니다. OpenAI DPA(v.010126)와 Anthropic DPA(2025-02-24)의 문구도 바뀌지 않았습니다.
+  - 함께 고친 곳: [`ai-guideline.md`](agency/ai-guideline.md)의 AI 사용 목록과 마스킹 Q&A, [`workflow.md`](starter/workflow.md) "꼭 지킬 것" 7번과 플랫폼 정보, [`requirements.md`](starter/requirements/requirements.md), [`messenger-bot.md`](starter/assess/messenger-bot.md)
 - **고친 오기**: AI 동의서 "네 항목"(실제 세 항목), "1.4까지 `ai-send.md`였습니다"(실제 `masking.md`)
 - **이미 만든 앱**: 앱 폴더의 `starter/`는 복사한 때의 기준으로 남아 있어 링크가 깨지지 않습니다. 새 기준을 쓰려면 `starter/`를 새로 복사하고, 앱 폴더에 복사해 둔 `ops/`의 동의서·가이드라인 사본은 지우고 기관 원본으로 연결합니다. 이용자 명부에 `동의_확인일`을 더합니다.
 

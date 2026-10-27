@@ -286,10 +286,10 @@ AI에 보내지 않기로 한 정보를 보냈거나 AI 때문에 잘못된 정�
 
 AI 활용 담당자는 기관이 실제로 계약한 제품만 아래 세 칸으로 나눠 목록을 만들고 직원에게 알린다. 제품마다 제품명, 요금제, AI를 쓰는 업무, 근거 문서 주소, 확인일, 지킬 조건을 적고, 연 1회와 약관이 바뀔 때 다시 확인한다.
 
-| 칸 | 2026년 10월 기준 예 |
+| 칸 | 예(2026-10-28 확인) |
 |---|---|
-| 민감정보까지 | 기관 Google Workspace 계정의 Gemini(채팅형 Gemini 앱 포함), 결제 계정을 연결한 Gemini API, Azure OpenAI(정식 모델, Bing 검색 연결 끔), AWS Bedrock |
-| 일반 개인정보까지 | ChatGPT Business·Enterprise, Claude Team·Enterprise, OpenAI API·Claude API 직접 계약 |
+| 민감정보까지 | 기관 Google Workspace 계정의 Gemini(채팅형 Gemini 앱, Gemini Notebook 포함), Gemini Enterprise Agent Platform(옛 Vertex AI), Azure OpenAI(정식 모델) |
+| 일반 개인정보까지 | 결제 계정을 연결한 Gemini API, AWS Bedrock, ChatGPT Business·Enterprise, Claude Team·Enterprise, OpenAI API·Claude API 직접 계약 |
 | 개인정보 없음만 | 무료 서비스, 결제를 연결하지 않은 API 키 |
 
 - 칸을 나눈 근거와 확인한 원문 주소, 서비스별 주의점은 [`sending-data-to-ai.md`](../starter/requirements/sending-data-to-ai.md)의 "도구 고르기"에 있다. 주의점에는 피드백 보관, 오남용 감시 기록과 회사 직원의 검토 가능성, DPA가 적용되지 않는 기능이 있다. 이 목록은 그 문서를 근거로 기관이 정한다.
@@ -448,7 +448,7 @@ AI 사용 목록에 있는 업무인지 보고, 정보 등급을 정하고, 그 
 이 가이드라인은 넣지 않는 것으로 정합니다. 두 회사가 금지하지는 않지만 표준 계약의 처리 범위에 민감정보가 없습니다. 위법이라고 단정할 근거는 없지만, 사고나 점검 때 민감정보를 맡길 계약이었다고 서류로 보여 줄 수 없습니다.
 
 **Q6. Claude로 민감정보를 다루려면 마스킹하면 되나요?**
-마스킹만으로는 부족합니다. 이름을 바꿔도 기관이 원래 기록과 맞춰 볼 수 있으면 여전히 개인정보이고, 건강·장애 내용이 남아 있으면 민감정보입니다. Claude로 민감정보를 다루려면 AWS Bedrock처럼 계약에 민감정보가 들어 있는 경로를 씁니다. 마스킹은 의무가 아니라 추가 보호 조치입니다. 자세한 내용은 [`sending-data-to-ai.md`](../starter/requirements/sending-data-to-ai.md)에 있습니다.
+마스킹만으로는 부족합니다. 이름을 바꿔도 기관이 원래 기록과 맞춰 볼 수 있으면 여전히 개인정보이고, 건강·장애 내용이 남아 있으면 민감정보입니다. 민감정보는 계약에 민감정보 처리가 들어 있는 도구로만 다룹니다. 2026년 10월 28일 확인 기준으로 Claude에는 그런 경로가 없습니다. 마스킹은 의무가 아니라 추가 보호 조치입니다. 자세한 내용은 [`sending-data-to-ai.md`](../starter/requirements/sending-data-to-ai.md)에 있습니다.
 
 **Q7. 비영리 Azure 크레딧으로 GPT API를 쓰면 어느 칸인가요?**
 '민감정보까지' 칸입니다. Microsoft 데이터 보호 부속서가 건강 데이터 같은 특별범주를 처리 범위에 넣고, 입력은 OpenAI 회사로 가지 않습니다. 정식 모델만 쓰고 Bing 검색 연결은 끕니다. 오남용 감시에 걸린 대화는 Microsoft 직원이 볼 수 있으므로 그 사실을 안내에 적습니다.
