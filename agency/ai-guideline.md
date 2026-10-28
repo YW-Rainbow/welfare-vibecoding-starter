@@ -301,7 +301,8 @@ AI에 보내지 않기로 한 정보를 보냈거나 AI 때문에 잘못된 정�
 | AI 서비스 | 민감정보(S) | 일반 개인정보(P) | 근거 |
 |---|---|---|---|
 | 기관 Workspace의 Gemini(채팅형 Gemini 앱, Docs·Sheets 안의 Gemini, Gemini Notebook) | ○ 채팅창에서도 가능 | ○ | Cloud DPA 적용, 사람 검토·학습 없음 |
-| Gemini Enterprise Agent Platform(옛 Vertex AI) | ○ 앱에서 Gemini로 분석할 때 | ○ | Cloud DPA 적용 |
+| Gemini Enterprise Agent Platform(옛 Vertex AI), 기관 Google Cloud 프로젝트에서 결제를 연결해 만든 키나 서비스 계정 | ○ 앱에서 Gemini로 분석할 때 | ○ | Cloud DPA 적용 |
+| Gemini Enterprise Agent Platform의 익스프레스 모드(express mode) 키 | × | × | 익스프레스 모드 약관 3.2가 개인정보 처리를 금지. 무료 체험과 @gmail.com 계정용 |
 | Azure OpenAI(정식 모델) | ○ 앱에서 GPT로 분석할 때 | ○ | Microsoft DPA가 특별범주를 명시 |
 | Gemini API 유료(AI Studio 키에 결제 연결) | × | ○ | 적용 DPA에 민감정보 문구 없음 |
 | AWS Bedrock(Claude 등) | × | ○ | AWS DPA에 민감정보 문구 없음 |

@@ -25,13 +25,14 @@
 | 칸 | 도구 | 계약에 민감정보가 들어 있나 | 지킬 것 | 확인일 |
 |---|---|---|---|---|
 | **민감정보까지** | 기관 Google Workspace 계정의 Gemini(Docs·Sheets 안의 Gemini, 채팅형 Gemini 앱, Gemini Notebook(옛 NotebookLM)) | **들어 있음.** Workspace 계약에 붙는 Cloud DPA(2026-06-08 개정판)가 고객 개인정보를 "특별범주 개인정보나 적용 법률이 정한 민감정보를 포함"한다고 정의. Privacy Hub(2026-10-06 갱신)는 Gemini 앱과 Gemini Notebook에도 이 DPA가 적용되고 사람이 검토하거나 학습에 쓰지 않는다고 적음 | 기관 계정으로 로그인. 👍👎 피드백을 보내지 않음(최대 18개월 보관). 관리자가 Gemini 앱 대화 보관 기간을 줄임(기본 18개월) | 2026-10-28 |
-| | Gemini Enterprise Agent Platform(옛 Vertex AI)의 Gemini | **들어 있음.** Google Cloud 서비스 목록(2026-10-21 개정)에 Google Cloud Platform 서비스로 올라 있어 위와 같은 Cloud DPA가 적용 | 앱에서 Gemini로 민감정보를 다루려면 이 경로. 남용 감시 기록과 캐시 설정은 아래 1번 표를 봄 | 2026-10-28 |
+| | Gemini Enterprise Agent Platform(옛 Vertex AI)의 Gemini. 기관 Google Cloud 프로젝트에 결제 계정을 연결하고 만든 API 키나 서비스 계정으로 부를 때 | **들어 있음.** Google Cloud 서비스 목록(2026-10-21 개정)에 Google Cloud Platform 서비스로 올라 있어 위와 같은 Cloud DPA가 적용 | 앱에서 Gemini로 민감정보를 다루려면 이 경로. 남용 감시 기록과 캐시 설정은 아래 1번 표를 봄 | 2026-10-28 |
 | | Azure OpenAI(Microsoft Foundry의 Azure 판매 모델. 비영리 Azure 크레딧 포함) | **들어 있음.** Microsoft DPA(2026-05-22판) 부록 B가 건강 데이터 등 특별범주를 고객이 넣을 수 있는 개인정보로 적음 | 정식 모델만. 미리보기(Preview)에는 DPA의 개인정보 처리 조항이 적용되지 않음. 입력은 OpenAI 회사가 보지 않고 학습에 쓰지 않음. 오남용 감시로 일부 대화가 골라지면 자동 검토 뒤 필요하면 사람이 검토 | 2026-10-28 |
 | **일반 개인정보까지** | Gemini API 유료(AI Studio 키에 결제 계정을 연결한 경우) | **적혀 있지 않음.** 약관(2026-03-23 효력)은 유료 서비스에 Cloud DPA가 아니라 「Data Processing Addendum for Products Where Google is a Data Processor」를 적용. 이 DPA는 처리 항목을 서비스 목록으로 넘기고, 목록은 "프롬프트와 응답에 든 개인정보"라고만 적음 | 학습 미사용. 오남용 감시로 55일 보관하고, 의심 활동이 있으면 Google 직원이 볼 수 있음. 민감정보는 위 Gemini Enterprise Agent Platform으로 보냄 | 2026-10-28 |
 | | AWS Bedrock | **적혀 있지 않음.** AWS DPA는 고객 데이터를 "업로드한 개인정보"로 정의할 뿐 민감정보를 넣는다는 문구도, 빼는 문구도 없음 | 모델 제공 업체는 입력과 출력에 접근하지 않음. 민감정보를 보내려면 AWS와 별도 계약 조건을 확인 | 2026-10-28 |
 | | ChatGPT Business·Enterprise, OpenAI API | **받지 않는 것을 전제로 함.** OpenAI DPA(v.010126) 처리 설명 5번 "No sensitive data is intended to be transferred unless the user includes it unexpectedly in unstructured data" | 학습 미사용. API 오남용 감시 기록 기본 30일. 미국 의료정보용 BAA는 조건부로 별도 제공 | 2026-10-28 |
 | | Claude Team·Enterprise, Claude API | **없음으로 정함.** Anthropic DPA(2025-02-24 효력) B.3 특별범주 개인정보 "None" | 학습 미사용. API 입력·출력 기본 30일 안에 삭제 | 2026-10-28 |
-| **개인정보 없음만** | 무료 서비스, 결제를 연결하지 않은 API 키, 직원 개인 계정 | 해당 없음. Gemini API 무료 약관은 "Do not submit sensitive, confidential, or personal information"이라고 적음 | 입력을 학습이나 제품 개선에 쓰고 사람이 읽을 수 있음. 개인 계정은 어떤 등급이든 기관 업무에 쓰지 않음 | 2026-10-28 |
+| **개인정보 없음만** | Gemini Enterprise Agent Platform 익스프레스 모드(express mode) 키 | **개인정보 처리 금지.** 익스프레스 모드 약관 3.2 "Customer will not use the Express Mode Offerings to process personal data". 미리보기(Pre-GA) 서비스이고 @gmail.com 계정의 무료 90일 체험용 | 연습과 시연에만 씀. 이름이 같은 Agent Platform이라도 이 키로는 개인정보를 보내지 않음. Workspace 계정은 익스프레스 모드를 쓸 수 없고 일반 Google Cloud 프로젝트에서 키를 만듦 | 2026-10-28 |
+| | 무료 서비스, 결제를 연결하지 않은 API 키, 직원 개인 계정 | 해당 없음. Gemini API 무료 약관은 "Do not submit sensitive, confidential, or personal information"이라고 적음 | 입력을 학습이나 제품 개선에 쓰고 사람이 읽을 수 있음. 개인 계정은 어떤 등급이든 기관 업무에 쓰지 않음 | 2026-10-28 |
 
 "적혀 있지 않음"은 위법이라는 뜻이 아닙니다. 사고나 점검 때 "민감정보를 맡길 계약이었다"고 서류로 보여 줄 수 없으므로 기관 기준으로 민감정보에 쓰지 않는다는 뜻입니다.
 
@@ -376,6 +377,7 @@ def token(name: str, case_id: str, role: str, secret: bytes) -> str:
 | Supabase DPA가 "Sensitive Data"(건강 등)를 정의하고 고객이 필요한 명시적 동의를 받도록 함 | supabase.com/legal/dpa | 2026-10-28 확인 |
 | Firebase 데이터 처리 약관이 고객 개인정보에 특별범주를 포함 | firebase.google.com/terms/data-processing-terms | 2024-08-21 개정, 2026-10-28 확인 |
 | Google Cloud DPA "including any special categories of personal data or sensitive data" | cloud.google.com/terms/data-processing-addendum | 2026-06-08 개정, 2026-10-28 확인 |
+| Agent Platform 익스프레스 모드 약관 3.2: 개인정보 처리 금지, 3.3: Pre-GA. Workspace 계정은 일반 Google Cloud API 키를 만듦 | cloud.google.com/terms/google-cloud-express, docs.cloud.google.com/gemini-enterprise-agent-platform/models/start/api-keys | 2026-10-28 확인 |
 | Gemini Enterprise Agent Platform(옛 Vertex AI)은 Google Cloud Platform 서비스 | cloud.google.com/terms/services | 2026-10-21 개정, 2026-10-28 확인 |
 | Gemini API 유료에는 「Data Processing Addendum for Products Where Google is a Data Processor」 적용. 처리 항목은 "프롬프트와 응답에 든 개인정보"이고 민감정보 문구 없음 | ai.google.dev/gemini-api/terms, business.safety.google/processorterms, business.safety.google/services | 2026-03-23 효력, 2026-10-28 확인 |
 | Gemini API 유료는 학습 미사용, 무료는 학습·사람 검토 | ai.google.dev/gemini-api/terms | 2026-03-23 효력, 2026-10-28 확인 |
