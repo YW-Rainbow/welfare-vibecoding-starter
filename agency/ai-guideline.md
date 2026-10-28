@@ -311,7 +311,7 @@ AI에 보내지 않기로 한 정보를 보냈거나 AI 때문에 잘못된 정�
 | Claude Team·Enterprise, Claude API | × | ○ | DPA가 특별범주를 "None"으로 정함 |
 | 무료 서비스, 결제 없는 API 키, 직원 개인 계정 | × | × | 입력을 학습에 쓰거나 사람이 볼 수 있음 |
 
-키를 만드는 순서, 호출 주소, 배포 유형별 처리 위치는 [`sending-data-to-ai.md`](../starter/requirements/sending-data-to-ai.md)의 "앱에서 부를 때: 키 발급과 호출 방식"에 있다. Azure 플레이그라운드와 Google AI Studio 화면은 가상 데이터로 시험하는 곳이고, 실제 기록은 거부 확인과 호출 기록을 갖춘 앱에서만 보낸다.
+키를 만드는 순서, 호출 주소, 배포 유형별 처리 위치는 [`sending-data-to-ai.md`의 "앱에서 부를 때: 키 발급과 호출 방식"](../starter/requirements/sending-data-to-ai.md#앱에서-부를-때-키-발급과-호출-방식)에 있다. Azure 플레이그라운드와 Google AI Studio 화면은 가상 데이터로 시험하는 곳이고, 실제 기록은 거부 확인과 호출 기록을 갖춘 앱에서만 보낸다.
 
 ×는 위법이라는 뜻이 아니다. 사고나 점검 때 "그 정보를 맡길 수 있는 계약이었다"고 서류로 보여 줄 수 없으므로 기관 기준으로 쓰지 않는다는 뜻이다.
 
@@ -325,7 +325,7 @@ AI에 보내지 않기로 한 정보를 보냈거나 AI 때문에 잘못된 정�
 
 AI 활용 담당자는 위 표에서 기관이 실제로 계약한 제품만 골라 목록을 만들고 직원에게 알린다. 제품마다 제품명, 요금제, AI를 쓰는 업무, 근거 문서 주소, 확인일, 지킬 조건을 적고, 연 1회와 약관이 바뀔 때 다시 확인한다.
 
-- 칸을 나눈 근거와 확인한 원문 주소, 서비스별 주의점은 [`sending-data-to-ai.md`](../starter/requirements/sending-data-to-ai.md)의 "도구 고르기"에 있다. 주의점에는 피드백 보관, 오남용 감시 기록과 회사 직원의 검토 가능성, DPA가 적용되지 않는 기능이 있다. 이 목록은 그 문서를 근거로 기관이 정한다.
+- 칸을 나눈 근거와 확인한 원문 주소, 서비스별 주의점은 [`sending-data-to-ai.md`의 "도구 고르기"](../starter/requirements/sending-data-to-ai.md#도구-고르기-정보-등급별로-쓸-수-있는-ai)에 있다. 주의점에는 피드백 보관, 오남용 감시 기록과 회사 직원의 검토 가능성, DPA가 적용되지 않는 기능이 있다. 이 목록은 그 문서를 근거로 기관이 정한다.
 - 학습에 쓰지 않는지는 개인 설정이 아니라 기관 계정에 적용되는 약관이나 데이터 처리 계약인 DPA로 확인한다. 개인 계정에서 학습을 꺼 둔 것은 인정하지 않는다.
 - 오남용 감시 기록이 남고 일부를 회사 직원이 볼 수 있는 서비스로 민감정보를 분석한다면, 그 사실을 처리방침과 안내에 사실대로 적는다.
 
@@ -337,7 +337,7 @@ AI 활용 담당자는 위 표에서 기관이 실제로 계약한 제품만 골
 - API 키는 서버에만 두고, 학습에 쓰지 않는 유료 API만 쓴다.
 - 통계 기능은 AI에 집계 함수만 연결하고, 행을 조회하는 함수나 시트 전체 읽기 권한은 주지 않는다. 기준은 [`ai-features.md`](../starter/requirements/ai-features.md)에 있다.
 - 로그와 오류 보고에 기록 내용을 남기지 않는다.
-- 자세한 기준은 [`../starter/requirements/sending-data-to-ai.md`](../starter/requirements/sending-data-to-ai.md)를 따른다.
+- 자세한 기준은 [`sending-data-to-ai.md`](../starter/requirements/sending-data-to-ai.md)를 따른다.
 
 #### 당사자에게 직접 AI를 제공할 때
 
@@ -517,7 +517,7 @@ AI 사용 목록에 있는 업무인지 보고, 정보 등급을 정하고, 그 
 
 - 동의서 양식 A·B·C: [`consent-forms.md`](consent-forms.md)
 - 동의와 처리방침의 판단 기준, 처리방침 조항 예시: [`consent-guide.md`](consent-guide.md)
-- 도구별 계약 판정과 앱의 전송 기준: [`../starter/requirements/sending-data-to-ai.md`](../starter/requirements/sending-data-to-ai.md)
+- 도구별 계약 판정과 앱의 전송 기준: [`sending-data-to-ai.md`](../starter/requirements/sending-data-to-ai.md)
 - 인수인계와 사고 보고 체계: [`HANDOVER.md`](../starter/templates/HANDOVER.md)
 
 ## 참고한 자료
