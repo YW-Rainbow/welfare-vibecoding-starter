@@ -18,6 +18,8 @@
 
 아래 표는 공개된 약관과 DPA 문구를 읽고 나눈 출발점이지 허용 목록이 아닙니다. 칸에 들어 있다고 그 도구로 보내도 된다는 결론이 나오지 않습니다. 기관이 실제로 맺은 계약과 요금제, 관리자 설정, 당사자에게서 받은 근거를 확인한 뒤 기관의 AI 사용 목록에 확정합니다.
 
+저장과 AI 분석은 따로 판단합니다. 어디에 저장할 수 있는지와 이 표의 요약은 [`ai-guideline.md`](../../agency/ai-guideline.md) 3부 1장의 "어디에 저장하고, 어디서 AI로 분석하나"에 있습니다. 이 절은 AI 분석 쪽의 근거입니다.
+
 칸을 가르는 기준은 **회사 계약(DPA)이 민감정보를 처리 대상으로 적고 있는가**입니다. 학습에 쓰지 않는다는 약속, 보관 기간, 처리 위치는 그다음에 봅니다. 계약이 민감정보를 적지 않았거나 받지 않는다고 적었으면 동의를 받았더라도 민감정보를 보내지 않습니다.
 
 | 칸 | 도구 | 계약에 민감정보가 들어 있나 | 지킬 것 | 확인일 |
@@ -371,6 +373,8 @@ def token(name: str, case_id: str, role: str, secret: bytes) -> str:
 | Anthropic API 보존 기본 30일 | privacy.claude.com 7996866 | 2026-10-28 확인 |
 | Anthropic 비영리 할인은 Team $8·Enterprise만(API 없음) | claude.com/solutions/nonprofits | 현행 |
 | Google 비영리 혜택은 Workspace(Gemini 앱 포함)에만 있고 Gemini API·Vertex AI 할인은 없음 | support.google.com/nonprofits 17049066, 16245748 | 현행 |
+| Supabase DPA가 "Sensitive Data"(건강 등)를 정의하고 고객이 필요한 명시적 동의를 받도록 함 | supabase.com/legal/dpa | 2026-10-28 확인 |
+| Firebase 데이터 처리 약관이 고객 개인정보에 특별범주를 포함 | firebase.google.com/terms/data-processing-terms | 2024-08-21 개정, 2026-10-28 확인 |
 | Google Cloud DPA "including any special categories of personal data or sensitive data" | cloud.google.com/terms/data-processing-addendum | 2026-06-08 개정, 2026-10-28 확인 |
 | Gemini Enterprise Agent Platform(옛 Vertex AI)은 Google Cloud Platform 서비스 | cloud.google.com/terms/services | 2026-10-21 개정, 2026-10-28 확인 |
 | Gemini API 유료에는 「Data Processing Addendum for Products Where Google is a Data Processor」 적용. 처리 항목은 "프롬프트와 응답에 든 개인정보"이고 민감정보 문구 없음 | ai.google.dev/gemini-api/terms, business.safety.google/processorterms, business.safety.google/services | 2026-03-23 효력, 2026-10-28 확인 |
