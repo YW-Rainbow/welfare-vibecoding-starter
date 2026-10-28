@@ -30,6 +30,7 @@
   - **AWS Bedrock → 일반 개인정보까지.** AWS DPA에는 민감정보를 빼는 문구도 넣는 문구도 없습니다. 1.5는 "제외 조항 없음"을 민감정보 허용으로 읽었습니다.
   - **Gemini Enterprise Agent Platform(옛 Vertex AI) → 민감정보까지.** Google Cloud Platform 서비스라 Cloud DPA가 적용됩니다. 앱에서 Gemini로 민감정보를 다룰 때는 이 경로를 씁니다.
   - Workspace의 Gemini(Gemini 앱, Gemini Notebook 포함)와 Azure OpenAI는 그대로 "민감정보까지"입니다. OpenAI DPA(v.010126)와 Anthropic DPA(2025-02-24)의 문구도 바뀌지 않았습니다.
+  - **추론 위치 표도 다시 확인(2026-10-28)**: 서울에서 처리를 보장하던 Gemini 2.5 Flash가 2026-10-20에 종료되어 Gemini Enterprise Agent Platform 서울은 사실상 한국 안 처리가 되지 않습니다. 한국 안 추론이 되는 경로는 Bedrock 서울의 Claude Opus 5·Sonnet 5(구조화 출력 미지원)와 Azure Regional Provisioned 배포뿐입니다. Anthropic은 저장 위치도 미국만 있습니다.
   - 함께 고친 곳: [`ai-guideline.md`](agency/ai-guideline.md)의 AI 사용 목록과 마스킹 Q&A, [`workflow.md`](starter/workflow.md) "꼭 지킬 것" 7번과 플랫폼 정보, [`requirements.md`](starter/requirements/requirements.md), [`messenger-bot.md`](starter/assess/messenger-bot.md)
 - **고친 오기**: AI 동의서 "네 항목"(실제 세 항목), "1.4까지 `ai-send.md`였습니다"(실제 `masking.md`)
 - **이미 만든 앱**: 앱 폴더의 `starter/`는 복사한 때의 기준으로 남아 있어 링크가 깨지지 않습니다. 새 기준을 쓰려면 `starter/`를 새로 복사하고, 앱 폴더에 복사해 둔 `ops/`의 동의서·가이드라인 사본은 지우고 기관 원본으로 연결합니다. 이용자 명부에 `동의_확인일`을 더합니다.

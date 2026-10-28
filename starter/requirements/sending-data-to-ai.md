@@ -61,10 +61,10 @@
 | API 서비스 | 민감정보 관련 계약 | 모델 학습 사용 | 보존기간 | 검토 결과 |
 |---|---|---|---|---|
 | **Anthropic API** | 금지 조항은 없지만, 표준 DPA(2025-02-24 효력)의 처리 설명 B.3이 특별범주 개인정보를 `None`으로 정함. B.1·B.2는 고객이 정하는 항목이지만 B.3은 업체가 정한 문구라서 민감정보를 받는 것을 전제로 하지 않음 | 미사용 | 기본 30일. Zero Data Retention(ZDR)은 별도 협의 | 표준 DPA만으로는 민감정보 처리를 전제로 하지 않으므로 별도 계약 조건을 확인. 미국 의료정보용 BAA는 별도로 신청 가능 |
-| **Google Gemini Enterprise Agent Platform(옛 Vertex AI) / Gemini API 유료** | Agent Platform은 Cloud DPA(2026-06-08)가 고객 개인정보에 특별범주·민감정보를 포함한다고 정의. Gemini API 유료는 약관(2026-03-23 효력)상 Cloud DPA가 아니라 「Data Processing Addendum for Products Where Google is a Data Processor」가 적용되고, 이 DPA에는 민감정보 문구가 없음 | 미사용(유료 서비스). Vertex AI는 사전 허락 없이 학습·미세조정에 쓰지 않음 | Gemini API 유료는 오남용 감시로 55일 보관, 안전 필터에 걸린 내용은 Google 직원이 볼 수 있음. Vertex AI는 메모리 캐시 24시간(끌 수 있음)과 남용 감시용 프롬프트 기록(예외 신청 가능). 두 가지를 조치하면 무보관 | 민감정보는 Agent Platform으로만 보냄. Gemini API 유료는 일반 개인정보까지. 무료 서비스는 학습과 사람의 검토에 사용될 수 있으므로 개인정보 전송 금지 |
+| **Google Gemini Enterprise Agent Platform(옛 Vertex AI) / Gemini API 유료** | Agent Platform은 Cloud DPA(2026-06-08)가 고객 개인정보에 특별범주·민감정보를 포함한다고 정의. Gemini API 유료는 약관(2026-03-23 효력)상 Cloud DPA가 아니라 「Data Processing Addendum for Products Where Google is a Data Processor」가 적용되고, 이 DPA에는 민감정보 문구가 없음 | 미사용(유료 서비스). Vertex AI는 사전 허락 없이 학습·미세조정에 쓰지 않음 | Gemini API 유료는 오남용 감시로 55일 보관, 의심 활동이 이어지면 Google 직원이 볼 수 있음. Agent Platform은 암묵적 캐시(메모리와 디스크, 최대 24시간, 프로젝트 단위로 끌 수 있음)와 남용 감시용 프롬프트 기록(예외 신청 가능)이 있고, 고급 모델 일부는 추가 기록이 있어 무보관이 안 될 수 있음 | 민감정보는 Agent Platform으로만 보냄. Gemini API 유료는 일반 개인정보까지. 무료 서비스는 학습과 사람의 검토에 사용될 수 있으므로 개인정보 전송 금지 |
 | **OpenAI API** | DPA(v.010126)의 처리 설명 5번 항목에 "No sensitive data is intended to be transferred unless the user includes it unexpectedly in unstructured data"라는 문구가 있음. 일정 조건에서 API용 BAA 제공 | 미사용 | 기본 30일 | 표준 DPA만으로 기관의 민감정보 처리를 충족하는지 추가 검토하고 필요한 경우 BAA와 ZDR 조건 확인 |
 | **Azure OpenAI(Foundry, Azure 판매 모델)** | Microsoft DPA(2026-05-22) 부록 B가 특별범주(건강 데이터 등)를 고객이 넣을 수 있는 개인정보로 적음. Product Terms상 DPA가 Azure 전체에 적용되며, 미리보기·Bing 검색 연결·Web IQ는 예외 | 미사용. OpenAI 회사는 입력을 보지 않음 | 오남용 감시에 걸린 대화는 리소스 지역에 저장되고 승인된 Microsoft 직원이 볼 수 있음(보관 기간 미확인). 저장·사람 검토를 끄는 신청은 Microsoft 담당자가 관리하는 고객만 | 계약에 민감정보 포함. 정식 모델만 쓰고 Bing 검색 연결은 끔. 비영리 크레딧 구독도 같은 약관 |
-| **AWS Bedrock** | AWS DPA에 민감정보를 넣는다는 문구도 빼는 문구도 없음 | AWS와 모델 제공 업체 모두 미사용 | 기본 무보관, 운영자와 모델 제공 업체 모두 입력·출력에 접근하지 않음. Claude Fable 5 계열만 30일 보관과 일부 사람 검토 | 계약상 민감정보를 빼지도 넣지도 않음. 민감정보는 AWS와 별도 계약 조건을 확인하기 전에는 보내지 않음. 쓰려는 모델의 보관 조건도 확인. 서울 리전 내 추론은 아래 "마스킹과 AI 추론의 처리 위치" |
+| **AWS Bedrock** | AWS DPA에 민감정보를 넣는다는 문구도 빼는 문구도 없음 | AWS와 모델 제공 업체 모두 미사용 | 기본 무보관, 운영자와 모델 제공 업체 모두 입력·출력에 접근하지 않음. 예외: Claude Fable 5·5.1은 모든 대화 30일 보관과 걸린 대화의 AWS 사람 검토, OpenAI 모델(오픈 가중치 제외)은 걸린 대화 30일 보관 | 계약상 민감정보를 빼지도 넣지도 않음. 민감정보는 AWS와 별도 계약 조건을 확인하기 전에는 보내지 않음. 쓰려는 모델의 보관 조건도 확인. 서울 리전 내 추론은 아래 "마스킹과 AI 추론의 처리 위치" |
 
 Anthropic, Google, OpenAI의 비영리 혜택은 채팅 화면을 쓰는 사용자당 요금제에만 적용되고(Google은 Workspace와 Gemini 앱을 무료로 제공합니다) API 요금에는 적용되지 않습니다. Microsoft는 비영리단체에 연 2,000달러의 Azure 크레딧을 주며, 이 크레딧으로 Azure OpenAI를 쓸 수 있습니다. 앱에서 사용하는 API는 실제 입력·출력 토큰 사용량을 기준으로 과금됩니다.
 
@@ -194,17 +194,17 @@ AI 분석에 필요하다면 **질병명, 심리 상태, 장애 유형은 유지
 
 마스킹과 매핑 테이블을 이용한 복원 처리는 **국내 환경에서만** 수행합니다. 매핑 테이블과 암호화 키는 서로 다른 저장소에 보관합니다. AI API의 호출 위치나 클라우드 리전이 국내라고 해서 모델 추론까지 국내에서만 이루어진다고 가정해서는 안 됩니다.
 
-다음 표는 2026년 9월 기준으로 주요 서비스에서 추론을 국내로만 고정할 수 있는지 확인한 결과입니다.
+다음 표는 주요 서비스에서 추론을 국내로만 고정할 수 있는지 2026년 10월 28일에 공식 문서로 다시 확인한 결과입니다.
 
-| 서비스 | 한국 안에서만 추론되나 | 확인 결과 |
-|---|---|---|
-| Anthropic API | ❌ | `inference_geo`는 `global`(기본)·`us` 둘뿐. 저장은 미국 |
-| OpenAI API | ❌ | 한국 데이터 레지던시(`kr.api.openai.com`)는 **저장만** 한국. 추론 위치를 고정할 수 있는 곳은 미국·EU·UAE뿐 |
-| AWS Bedrock 서울(ap-northeast-2) | 일부 모델 | 2026-09-29부터 Claude Opus 5와 Sonnet 5는 **리전 내 추론(in-region)**으로 서울 안에서만 처리. Haiku 4.5, Sonnet 5.5, Opus 5.5 같은 다른 Claude 모델은 Global 교차 리전 프로필만 있어 전 세계 리전에서 처리될 수 있음. 한국 전용 지역 프로필은 없음 |
-| Azure Korea Central | 예약 배포만 | GPT 채팅 모델은 종량제 Standard(리전 고정) 배포가 없고 Global과 APAC Data Zone(여러 나라)만 있음. 처리량을 미리 사는 Regional Provisioned 배포에서만 한국 안에서 처리 |
-| Google Vertex AI 서울(asia-northeast3) | 일부 모델 | 한국 안 처리를 보장하는 모델은 Gemini 2.5 Flash뿐이고 2026-10-20에 종료 예정. Claude는 서울 리전에 없음. 엔드포인트 위치만으로는 처리 위치가 보장되지 않음 |
+| 서비스 | 한국 안에서만 추론되나 | 확인 결과 | 확인일 |
+|---|---|---|---|
+| Anthropic API | ❌ | `inference_geo`는 `global`(기본)·`us` 둘뿐. 저장 위치(workspace geo)도 `us`만 있음 | 2026-10-28 |
+| OpenAI API | ❌ | 한국 데이터 레지던시(`kr.api.openai.com`)는 **저장만** 한국이고 처리는 아님. 처리까지 고정되는 곳은 미국·유럽·UAE뿐 | 2026-10-28 |
+| AWS Bedrock 서울(ap-northeast-2) | 일부 모델 | 2026-09-29부터 Claude Opus 5와 Sonnet 5는 **리전 내 추론(in-region)**으로 서울 안에서만 처리. 이 방식에서는 구조화 출력(structured outputs)을 아직 쓸 수 없음. Haiku 4.5, Sonnet 5.5, Opus 5.5는 서울 리전 내 추론이 없고 Global이나 다른 나라 교차 리전 프로필만 있음. 한국 전용 지역 프로필은 없음 | 2026-10-28 |
+| Azure Korea Central | 예약 배포만 | GPT 모델은 종량제 Standard(리전 고정) 배포가 없고 Global과 APAC Data Zone(아시아·태평양 여러 나라)만 있음. 처리량을 미리 사는 Regional Provisioned Managed 배포(GPT-5.2, GPT-5.4 등)에서만 한국 안에서 처리 | 2026-10-28 |
+| Gemini Enterprise Agent Platform(옛 Vertex AI) 서울(asia-northeast3) | ❌ (사실상) | 데이터 레지던시 표(2026-10-26 갱신)에서 서울의 ML 처리를 보장하는 모델은 Gemini 2.5 Flash 128k뿐인데, 이 모델은 모델 버전 표에서 2026-10-20 종료로 되어 있어 새로 쓸 수 없음. 그 뒤의 Gemini 모델과 Claude 등 파트너 모델은 서울 처리 보장이 없음. Global 엔드포인트는 어디서든 처리함 | 2026-10-28 |
 
-업체의 자체 API로는 추론을 한국 안으로 고정할 수 없습니다. 클라우드를 거치면 일부 모델은 한국 안에서만 추론하게 할 수 있지만, 가능한 모델과 배포 방식이 자주 바뀝니다. 이 경로를 쓰려면 계약 전에 그 모델의 리전 표를 다시 확인하고, 해외 인력이 접근할 수 있는지도 [`consent-guide.md`](../../agency/consent-guide.md) 2절에 따라 확인한 뒤 그 결과를 `DECISION.md`에 적습니다. 그 밖의 해외 AI API를 사용하는 앱은 국내 리전 이름만 근거로 국외이전 검토를 생략하지 말고 **국외이전 근거를 갖추고 개인정보 처리방침에 국외이전 내용을 반영**해야 합니다.
+업체의 자체 API로는 추론을 한국 안으로 고정할 수 없습니다. 2026년 10월 28일 기준으로 한국 안 추론이 되는 경로는 Bedrock 서울의 Claude Opus 5·Sonnet 5와 Azure의 Regional Provisioned 배포 두 가지입니다. 둘 다 계약에 민감정보가 적혀 있는지는 위 "도구 고르기"에서 따로 봅니다. Bedrock은 "적혀 있지 않음"입니다. 클라우드를 거치면 일부 모델은 한국 안에서만 추론하게 할 수 있지만, 가능한 모델과 배포 방식이 자주 바뀝니다. 이 경로를 쓰려면 계약 전에 그 모델의 리전 표를 다시 확인하고, 해외 인력이 접근할 수 있는지도 [`consent-guide.md`](../../agency/consent-guide.md) 2절에 따라 확인한 뒤 그 결과를 `DECISION.md`에 적습니다. 그 밖의 해외 AI API를 사용하는 앱은 국내 리전 이름만 근거로 국외이전 검토를 생략하지 말고 **국외이전 근거를 갖추고 개인정보 처리방침에 국외이전 내용을 반영**해야 합니다.
 
 다음 조건에서는 한국 리전 안에서만 추론하는 클라우드 모델, 국내 클라우드의 소형 오픈 모델, 기관 내부 모델을 별도로 검토할 수 있습니다.
 
@@ -358,13 +358,13 @@ def token(name: str, case_id: str, role: str, secret: bytes) -> str:
 
 ## 이 문서가 직접 확인한 것
 
-아래 표는 2026년 9월 8일에 각 서비스의 공식 문서를 확인하고, 가격·비영리 혜택·추론 위치는 9월 30일에, 업체 계약 비교는 10월 2일에 다시 확인한 결과입니다. 계약의 민감정보 포함 여부와 "도구 고르기" 표의 근거는 10월 28일에 원문을 다시 읽어 확인했고, 그날 확인한 줄에는 확인일을 적었습니다. 계약, 리전 정책, 가격은 바뀔 수 있으므로 도입 전에 같은 주소에서 최신 내용을 다시 확인하세요.
+아래 표는 2026년 9월 8일에 각 서비스의 공식 문서를 확인하고, 가격·비영리 혜택·추론 위치는 9월 30일에, 업체 계약 비교는 10월 2일에 다시 확인한 결과입니다. 계약의 민감정보 포함 여부, "도구 고르기" 표의 근거, 추론 위치 표는 10월 28일에 원문을 다시 읽어 확인했고, 그날 확인한 줄에는 확인일을 적었습니다. 계약, 리전 정책, 가격은 바뀔 수 있으므로 도입 전에 같은 주소에서 최신 내용을 다시 확인하세요.
 
 | 사실 | 출처 | 문서 날짜 |
 |---|---|---|
 | Anthropic DPA에 금지 조항은 없지만 처리 설명 B.3이 특별범주를 "None"으로 정함 | anthropic.com/legal/data-processing-addendum | 2025-02-24 효력, 2026-10-28 확인 |
 | Anthropic 이용약관에 건강정보 제한 없음, 학습 미사용 | anthropic.com/legal/commercial-terms | 2025-06-17 효력 |
-| Anthropic API 저장 위치 미국, `inference_geo`는 us·global | platform.claude.com/docs/en/manage-claude/data-residency | 현행 |
+| Anthropic API 저장 위치(workspace geo)는 us만, `inference_geo`는 us·global | platform.claude.com/docs/en/manage-claude/data-residency | 2026-10-28 확인 |
 | Anthropic API 가격(Haiku 4.5 $1/$5, Sonnet 5 $2/$10, Batch 50%) | platform.claude.com/docs/en/about-claude/pricing | 현행 |
 | Anthropic BAA 신청 경로, Team 불가 | support.claude.com 8114513, 13296973, 15455031 | 2026-07-01 ~ 07-23 |
 | Anthropic ZDR은 API·Claude Code Enterprise만, 영업팀 경유 | privacy.claude.com 8956058 | 현행 |
@@ -380,13 +380,13 @@ def token(name: str, case_id: str, role: str, secret: bytes) -> str:
 | AWS DPA는 고객 데이터를 "업로드한 개인정보"로 정의하고 민감정보를 넣는다는 문구도 빼는 문구도 없음 | d1.awsstatic.com/legal/aws-dpa/aws-dpa.pdf | 2026-10-28 확인 |
 | Bedrock 모델 제공 업체는 Bedrock 로그와 고객 입력·출력에 접근하지 않음 | docs.aws.amazon.com/bedrock … data-protection | 2026-10-28 확인 |
 | Bedrock 입력·출력은 AWS와 모델 제공 업체가 학습에 쓰지 않음 | aws.amazon.com/bedrock/faqs | 현행 |
-| Bedrock 기본 무보관·운영자 접근 없음, Fable 5 계열 예외 | docs.aws.amazon.com/bedrock … abuse-detection | 현행 |
-| Vertex AI 학습 제한, 메모리 캐시 24시간, 남용 감시 기록과 예외 신청 | docs.cloud.google.com/vertex-ai … data-governance | 현행 |
+| Bedrock 기본 무보관·운영자 접근 없음. Claude Fable 5·5.1과 OpenAI 모델은 오남용 감시 보관 예외 | docs.aws.amazon.com/bedrock … abuse-detection | 2026-10-28 확인 |
+| Agent Platform(옛 Vertex AI) 암묵적 캐시 메모리·디스크 최대 24시간(끌 수 있음), 남용 감시 프롬프트 기록과 예외 신청, 고급 모델 추가 기록 | docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention | 2026-10-26 갱신, 2026-10-28 확인 |
 | OpenAI 비영리 할인은 Business·Enterprise만(API 없음) | help.openai.com 9359041 | 2026-09-29 갱신 |
-| OpenAI 한국 데이터 레지던시는 저장만, 추론 위치 고정은 미국·EU·UAE만 | platform.openai.com/docs/guides/your-data | 현행 |
-| Bedrock 서울에서 Claude Opus 5·Sonnet 5는 리전 내 추론, 그 밖의 Claude는 Global 프로필만 | aws.amazon.com/blogs/machine-learning … in-region-inference-in-seoul-and-singapore, docs.aws.amazon.com/bedrock … model-card | 2026-09-29 |
-| Azure Korea Central GPT는 Standard(리전 고정) 배포 없음, Regional Provisioned만 한국 안 처리 | learn.microsoft.com … models-sold-directly-by-azure-region-availability, deployment-types | 2026-09-03, 2026-08-06 |
-| Vertex 서울에서 한국 안 처리를 보장하는 모델은 Gemini 2.5 Flash뿐(2026-10-20 종료 예정), 엔드포인트 위치만으로는 미보장 | docs.cloud.google.com … data-residency, locations, gemini 2-5-flash | 2026-09-28, 09-29 |
+| OpenAI 한국 데이터 레지던시는 저장만, 처리까지 고정은 미국·유럽·UAE만 | platform.openai.com/docs/guides/your-data | 2026-10-28 확인 |
+| Bedrock 서울에서 Claude Opus 5·Sonnet 5는 리전 내 추론(구조화 출력 미지원), Haiku 4.5·Sonnet 5.5·Opus 5.5는 서울 리전 내 추론 없음 | aws.amazon.com/blogs/machine-learning … in-region-inference-in-seoul-and-singapore, docs.aws.amazon.com/bedrock … model-card-anthropic-* | 2026-09-29 발표, 2026-10-28 확인 |
+| Azure Korea Central GPT는 Standard(리전 고정) 배포 없음, Regional Provisioned Managed만 한국 안 처리. Data Zone은 APAC 단위 | learn.microsoft.com … models-sold-directly-by-azure-region-availability, deployment-types | 2026-09-04·2026-08-12 갱신, 2026-10-28 확인 |
+| Gemini Enterprise Agent Platform 서울에서 ML 처리를 보장하는 모델은 Gemini 2.5 Flash 128k뿐이고 이 모델은 2026-10-20 종료. 파트너 모델(Claude 등)은 서울 처리 보장 없음 | docs.cloud.google.com/gemini-enterprise-agent-platform/resources/data-residency, …/models/model-versions | 2026-10-26 갱신, 2026-10-28 확인 |
 | 개인정보 보호법 제23조, 제28조의8 제1항 1호·3호, 제2항 | casenote.kr 조문 | 현행 |
 | Workspace 비영리판(Nonprofits)은 Gemini 앱을 핵심 서비스로 받아 Workspace 약관 적용, 사람 검토·학습 없음. Docs·Sheets 옆 창 Gemini는 Business Standard 이상 | knowledge.workspace.google.com … turn-the-gemini-app-on-or-off, support.google.com/nonprofits 15503706 | 2026-10-27 확인 |
 | Workspace Gemini, Gemini 앱, Gemini Notebook(옛 NotebookLM)에 Cloud DPA 적용, 사람 검토·학습 없음. 피드백 최대 18개월, Gemini 앱 대화 기본 18개월 보관 | Generative AI in Google Workspace Privacy Hub | 2026-10-06 갱신, 2026-10-28 확인 |
