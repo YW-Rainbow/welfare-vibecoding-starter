@@ -26,7 +26,7 @@
 |---|---|---|---|---|
 | **민감정보까지** | 기관 Google Workspace 계정의 Gemini(Docs·Sheets 안의 Gemini, 채팅형 Gemini 앱, Gemini Notebook(옛 NotebookLM)) | **들어 있음.** Workspace 계약에 붙는 Cloud DPA(2026-06-08 개정판)가 고객 개인정보를 "특별범주 개인정보나 적용 법률이 정한 민감정보를 포함"한다고 정의. Privacy Hub(2026-10-06 갱신)는 Gemini 앱과 Gemini Notebook에도 이 DPA가 적용되고 사람이 검토하거나 학습에 쓰지 않는다고 적음 | 기관 계정으로 로그인. 👍👎 피드백을 보내지 않음(최대 18개월 보관). 관리자가 Gemini 앱 대화 보관 기간을 줄임(기본 18개월) | 2026-10-28 |
 | | Gemini Enterprise Agent Platform(옛 Vertex AI)의 Gemini. 기관 Google Cloud 프로젝트에 결제 계정을 연결하고 만든 API 키나 서비스 계정으로 부를 때 | **들어 있음.** Google Cloud 서비스 목록(2026-10-21 개정)에 Google Cloud Platform 서비스로 올라 있어 위와 같은 Cloud DPA가 적용 | 앱에서 Gemini로 민감정보를 다루려면 이 경로. 남용 감시 기록과 캐시 설정은 아래 1번 표를 봄 | 2026-10-28 |
-| | Azure OpenAI(Microsoft Foundry의 Azure 판매 모델. 비영리 Azure 크레딧 포함) | **들어 있음.** Microsoft DPA(2026-05-22판) 부록 B가 건강 데이터 등 특별범주를 고객이 넣을 수 있는 개인정보로 적음 | 정식 모델만. 미리보기(Preview)에는 DPA의 개인정보 처리 조항이 적용되지 않음. 입력은 OpenAI 회사가 보지 않고 학습에 쓰지 않음. 오남용 감시로 일부 대화가 골라지면 자동 검토 뒤 필요하면 사람이 검토 | 2026-10-28 |
+| | Azure OpenAI(Microsoft Foundry의 Azure 판매 모델. 앱 서버가 배포의 엔드포인트와 키로 부를 때. 비영리 Azure 크레딧 포함) | **들어 있음.** Microsoft DPA(2026-05-22판) 부록 B가 건강 데이터 등 특별범주를 고객이 넣을 수 있는 개인정보로 적음 | 정식 모델만. 미리보기(Preview)에는 DPA의 개인정보 처리 조항이 적용되지 않음. 입력은 OpenAI 회사가 보지 않고 학습에 쓰지 않음. 오남용 감시로 일부 대화가 골라지면 자동 검토 뒤 필요하면 사람이 검토 | 2026-10-28 |
 | **일반 개인정보까지** | Gemini API 유료(AI Studio 키에 결제 계정을 연결한 경우) | **적혀 있지 않음.** 약관(2026-03-23 효력)은 유료 서비스에 Cloud DPA가 아니라 「Data Processing Addendum for Products Where Google is a Data Processor」를 적용. 이 DPA는 처리 항목을 서비스 목록으로 넘기고, 목록은 "프롬프트와 응답에 든 개인정보"라고만 적음 | 학습 미사용. 오남용 감시로 55일 보관하고, 의심 활동이 있으면 Google 직원이 볼 수 있음. 민감정보는 위 Gemini Enterprise Agent Platform으로 보냄 | 2026-10-28 |
 | | AWS Bedrock | **적혀 있지 않음.** AWS DPA는 고객 데이터를 "업로드한 개인정보"로 정의할 뿐 민감정보를 넣는다는 문구도, 빼는 문구도 없음 | 모델 제공 업체는 입력과 출력에 접근하지 않음. 민감정보를 보내려면 AWS와 별도 계약 조건을 확인 | 2026-10-28 |
 | | ChatGPT Business·Enterprise, OpenAI API | **받지 않는 것을 전제로 함.** OpenAI DPA(v.010126) 처리 설명 5번 "No sensitive data is intended to be transferred unless the user includes it unexpectedly in unstructured data" | 학습 미사용. API 오남용 감시 기록 기본 30일. 미국 의료정보용 BAA는 조건부로 별도 제공 | 2026-10-28 |
@@ -40,6 +40,43 @@
 - 오남용 감시 기록이 남고 일부를 회사 직원이 볼 수 있는 서비스(Azure OpenAI 등)로 민감정보를 보낸다면, 동의서와 처리방침에 그 사실을 적습니다. 이름과 연락처를 가리고 보내는 것은 그다음에 더하는 보호 조치입니다. 상담 기록은 자해·학대 내용 때문에 안전 필터에 걸리기 쉽습니다.
 - 처리 위치(한국 리전)는 칸을 가르는 기준이 아닙니다. 대부분 해외에서 처리될 수 있으므로 국외이전으로 보고 처리방침에 적습니다(아래 "처리 위치").
 - 이 표는 바뀝니다. 도입 전에 "이 문서가 직접 확인한 것"의 주소에서 다시 확인합니다.
+
+### 앱에서 부를 때: 키 발급과 호출 방식
+
+같은 회사의 같은 모델이라도 **키를 어디서 어떻게 만들었는지**에 따라 적용되는 계약이 다릅니다. 앱을 만드는 AI는 아래 기준대로 키와 호출 주소를 고르고, 고른 결과를 `DECISION.md`의 AI 기능 항목에 적습니다. 2026-10-28에 공식 문서로 확인했습니다.
+
+**Google: 민감정보는 Gemini Enterprise Agent Platform을 기관 Google Cloud 프로젝트에서 부릅니다**
+
+| 구분 | 민감정보까지(S) | 일반 개인정보까지(P) | 개인정보 금지 |
+|---|---|---|---|
+| 제품 | Gemini Enterprise Agent Platform(옛 Vertex AI) | Gemini API(Google AI Studio) | Agent Platform 익스프레스 모드(express mode) |
+| 키를 만드는 곳 | 기관 Workspace 계정으로 만든 Google Cloud 프로젝트. 결제 계정 연결 필수 | Google AI Studio의 API 키. 결제 계정을 연결해야 유료 서비스 | 익스프레스 모드 화면(@gmail.com 계정, 무료 90일) |
+| 인증 | 운영: 서비스 계정 기반의 애플리케이션 기본 사용자 인증 정보(ADC). 시험: 서비스 계정에 묶은 Google Cloud API 키 | AI Studio API 키(`x-goog-api-key` 헤더) | 익스프레스 모드 키 |
+| 호출 주소 | `aiplatform.googleapis.com` | `generativelanguage.googleapis.com` | `aiplatform.googleapis.com`(주소가 같으니 키가 어디서 왔는지로 구분) |
+| 적용 계약 | Cloud DPA(민감정보 포함) | 「Data Processing Addendum for Products Where Google is a Data Processor」(민감정보 문구 없음) | 익스프레스 모드 약관 3.2 "개인정보 처리 금지" |
+
+Agent Platform에서 키를 만드는 순서(공식 문서 "Get a Google Cloud API key"의 "existing Google Cloud user with a billing account" 절):
+
+1. 기관 Workspace 계정으로 Google Cloud 콘솔에 들어가 이 앱 전용 프로젝트를 만들고, 결제 계정을 연결하고, Agent Platform API를 켭니다. 익스프레스 모드로 시작하지 않습니다.
+2. 운영에서는 API 키 대신 서비스 계정과 ADC를 씁니다. Google도 운영에는 ADC를 권합니다. 앱 서버가 Cloud Run 같은 Google Cloud에서 돌면 서버에 서비스 계정을 붙이고 키 파일을 만들지 않습니다.
+3. 시험 단계에서 API 키가 필요하면 서비스 계정에 묶은 키를 만듭니다.
+   - 조직 정책 `iam.managed.disableServiceAccountApiKeyCreation`이 켜져 있으면 조직 정책 관리자가 이 프로젝트에서만 끕니다. 권한이 없으면 키 대신 ADC를 씁니다.
+   - IAM 및 관리자 > 서비스 계정에서 서비스 계정을 만들고, 문서가 안내하는 역할(Gemini Enterprise Agent Platform Express User (Beta))만 줍니다. 역할 이름에 Express가 들어가지만, 공식 문서가 결제를 연결한 일반 프로젝트의 절차에서 안내하는 역할이며 익스프레스 모드 가입과는 별개입니다.
+   - API 및 서비스 > 사용자 인증 정보 > 사용자 인증 정보 만들기 > API 키에서 "서비스 계정을 통해 API 호출 인증"을 선택하고 위 서비스 계정을 고릅니다.
+4. Google Gen AI SDK를 쓰면 환경 변수 `GOOGLE_CLOUD_PROJECT`(프로젝트 ID), `GOOGLE_CLOUD_LOCATION`, `GOOGLE_GENAI_USE_ENTERPRISE=True`를 서버에만 둡니다. 이 값이 없으면 SDK가 AI Studio의 Gemini API로 갈 수 있으므로 호출 주소가 `aiplatform.googleapis.com`인지 첫 호출에서 확인합니다.
+5. `GOOGLE_CLOUD_LOCATION=global`은 어느 나라에서든 처리합니다. 서울(`asia-northeast3`)을 지정해도 지금 쓸 수 있는 모델은 서울 처리를 보장하지 않으므로([처리 위치](#마스킹과-ai-추론의-처리-위치)), 어느 쪽이든 국외이전으로 처리방침에 적습니다.
+
+**Azure: 민감정보는 Microsoft Foundry에 배포한 정식 모델을 앱 서버에서 부릅니다**
+
+- **쓰는 방식:** Foundry 포털(ai.azure.com) > 모델 > 배포 > 세부 정보 탭의 대상 URI(엔드포인트)와 키를 앱 서버의 환경 변수에 넣고, 서버가 API를 호출합니다. 이 방식이 "민감정보까지" 칸에 해당합니다.
+- **플레이그라운드:** 같은 배포를 포털에서 시험하는 화면입니다. 실제 기록은 넣지 않고 가상 데이터로만 시험합니다. 플레이그라운드로는 거부한 이용자를 빼는 서버 확인과 호출 기록을 남길 수 없기 때문입니다.
+- **정식 모델만:** 모델 카탈로그나 배포 세부 정보에 미리 보기(Preview) 표시가 있는 모델과 기능에는 Microsoft DPA의 개인정보 처리 조항이 적용되지 않습니다. 플레이그라운드의 "메모리"처럼 미리 보기로 표시된 기능도 켜지 않습니다.
+- **웹 검색(Grounding with Bing)을 켜지 않습니다:** 포털 안내대로 고객 데이터가 Azure 규정 준수 경계 밖으로 나가고 DPA가 적용되지 않습니다. 앱 코드에서도 웹 검색 도구를 붙이지 않습니다.
+- **배포 유형과 처리 위치:**
+  - 글로벌 표준(GlobalStandard): 어느 Azure 리전에서든 처리합니다. 계약 칸은 "민감정보까지" 그대로이고, 처리방침에 국외이전으로 적습니다.
+  - 데이터 영역(Data Zone): 아시아·태평양(APAC) 안에서 처리합니다. 한국 밖이므로 역시 국외이전입니다.
+  - 한국 안 처리가 필요하면 Korea Central의 Regional Provisioned 배포만 해당합니다. 처리량을 미리 사는 방식이라 비용 구조가 다릅니다.
+- **키 관리:** 키는 서버의 비밀값으로만 두고 화면 코드, 저장소, 캡처 이미지에 남기지 않습니다. 키가 노출되면 포털에서 바로 다시 만듭니다.
 
 ### 채팅형 AI에서
 
@@ -378,6 +415,9 @@ def token(name: str, case_id: str, role: str, secret: bytes) -> str:
 | Firebase 데이터 처리 약관이 고객 개인정보에 특별범주를 포함 | firebase.google.com/terms/data-processing-terms | 2024-08-21 개정, 2026-10-28 확인 |
 | Google Cloud DPA "including any special categories of personal data or sensitive data" | cloud.google.com/terms/data-processing-addendum | 2026-06-08 개정, 2026-10-28 확인 |
 | Agent Platform 익스프레스 모드 약관 3.2: 개인정보 처리 금지, 3.3: Pre-GA. Workspace 계정은 일반 Google Cloud API 키를 만듦 | cloud.google.com/terms/google-cloud-express, docs.cloud.google.com/gemini-enterprise-agent-platform/models/start/api-keys | 2026-10-28 확인 |
+| Agent Platform 일반 키 발급: 결제·API 사용 설정, 조직 정책 `iam.managed.disableServiceAccountApiKeyCreation`, 서비스 계정 묶은 API 키, 운영은 ADC 권장. SDK 환경 변수 `GOOGLE_GENAI_USE_ENTERPRISE=True`, 호출 주소 `aiplatform.googleapis.com` | docs.cloud.google.com/gemini-enterprise-agent-platform/models/start/api-keys?usertype=standard, …/models/start/gcp-auth, …/models/start | 2026-10-28 확인 |
+| Gemini API는 `generativelanguage.googleapis.com`과 `x-goog-api-key` 헤더, 2026-05-28부터 새 AI Studio 키는 auth key | ai.google.dev/gemini-api/docs/api-key | 2026-10-28 확인 |
+| Azure 배포 유형별 처리 위치: Global은 어느 리전이든, Data Zone은 US·EU·APAC 안, Standard·Regional Provisioned는 지정한 지역 안 | learn.microsoft.com … foundry-models/concepts/deployment-types | 2026-08-12 갱신, 2026-10-28 확인 |
 | Gemini Enterprise Agent Platform(옛 Vertex AI)은 Google Cloud Platform 서비스 | cloud.google.com/terms/services | 2026-10-21 개정, 2026-10-28 확인 |
 | Gemini API 유료에는 「Data Processing Addendum for Products Where Google is a Data Processor」 적용. 처리 항목은 "프롬프트와 응답에 든 개인정보"이고 민감정보 문구 없음 | ai.google.dev/gemini-api/terms, business.safety.google/processorterms, business.safety.google/services | 2026-03-23 효력, 2026-10-28 확인 |
 | Gemini API 유료는 학습 미사용, 무료는 학습·사람 검토 | ai.google.dev/gemini-api/terms | 2026-03-23 효력, 2026-10-28 확인 |
