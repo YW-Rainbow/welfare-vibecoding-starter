@@ -2,7 +2,7 @@
 
 > 기관이 아직 정하지 않은 항목은 "기관 확인 대기"로 적고, AI가 대신 정해 채우지 않습니다. 모르는 사실은 "확인 필요"로 적습니다.
 >
-> N등급(개인정보 없음) 앱은 기관의 실천 원칙, 기본 정보, 업무 점검, "데이터와 기록"의 첫 줄(등급과 근거), 선택한 경로만 쓰고 나머지 절은 지웁니다. AI 기능을 넣으면 "AI 기능" 절은 남깁니다. `starter/templates/DESTRUCTION-LOG.md`는 쓰지 않고, `starter/templates/HANDOVER.md`에는 주소, 연결 설정, AI에게 준 권한과 그 주인, 도메인만 적습니다(`starter/rules/cloudflare.md` 3절 3번).
+> N등급(개인정보 없음) 앱은 기관의 실천 원칙, 기본 정보, 업무 점검, "데이터와 기록"의 첫 줄(등급과 근거), 선택한 경로만 쓰고 나머지 절은 지웁니다. AI 기능을 넣으면 "AI 기능" 절은 남깁니다. `starter/templates/DESTRUCTION-LOG.md`는 쓰지 않고, `starter/templates/HANDOVER.md`에는 주소, 연결 설정, AI에게 준 권한과 그 소유자, 도메인만 적습니다(`starter/rules/cloudflare.md` 3절 3번).
 >
 > 판정 때 "배포 방식" 줄에는 적용할 rules 파일과 "스테이징에서 먼저 확인하고 운영하고 있는 앱에 반영하는 일은 사람이 승인한다"는 원칙만 적습니다. 확인 규칙은 운영하고 있는 앱에 처음 반영할 준비를 할 때 `.claude/settings.json`에 넣고(`starter/rules/agent-safety.md`), 계정 구성과 배포 명령은 `starter/templates/HANDOVER.md`에 적습니다.
 
@@ -69,7 +69,7 @@ AI 기능을 넣는 앱일 때 작성합니다.
 - 당사자 안내와 거부 시 절차:
 - 전송하는 기록의 등급, 처리방침에 AI 업체를 적은 위치, 민감정보 근거(동의 또는 법령), 마스킹 범위(`starter/requirements/sending-data-to-ai.md`):
 - 에이전트 브라우저로 정부 업무 시스템(희망이음 등)과 동기화할 때: 원본으로 정한 쪽, 운영 기관 약관과 위수탁 협약 확인 결과, 사람이 누르는 버튼(저장, 제출, 결재 요청), 작업 로그 위치(`starter/assess/agent-browser.md`):
-- 메신저 봇을 붙일 때: 읽는 채널, 봇 계정의 주인과 플랜, 데이터 처리 계약(`starter/assess/messenger-bot.md`):
+- 메신저 봇을 붙일 때: 읽는 채널, 봇 계정의 소유자와 플랜, 데이터 처리 계약(`starter/assess/messenger-bot.md`):
 
 ## 개발과 운영
 

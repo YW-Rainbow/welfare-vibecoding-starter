@@ -20,8 +20,8 @@
 
 - 담당자:
 - 백업 주기와 방법:
-- 인수인계 문서: `starter/templates/HANDOVER.md`
-- 파기 대장: `starter/templates/DESTRUCTION-LOG.md`
+- 인수인계 문서: [`HANDOVER.md`](HANDOVER.md) (양식 `starter/templates/HANDOVER.md`를 앱 저장소 루트로 복사해 채움)
+- 파기 대장: [`DESTRUCTION-LOG.md`](DESTRUCTION-LOG.md) (양식 `starter/templates/DESTRUCTION-LOG.md`를 앱 저장소 루트로 복사해 채움)
 - 동의서와 처리방침:
 
 ## 개발 규칙
