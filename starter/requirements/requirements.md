@@ -2,7 +2,7 @@
 
 > 출처·최신판: https://github.com/YW-Rainbow/welfare-vibecoding-starter
 > 이 문서의 요구사항은 개인정보 보호법과 실제 운영 조건에서 나오므로 플랫폼과 관계없이 적용됩니다. 플랫폼별 지원 범위는 [`workflow.md`](../workflow.md)의 요건 매트릭스를 참고하세요.
-> 법령 인용은 2026년 8월, AI 업체 계약 확인은 2026년 11월 20일 기준이며, 이 문서는 법률 자문이 아닙니다.
+> 법령 인용은 2026년 11월, AI 업체 계약 확인은 2026년 11월 20일 기준이며, 이 문서는 법률 자문이 아닙니다.
 
 ## 1. 인증
 
@@ -40,7 +40,7 @@ ESLint 규칙은 정상 코드를 잘못 막는 오탐(false positive)을 줄이
 - 국외이전의 법적 근거는 별도 동의만 있는 것이 아닙니다. 무료 프로그램 신청자를 포함해 이용 계약이 있는 이용자와 근로 계약이 있는 직원의 정보를 업무용 클라우드에 보관할 때는 개인정보 처리방침에 공개하면 됩니다(제28조의8 제1항 제3호). 설문 응답자나 신청 없이 참여한 행사 참가자처럼 계약이 없는 사람에게는 수집 양식에서 국외이전 동의를 받습니다. 생성형 AI로 기록을 정리하려고 보낼 때도 기준이 같습니다. 업체가 입력을 학습에 쓰지 않아야 하고, 계약이 없는 사람의 정보는 동의를 받습니다(같은 항 제1호, [`consent-guide.md`](../../agency/consent-guide.md) 1절).
 - 해석이 달라질 수 있는 부분은 시스템 도입 전에 개인정보 전문가에게 확인합니다.
 - 지자체 위수탁 협약서에 개인정보 반출이나 클라우드 이용 제한이 있으면 이용자의 동의만으로 해당 제한을 해제할 수 없습니다. 개발 전에 협약서를 먼저 확인합니다.
-- AI 업체의 DPA에서 민감정보 처리를 허용하는지 계약 문서를 직접 확인합니다. 법이 요구하는 것은 아니고 이 스타터팩의 기관 기준입니다([`ai-guideline.md`의 "법이 요구하는 것과 이 가이드라인이 더하는 것"](../../agency/ai-guideline.md#법이-요구하는-것과-이-가이드라인이-더하는-것)). 2026년 11월 20일 확인 기준으로 Google Workspace의 Gemini와 Gemini Enterprise Agent Platform(옛 Vertex AI)에 적용되는 Cloud DPA, Azure OpenAI와 Microsoft 365 Copilot에 적용되는 Microsoft DPA는 민감정보를 처리 범위에 넣습니다. Gemini API 유료와 AWS Bedrock의 DPA에는 민감정보 문구가 없고, Anthropic과 OpenAI의 표준 DPA는 민감정보를 받지 않는 것을 전제로 하므로 민감정보에는 쓰지 않습니다([`sending-data-to-ai.md`](sending-data-to-ai.md)의 "도구 고르기").
+- AI 업체의 DPA가 민감정보를 처리 대상으로 적었는지 계약 문서를 직접 확인합니다. 법이 요구하는 것은 아니고 이 스타터팩의 기관 기준입니다([`ai-guideline.md`의 "법이 요구하는 것과 이 가이드라인이 더하는 것"](../../agency/ai-guideline.md#법이-요구하는-것과-이-가이드라인이-더하는-것)). 2026년 11월 20일 확인 기준으로 Google Workspace의 Gemini와 Gemini Enterprise Agent Platform(옛 Vertex AI)에 적용되는 Cloud DPA, Azure OpenAI와 Microsoft 365 Copilot에 적용되는 Microsoft DPA는 민감정보를 처리 범위에 넣습니다. Gemini API 유료와 AWS Bedrock의 DPA에는 민감정보 문구가 없고, Anthropic과 OpenAI의 표준 DPA는 민감정보를 받지 않는 것을 전제로 하므로 민감정보에는 쓰지 않습니다([`sending-data-to-ai.md`](sending-data-to-ai.md)의 "도구 고르기").
 - 민감정보를 AI API로 전송할 때는 [`sending-data-to-ai.md`](sending-data-to-ai.md)의 계약, 국외이전 근거와 민감정보 동의([`consent-forms.md`](../../agency/consent-forms.md)), 개인정보 처리방침, 서버 검증 요건을 적용합니다. 개인정보에는 무료 등급 API를 사용하지 않습니다.
 
 ## 4. 파일 비공개 저장
@@ -148,7 +148,7 @@ DB에서 `DELETE`를 실행하기는 쉽지만 연결된 데이터를 모두 삭
 - 비개발자도 데이터를 확인할 수 있는 관리 UI
 - 기관 명의 계정과 저장소
 - 계정, API 키, 환경 변수의 인수인계 절차
-- 접근 권한을 주고, 바꾸고, 회수한 내역의 기록. 3년 이상 보관합니다(「개인정보의 안전성 확보조치 기준」 제5조 제3항)
+- 접근 권한(AI 에이전트·커넥터·API 키에 준 권한 포함)을 주고, 바꾸고, 회수한 내역의 기록. 3년 이상 보관합니다(「개인정보의 안전성 확보조치 기준」 제5조 제3항)
 - [`HANDOVER.md`](../templates/HANDOVER.md) 체크리스트
 - 데이터를 엑셀, CSV, JSON 등 표준 형식으로 내보내는 기능
 - [`print.md`](print.md)에 따른 종이 출력 기능
