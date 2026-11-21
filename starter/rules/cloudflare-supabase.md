@@ -89,4 +89,4 @@ GROUP BY 연도, 프로그램, 성별, 연령대;
 
 - Supabase 프로젝트와 Cloudflare 계정은 개인 계정이 아니라 기관이 관리하는 계정으로 만듭니다.
 - 후임자가 데이터를 확인할 수 있도록 Supabase Table Editor의 위치와 기본 사용법을 인수인계합니다.
-- 개인정보 처리방침과 위탁 문서에 실제 수탁자와 처리 내용을 반영합니다. DPA를 체결했는지는 [`consent-guide.md`](../../agency/consent-guide.md)의 확인 항목으로 점검합니다.
+- 개인정보 처리방침과 위탁 문서에 실제 수탁자와 처리 내용을 반영합니다. DPA를 체결했는지는 [`consent.md`](../../agency/consent.md)의 확인 항목으로 점검합니다.

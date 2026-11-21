@@ -11,7 +11,7 @@
 | :--- | :--- | :--- |
 | **1.6**<br>2026.11 | **[AI 윤리·활용 가이드라인](agency/ai-guideline.md) 전면 개편.** 일곱 원칙을 생각·시간·계정·정보·당사자·존중·책임으로 새로 짜고, 민감정보 기준을 법이 요구하는 것과 기관이 더하는 기준으로 나눔. AI가 대신하는 일의 승인과 에이전트 권한 회수, AI 사용 중지 절차, 사진·목소리 AI 변환 동의 추가. 등급에 색 표시(🟢 N · 🟡 P · 🔴 S). Microsoft 365 Copilot과 국내 AI 추가 | Azure OpenAI가 Global 배포면 처리방침에 국외이전으로 적기. 권한을 주고 회수한 기록을 3년 보관. 사진을 AI로 변환한다면 신청서에 AI 변환 동의 칸 더하기 |
 | **1.5**<br>2026.10 | 기관 전체에 쓰는 [AI 윤리·활용 가이드라인 샘플](agency/ai-guideline.md). AI에 보낼 수 있는 정보를 도구별로 세 칸(민감정보까지, 일반 개인정보까지, 개인정보 없음만)으로 나눔([`sending-data-to-ai.md`](starter/requirements/sending-data-to-ai.md)). 기관 문서는 [`agency/`](agency/)로 옮기고 줄임말 파일 이름을 풀어 씀 | 민감정보를 "민감정보까지" 칸이 아닌 도구로 보내고 있다면 옮기기. 앱 폴더에 복사해 둔 동의서·가이드라인 사본은 지우고 기관 원본으로 연결하기. 옮긴 파일 목록은 CHANGELOG 1.5.1 |
-| **1.4**<br>2026.10 | AI로 보내는 기록의 국외이전 근거 정정: 학습에 쓰지 않는 업체에 계약이 있는 사람의 정보를 맡기면 동의가 아니라 처리방침으로 알림([`consent-guide.md`](agency/consent-guide.md) 1절). 학대 신고자 정보와 피해자의 거처·연락처는 AI에 보내지 않고, 상담 기록은 담당자가 먼저 씀 | AI 전송 동의를 빼려면 처리방침에 AI 업체와 거부 방법을 적기. 신고자 정보와 피해자의 거처·연락처가 AI로 가지 않는지 확인 |
+| **1.4**<br>2026.10 | AI로 보내는 기록의 국외이전 근거 정정: 학습에 쓰지 않는 업체에 계약이 있는 사람의 정보를 맡기면 동의가 아니라 처리방침으로 알림([`consent.md`](agency/consent.md) 1부 1절). 학대 신고자 정보와 피해자의 거처·연락처는 AI에 보내지 않고, 상담 기록은 담당자가 먼저 씀 | AI 전송 동의를 빼려면 처리방침에 AI 업체와 거부 방법을 적기. 신고자 정보와 피해자의 거처·연락처가 AI로 가지 않는지 확인 |
 
 이미 만든 앱은 [`DECISION.md`](starter/templates/DECISION.md)의 "참고한 저장소 주소와 버전"에 적은 번호의 앞 두 자리와 같은 버전부터 보면 됩니다(1.2.1이면 1.2부터). 보완(1.5.2처럼 끝자리)과 전체 기록은 [`CHANGELOG.md`](CHANGELOG.md)에 있습니다.
 
@@ -170,7 +170,7 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 | [`starter/reference/`](starter/reference/) | 용어사전, 공공 AI·클라우드 기준과의 관계, 함께 볼 자료 | 실무자 |
 | [`starter/rules/`](starter/rules/) | 플랫폼별 개발 규칙(Apps Script, Google Cloud, Cloudflare, Cloudflare+Supabase)과 에이전트 안전 경계. 판정 뒤 [`CLAUDE.md`](CLAUDE.md)와 [`AGENTS.md`](AGENTS.md)에 연결합니다 | AI |
 | [`starter/templates/`](starter/templates/) | 앱마다 복사해 채우는 빈 양식. 판단 기록, 앱 README, 인수인계서, 파기 대장 | AI가 복사 |
-| [`agency/`](agency/) | 기관에 하나만 두는 문서. [AI 윤리·활용 가이드라인 샘플](agency/ai-guideline.md), [동의서 양식](agency/consent-forms.md), [동의와 처리방침의 판단 기준](agency/consent-guide.md). 앱 폴더로 복사하지 않습니다 | 기관 담당자 |
+| [`agency/`](agency/) | 기관에 하나만 두는 문서. [AI 윤리·활용 가이드라인 샘플](agency/ai-guideline.md), [동의와 개인정보 처리방침](agency/consent.md)(판단 기준, 동의서 양식, 처리방침 조항 예시). 앱 폴더로 복사하지 않습니다 | 기관 담당자 |
 | `DECISION.md` | 판정 뒤 생기는 판단 기록 | AI, 실무자 |
 | [`CHANGELOG.md`](CHANGELOG.md) | 버전 기록. 판단 기준이 바뀐 것을 버전별로 적고, 최근 3개 버전은 이 README 맨 위에도 있습니다 | 실무자 |
 | `app/` | 판정 뒤 앱 코드가 들어가는 자리. 처음에는 없습니다 | AI, 실무자 |
