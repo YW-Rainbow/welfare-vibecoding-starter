@@ -166,7 +166,7 @@ Claude나 ChatGPT의 일반 채팅은 저장소 주소를 주어도 README 한 �
 | [`starter/workflow.md`](starter/workflow.md) | 판단 절차 본문. 어떤 방법으로 시작해도 AI는 결국 이 문서를 읽습니다. 채팅만 쓴다면 이 문서 전체를 붙이고, 바뀔 수 있는 플랫폼 정보도 여기 있습니다 | AI, 채팅 사용자 |
 | [`starter/assess/`](starter/assess/) | 기관 양식 점검과 HWP 양식→앱 절차([`forms.md`](starter/assess/forms.md)), 윤리 검토, 기관 공용 메신저 봇([`messenger-bot.md`](starter/assess/messenger-bot.md)), 에이전트 브라우저로 정부 업무 시스템 동기화([`agent-browser.md`](starter/assess/agent-browser.md)) | AI, 실무자 |
 | [`starter/data/`](starter/data/) | 단일 원본과 이용자 명부([`single-source.md`](starter/data/single-source.md)), 자체 개발 전자결재·근태·회계 기록의 무결성([`record-integrity.md`](starter/data/record-integrity.md)), 데이터 관리 다섯 단계 | AI, 실무자 |
-| [`starter/requirements/`](starter/requirements/) | 공통 요구사항 12개(웹훅 포함), 당사자 화면 설계·접근성, 인쇄·엑셀, 개인정보를 AI에 보내기 전 확인([`sending-data-to-ai.md`](starter/requirements/sending-data-to-ai.md)), HWP, AI 기능 | AI, 실무자 |
+| [`starter/requirements/`](starter/requirements/) | 공통 요구사항 12개(웹훅 포함), 당사자 화면 설계·접근성, 인쇄·엑셀, AI 도구 선택과 앱의 AI 처리 기준([`sending-data-to-ai.md`](starter/requirements/sending-data-to-ai.md)), HWP, AI 기능 | AI, 실무자 |
 | [`starter/reference/`](starter/reference/) | 용어사전, 공공 AI·클라우드 기준과의 관계, 함께 볼 자료 | 실무자 |
 | [`starter/rules/`](starter/rules/) | 플랫폼별 개발 규칙(Apps Script, Google Cloud, Cloudflare, Cloudflare+Supabase)과 에이전트 안전 경계. 판정 뒤 [`CLAUDE.md`](CLAUDE.md)와 [`AGENTS.md`](AGENTS.md)에 연결합니다 | AI |
 | [`starter/templates/`](starter/templates/) | 앱마다 복사해 채우는 빈 양식. 판단 기록, 앱 README, 인수인계서, 파기 대장 | AI가 복사 |
